@@ -25,7 +25,7 @@ import AiSparkleBadge from './AiSparkleBadge';
 import AssistantPanel, { type RecentChat } from './AssistantPanel';
 import type { AssistantRailMode } from './AssistantRail';
 import LegalReviewWorkspace from './LegalReviewWorkspace';
-import MyDealsHome from './MyDealsHome';
+import TwoZoneHome from './TwoZoneHome';
 import PromoteToDealDialog from './PromoteToDealDialog';
 import RightContextCanvas, { getComposerPlaceholderForRightTab, type RightCanvasMotion, type RightCanvasTab } from './RightContextCanvas';
 import RightContextCanvasFileDetailView from './RightContextCanvasFileDetailView';
@@ -520,6 +520,19 @@ export default function GrataApp() {
   const handleOpenCreate = useCallback(() => {
     setDealToast('Create — Project · Playbook · Agent (coming in this build)');
   }, []);
+
+  // Needs-you deep link: open the named project if it's clickable in this build.
+  const openProjectByName = useCallback(
+    (projectName: string) => {
+      const deal = deals.find((candidate) => candidate.name === projectName);
+      if (deal && deal.opens !== 'none') {
+        openDealFromHome(deal);
+        return;
+      }
+      setDealToast(`${projectName} is scripted as context in this build`);
+    },
+    [deals, openDealFromHome]
+  );
 
   const confirmPromote = useCallback(() => {
     setPromoteOpen(false);
@@ -1089,12 +1102,15 @@ export default function GrataApp() {
         >
           {homeView === 'home' ? (
             globalView === 'home' || globalView === 'projects' ? (
-              <MyDealsHome
+              <TwoZoneHome
                 deals={deals}
                 freshDealId={freshDealId}
+                variant={globalView}
                 onOpenDeal={openDealFromHome}
                 onStartSourcing={startSourcing}
                 onAsk={askFromHome}
+                onOpenRuns={() => setGlobalView('runs')}
+                onOpenProjectByName={openProjectByName}
               />
             ) : (
               // Placeholder until the Runs (Task 7) and Playbooks (Task 8) surfaces land.

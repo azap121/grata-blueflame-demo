@@ -22,7 +22,7 @@ export interface DealCard {
   opens: 'aldgate' | 'caldera' | 'none';
 }
 
-export const HOME_HEADLINE = 'Where are we working today, Alex?';
+export const HOME_HEADLINE = 'Ask Grata anything';
 
 export const HOME_COMPOSER_PLACEHOLDER = 'Find companies, start a review, or ask about any deal…';
 
@@ -38,22 +38,21 @@ export const HOME_SUGGESTIONS = [
     action: 'ask' as const,
   },
   {
-    id: 'aldgate-q',
-    label: 'Open the Aldgate buyer questions',
+    id: 'watchlist-q',
+    label: 'Which watchlist companies fired signals this week?',
     action: 'ask' as const,
   },
 ];
 
 export const SEED_DEALS: DealCard[] = [
   {
-    id: 'deal-aldgate',
-    name: 'Project Caldera',
-    direction: 'Sell-side · Mandate',
-    desk: 'IB',
-    stage: 'Live diligence',
-    status: '18 uploads to file · 4 buyer questions waiting',
+    id: 'watchlist-hvac',
+    name: 'HVAC Texas watchlist',
+    direction: 'Watchlist',
+    stage: 'Monitoring',
+    status: '40 companies · seller-intent signals on · 2 fired this week',
     updatedAgo: '2h ago',
-    opens: 'aldgate',
+    opens: 'none',
   },
   {
     id: 'deal-halley',
