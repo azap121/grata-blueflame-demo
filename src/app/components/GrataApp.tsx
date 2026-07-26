@@ -2,20 +2,25 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
   faArrowDownLeftAndArrowUpRightToCenter,
   faArrowUpRightAndArrowDownLeftFromCenter,
+  faBookSparkles,
   faChevronDown,
   faChevronRight,
   faCommentsQuestion,
   faFileLines,
   faFolder,
+  faFolderOpen,
+  faHouse,
   faMagnifyingGlass,
   faPenLine,
+  faPlus,
   faScaleBalanced,
   faSidebarFlip,
+  faWavePulse,
   faXmark,
 } from '@fortawesome/pro-light-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Box, GlobalStyles, IconButton, InputBase, Snackbar, Stack, Tooltip, Typography } from '@mui/material';
-import { GrataShell, type NavItem } from '~/shared';
+import { GrataShell, SearchSpotlight, type NavItem } from '~/shared';
 import AiSparkleBadge from './AiSparkleBadge';
 import AssistantPanel, { type RecentChat } from './AssistantPanel';
 import type { AssistantRailMode } from './AssistantRail';
@@ -117,12 +122,18 @@ const REVIEWER_DOCUMENT_SECTIONS: DocumentSourceSection[] = [
   { id: 'index', label: 'Index', source: SELLER_INDEX_SOURCE },
 ];
 
-export default function FolderRecommendationsChatAssistant() {
+// Layer-1 destinations on the global rail. The deal workspace is not a global
+// view — it is entered from a project card and layers over whichever view is active.
+export type GlobalView = 'home' | 'projects' | 'runs' | 'playbooks';
+
+export default function GrataApp() {
   const [activeSeat, setActiveSeat] = useState<SeatId>('alex');
   // Phase 3 seat toggle: chat-first (Alex) vs structure-first (Morgan, canvas expanded).
   const [dealLayout, setDealLayout] = useState<DealLayout>('chat-first');
-  // Surface 0: the project opens on the My Deals home, not straight into Aldgate chat.
+  // Surface 0: the app opens on the two-zone home, not straight into a chat.
   const [homeView, setHomeView] = useState<'home' | 'chat'>('home');
+  const [globalView, setGlobalView] = useState<GlobalView>('home');
+  const [spotlightOpen, setSpotlightOpen] = useState(false);
   const [deals, setDeals] = useState<DealCard[]>(SEED_DEALS);
   const [freshDealId, setFreshDealId] = useState<string | null>(null);
   const [promoteOpen, setPromoteOpen] = useState(false);
@@ -504,6 +515,11 @@ export default function FolderRecommendationsChatAssistant() {
     setRightCanvasMotion('idle');
     setHomeView('home');
   }, [clearReviewTransitionTimers]);
+
+  // + Create — menu lands with the authoring flows (plan Task 9).
+  const handleOpenCreate = useCallback(() => {
+    setDealToast('Create — Project · Playbook · Agent (coming in this build)');
+  }, []);
 
   const confirmPromote = useCallback(() => {
     setPromoteOpen(false);
@@ -903,20 +919,63 @@ export default function FolderRecommendationsChatAssistant() {
     setActiveCoreTab('notes');
   }, [clearReviewTransitionTimers]);
 
-  const navItems = useMemo<NavItem[]>(
-    () => [
+  // Global rail (region A): Home · Projects · Runs · Playbooks · Search.
+  // When a project is open, its context rail (region B) appends below a spacer —
+  // same shell, two zones, per the navigation skeleton (8.4 Part A).
+  const inWorkspace = homeView === 'chat';
+  const navItems = useMemo<NavItem[]>(() => {
+    const globalItems: NavItem[] = [
       {
-        label: 'My Deals',
-        icon: <FontAwesomeIcon icon={faFolder} />,
-        active: homeView === 'home',
-        onClick: goToDealsHome,
+        label: 'Home',
+        icon: <FontAwesomeIcon icon={faHouse} />,
+        active: !inWorkspace && globalView === 'home',
+        onClick: () => {
+          goToDealsHome();
+          setGlobalView('home');
+        },
       },
+      {
+        label: 'Projects',
+        icon: <FontAwesomeIcon icon={faFolderOpen} />,
+        active: !inWorkspace && globalView === 'projects',
+        onClick: () => {
+          goToDealsHome();
+          setGlobalView('projects');
+        },
+      },
+      {
+        label: 'Runs',
+        icon: <FontAwesomeIcon icon={faWavePulse} />,
+        active: !inWorkspace && globalView === 'runs',
+        onClick: () => {
+          goToDealsHome();
+          setGlobalView('runs');
+        },
+      },
+      {
+        label: 'Playbooks',
+        icon: <FontAwesomeIcon icon={faBookSparkles} />,
+        active: !inWorkspace && globalView === 'playbooks',
+        onClick: () => {
+          goToDealsHome();
+          setGlobalView('playbooks');
+        },
+      },
+      {
+        label: 'Search',
+        icon: <FontAwesomeIcon icon={faMagnifyingGlass} />,
+        active: false,
+        onClick: () => setSpotlightOpen(true),
+      },
+    ];
+    if (!inWorkspace) return globalItems;
+    // Project context rail — only while a workspace is open.
+    const contextItems: NavItem[] = [
       {
         label: 'Merlin',
         icon: <MerlinNavIcon />,
-        active: homeView === 'chat' && activeCoreTab === 'ai',
+        active: activeCoreTab === 'ai',
         onClick: () => {
-          setHomeView('chat');
           if (activeCoreTab === 'documents' && selectedDocumentFolder) {
             openSelectedFolderOverview();
             return;
@@ -952,9 +1011,9 @@ export default function FolderRecommendationsChatAssistant() {
         active: activeCoreTab === 'notes',
         onClick: () => setActiveCoreTab('notes'),
       },
-    ],
-    [activeCoreTab, goToDealsHome, homeView, openSelectedFolderOverview, selectedDocumentFolder]
-  );
+    ];
+    return [...globalItems, ...contextItems];
+  }, [activeCoreTab, globalView, goToDealsHome, inWorkspace, openSelectedFolderOverview, selectedDocumentFolder]);
 
   const recentChats = useMemo<RecentChat[]>(
     () => sessions.map((session) => ({
@@ -971,6 +1030,23 @@ export default function FolderRecommendationsChatAssistant() {
       productName="Grata"
       projectName="Project Caldera"
       navItems={navItems}
+      primaryAction={
+        <Tooltip title="Create — Project · Playbook · Agent" placement="right" arrow>
+          <IconButton
+            aria-label="Create"
+            onClick={handleOpenCreate}
+            sx={{
+              width: 36,
+              height: 36,
+              borderRadius: '10px',
+              bgcolor: 'primary.main',
+              color: 'primary.contrastText',
+              '&:hover': { bgcolor: 'primary.dark' },
+            }}>
+            <FontAwesomeIcon icon={faPlus} style={{ fontSize: 16 }} />
+          </IconButton>
+        </Tooltip>
+      }
       defaultExpanded
       search={false}
       hideSidecar
@@ -1012,13 +1088,22 @@ export default function FolderRecommendationsChatAssistant() {
           }}
         >
           {homeView === 'home' ? (
-            <MyDealsHome
-              deals={deals}
-              freshDealId={freshDealId}
-              onOpenDeal={openDealFromHome}
-              onStartSourcing={startSourcing}
-              onAsk={askFromHome}
-            />
+            globalView === 'home' || globalView === 'projects' ? (
+              <MyDealsHome
+                deals={deals}
+                freshDealId={freshDealId}
+                onOpenDeal={openDealFromHome}
+                onStartSourcing={startSourcing}
+                onAsk={askFromHome}
+              />
+            ) : (
+              // Placeholder until the Runs (Task 7) and Playbooks (Task 8) surfaces land.
+              <Box sx={{ p: 6 }}>
+                <Typography sx={{ fontSize: 22, fontWeight: 400, color: 'text.primary' }}>
+                  {globalView === 'runs' ? 'Runs' : 'Playbooks'}
+                </Typography>
+              </Box>
+            )
           ) : activeCoreTab === 'ai' ? (
             <AiWorkspace
               activeSessionId={activeSessionId}
@@ -1114,6 +1199,17 @@ export default function FolderRecommendationsChatAssistant() {
           selectedCount={state.sourcingSelectedIds.length}
           onClose={() => setPromoteOpen(false)}
           onConfirm={confirmPromote}
+        />
+        <SearchSpotlight
+          open={spotlightOpen}
+          projectName={dealActive ? 'Project Caldera' : undefined}
+          onClose={() => setSpotlightOpen(false)}
+          onSearch={(query) => {
+            setSpotlightOpen(false);
+            goToDealsHome();
+            setGlobalView('home');
+            startSourcing(query);
+          }}
         />
         <Snackbar
           open={Boolean(dealToast)}

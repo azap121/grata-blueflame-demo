@@ -149,6 +149,8 @@ export interface GrataShellProps {
   productMode?: ProductMode;
   productName?: string;
   navItems?: NavItem[];
+  /** Slot rendered above the nav items (e.g. the + Create button). */
+  primaryAction?: ReactNode;
   expanded?: boolean;
   defaultExpanded?: boolean;
   onExpandedChange?: (next: boolean) => void;
@@ -216,6 +218,7 @@ export function GrataShell({
   productMode,
   productName,
   navItems,
+  primaryAction,
   expanded: expandedProp,
   defaultExpanded = false,
   onExpandedChange,
@@ -442,6 +445,9 @@ export function GrataShell({
             <FontAwesomeIcon icon={faAngleLeft} style={{ fontSize: 14 }} />
           </IconButton>
         </Box>
+
+        {/* Primary action (e.g. + Create) */}
+        {primaryAction && <Box sx={{ px: 1.5, pb: 0.5 }}>{primaryAction}</Box>}
 
         {/* Nav items */}
         <Stack sx={{ px: 1.5, flex: 1, overflowY: 'auto' }}>

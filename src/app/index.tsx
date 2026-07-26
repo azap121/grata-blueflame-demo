@@ -1,5 +1,5 @@
-import FolderRecommendationsChatAssistant from './components/FolderRecommendationsChatAssistant';
+import GrataApp from './components/GrataApp';
 
 export default function OneEnterpriseDealOsPrototype() {
-  return <FolderRecommendationsChatAssistant />;
+  return <GrataApp />;
 }
