@@ -28,6 +28,7 @@ import LegalReviewWorkspace from './LegalReviewWorkspace';
 import TwoZoneHome from './TwoZoneHome';
 import PromoteToDealDialog from './PromoteToDealDialog';
 import RightContextCanvas, { getComposerPlaceholderForRightTab, type RightCanvasMotion, type RightCanvasTab } from './RightContextCanvas';
+import RunsView from './RunsView';
 import RightContextCanvasFileDetailView from './RightContextCanvasFileDetailView';
 import RightContextCanvasFilesView from './RightContextCanvasFilesView';
 import RightContextCanvasQaView, { type QaFocusTarget } from './RightContextCanvasQaView';
@@ -1118,12 +1119,12 @@ export default function GrataApp() {
                 onOpenRuns={() => setGlobalView('runs')}
                 onOpenProjectByName={openProjectByName}
               />
+            ) : globalView === 'runs' ? (
+              <RunsView onOpenProject={openProjectByName} />
             ) : (
-              // Placeholder until the Runs (Task 7) and Playbooks (Task 8) surfaces land.
+              // Placeholder until the Playbooks (Task 8) surface lands.
               <Box sx={{ p: 6 }}>
-                <Typography sx={{ fontSize: 22, fontWeight: 400, color: 'text.primary' }}>
-                  {globalView === 'runs' ? 'Runs' : 'Playbooks'}
-                </Typography>
+                <Typography sx={{ fontSize: 22, fontWeight: 400, color: 'text.primary' }}>Playbooks</Typography>
               </Box>
             )
           ) : activeCoreTab === 'ai' ? (
