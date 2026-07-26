@@ -1,7 +1,7 @@
 import { faBolt } from '@fortawesome/pro-light-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Box, Stack, Typography } from '@mui/material';
-import { tanzanite } from '~/theme/halo/theme';
+import { tanzanite } from '~/theme/grata/theme';
 import { GRATA_SIMILAR } from '../state/cimRunScenario';
 
 // "@Grata find similar" mid-chat result (Phase 3, federation beat): Grata's sourcing

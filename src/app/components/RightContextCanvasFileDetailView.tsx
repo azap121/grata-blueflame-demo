@@ -12,7 +12,7 @@ import {
 } from '@fortawesome/pro-light-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Box, Divider, IconButton, Menu, Stack, Tooltip, Typography } from '@mui/material';
-import { HaloButton } from '~/theme/halo/components';
+import { HaloButton } from '~/theme/grata/components';
 import { findSellerFileById, getCategoryPath } from './rightCanvasFileData';
 
 interface Props {

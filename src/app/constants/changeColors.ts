@@ -1,7 +1,7 @@
 // Canonical category colors + labels for the Enhanced Sandbox prototype.
 // Shared between RollupPill (segmented in-tree pill) and
 // ChangeSummaryBar (top-of-tree stats line). Single source of truth.
-import { amber, peridot, ruby, tanzanite } from '~/theme/halo/theme';
+import { amber, peridot, ruby, tanzanite } from '~/theme/grata/theme';
 
 export const CHANGE_COLORS = {
   removed: ruby[600],

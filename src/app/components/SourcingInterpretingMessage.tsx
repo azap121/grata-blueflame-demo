@@ -1,5 +1,5 @@
 import { Box, Stack, Typography } from '@mui/material';
-import { moondust } from '~/theme/halo/theme';
+import { moondust } from '~/theme/grata/theme';
 
 // State 2 — subtle working indicator beside "Interpreting your search…".
 export default function SourcingInterpretingMessage({ label }: { label: string }) {

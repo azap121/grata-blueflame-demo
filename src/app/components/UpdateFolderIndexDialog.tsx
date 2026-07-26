@@ -1,5 +1,5 @@
 import { Stack, Typography } from '@mui/material';
-import { HaloButton, HaloDialog } from '~/theme/halo/components';
+import { HaloButton, HaloDialog } from '~/theme/grata/components';
 import { COPY, UPDATE_BREAKDOWN } from '../state/copy';
 import { FILING_COPY } from '../state/filingScenario';
 import type { WorkspaceFlow } from '../state/types';

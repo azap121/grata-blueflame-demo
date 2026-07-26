@@ -8,7 +8,7 @@ import {
 import type { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Box, Chip, Stack, Typography } from '@mui/material';
-import { amber, jade, moondust, ruby, tanzanite } from '~/theme/halo/theme';
+import { amber, jade, moondust, ruby, tanzanite } from '~/theme/grata/theme';
 import { QA_TRIAGE_ITEMS, STIFEL_SOURCE_FILES, type QaTriageItem, type QaTriageRowStatus } from './qaTriageData';
 
 interface Props {

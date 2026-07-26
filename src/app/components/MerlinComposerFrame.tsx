@@ -11,7 +11,7 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Box, ButtonBase, Menu, MenuItem, Stack, Switch, Tooltip, Typography } from '@mui/material';
 import { alpha } from '@mui/material/styles';
-import { amber, jade, moondust, tanzanite } from '~/theme/halo/theme';
+import { amber, jade, moondust, tanzanite } from '~/theme/grata/theme';
 import {
   AUTONOMY_DIAL,
   MERLIN_COPY,

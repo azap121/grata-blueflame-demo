@@ -3,8 +3,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useState } from 'react';
 import { Box, InputBase, Paper, Stack, Tooltip, Typography, IconButton } from '@mui/material';
 import { alpha } from '@mui/material/styles';
-import { HaloButton } from '~/theme/halo/components';
-import { amber, moondust } from '~/theme/halo/theme';
+import { HaloButton } from '~/theme/grata/components';
+import { amber, moondust } from '~/theme/grata/theme';
 import {
   HOME_COMPOSER_PLACEHOLDER,
   HOME_HEADLINE,

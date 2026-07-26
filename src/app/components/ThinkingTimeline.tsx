@@ -1,7 +1,7 @@
 import { faCircleCheck, faSpinnerThird } from '@fortawesome/pro-light-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Box, Stack, Typography } from '@mui/material';
-import { amber, jade, moondust } from '~/theme/halo/theme';
+import { amber, jade, moondust } from '~/theme/grata/theme';
 
 interface Step {
   id: string;

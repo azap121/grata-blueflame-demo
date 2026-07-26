@@ -9,7 +9,7 @@ import {
 } from '@fortawesome/pro-light-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Box, Chip, IconButton, Stack, Tooltip, Typography } from '@mui/material';
-import { HaloButton } from '~/theme/halo/components';
+import { HaloButton } from '~/theme/grata/components';
 import { CIM_RUN_COPY, GRATA_SIMILAR } from '../state/cimRunScenario';
 
 interface Props {

@@ -1,6 +1,6 @@
 import { ButtonBase, Stack, Typography } from '@mui/material';
 import { alpha } from '@mui/material/styles';
-import { amber, moondust } from '~/theme/halo/theme';
+import { amber, moondust } from '~/theme/grata/theme';
 import AiSparkleBadge from './AiSparkleBadge';
 
 interface Props {

@@ -2,7 +2,7 @@
 
 Shared Halo theme and component library for the halo-app prototype gallery.
 
-Location: `src/theme/halo/`
+Location: `src/theme/grata/`
 
 ---
 
@@ -10,20 +10,20 @@ Location: `src/theme/halo/`
 
 | File | Purpose |
 |---|---|
-| `theme.ts` | Standalone MUI theme (`haloTheme` + `haloThemeDark`). No GAR dependency. |
+| `theme.ts` | Standalone MUI theme (`grataTheme` + `grataThemeDark`). No GAR dependency. |
 | `components/` | 36 Halo-spec component wrappers (see barrel export in `components/index.ts`) |
 
 ---
 
 ## Usage
 
-Import the theme from `~/theme/halo/theme`:
+Import the theme from `~/theme/grata/theme`:
 
 ```tsx
 import { ThemeProvider, CssBaseline } from '@mui/material';
-import { haloTheme } from '~/theme/halo/theme';
+import { grataTheme } from '~/theme/grata/theme';
 
-<ThemeProvider theme={haloTheme}>
+<ThemeProvider theme={grataTheme}>
   <CssBaseline />
   <App />
 </ThemeProvider>
@@ -32,23 +32,23 @@ import { haloTheme } from '~/theme/halo/theme';
 Import components from the barrel:
 
 ```tsx
-import { HaloButton, HaloDialog, HaloTextField } from '~/theme/halo/components';
+import { HaloButton, HaloDialog, HaloTextField } from '~/theme/grata/components';
 ```
 
 For date/time pickers, wrap once at the prototype root:
 
 ```tsx
-import { HaloLocalizationProvider, AdapterDayjs } from '~/theme/halo/components';
+import { HaloLocalizationProvider, AdapterDayjs } from '~/theme/grata/components';
 
 <HaloLocalizationProvider dateAdapter={AdapterDayjs}>
   <YourPrototype />
 </HaloLocalizationProvider>
 ```
 
-Token aliases (`moondust`, `ruby`, `amber`, `tanzanite`, `jade`) are available from `~/theme/halo/theme`:
+Token aliases (`moondust`, `ruby`, `amber`, `tanzanite`, `jade`) are available from `~/theme/grata/theme`:
 
 ```ts
-import { haloTheme, moondust, ruby, amber } from '~/theme/halo/theme';
+import { grataTheme, moondust, ruby, amber } from '~/theme/grata/theme';
 ```
 
 ---

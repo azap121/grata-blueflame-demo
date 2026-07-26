@@ -68,11 +68,27 @@ declare module '@mui/material/Chip' {
 }
 
 // ── Color tokens (refreshed from packages/ui-utilities/src/constants/ds-halo-design-tokens.ts · ds-ui-libraries main) ──
+// Grata neutral ramp (grata.com Webflow tokens, cool-gray) mapped onto the
+// legacy `moondust` scale so every existing consumer picks it up unchanged.
 export const moondust = {
-  50: '#FAFAF7', 100: '#F7F6F2', 200: '#DBDAD7', 300: '#BFBEBB',
-  400: '#A3A2A0', 500: '#868684', 600: '#6A6A69', 700: '#4E4E4D',
-  800: '#323232', 900: '#191919',
+  50: '#FCFCFD', 100: '#EEF2F6', 200: '#E3E8EF', 300: '#CDD5DF',
+  400: '#9AA4B2', 500: '#697586', 600: '#4B5565', 700: '#364152',
+  800: '#202939', 900: '#121926',
 } as const;
+
+// ── Grata brand tokens ────────────────────────────────────────────────────────
+// #2464E3 is a signal, not a paint: primary actions, links, focus, selection.
+export const grataBlue = '#2464E3';
+export const grataBlueHover = '#1D53BF';
+export const grataBlueSelected = '#D4E6FA';
+export const grataBlueInfo = '#EDF6FF';
+export const neutral = {
+  n0: '#FFFFFF', n25: '#FCFCFD', n50: '#F8FAFC', n100: '#EEF2F6',
+  n200: '#E3E8EF', n300: '#CDD5DF', n400: '#9AA4B2', n500: '#697586',
+  n600: '#4B5565', n700: '#364152', n800: '#202939', n900: '#121926',
+  n950: '#0D121C',
+} as const;
+export const monoFontFamily = '"Roboto Mono", "SFMono-Regular", Menlo, monospace';
 
 export const amber = {
   50: '#FFF4EA', 100: '#FFE0C6', 200: '#FFC690', 300: '#FFB36B',
@@ -192,7 +208,7 @@ const alertBgDark = {
 } as const;
 
 // ── Switch component tokens (_components/switch/) ─────────────────────────────
-// Shared by haloTheme + haloThemeDark; ({ theme }) callbacks resolve per mode.
+// Shared by grataTheme + grataThemeDark; ({ theme }) callbacks resolve per mode.
 // Figma: ⭐️ HALO Design System → Input / <HALO_Switch> (node 11022:144509)
 //   _components/switch/slideFill        → primary.main      (checked track)
 //   _components/switch/knobFillEnabled  → grey[50]          (moondust[50]  = #fafaf7)
@@ -279,14 +295,14 @@ const haloSwitchOverrides = {
 };
 
 // ── Light theme ───────────────────────────────────────────────────────────────
-export const haloTheme = createTheme({
+export const grataTheme = createTheme({
   palette: {
     grey: moondust,
     divider: alpha(moondust[900], 0.12),
     primary: {
-      main: moondust[700],
-      light: moondust[500],
-      dark: moondust[900],
+      main: grataBlue,
+      light: grataBlueSelected,
+      dark: grataBlueHover,
       contrastText: '#FFFFFF',
     },
     secondary: {
@@ -333,8 +349,8 @@ export const haloTheme = createTheme({
   },
   shape: { borderRadius: 8 },
   typography: {
-    fontFamily: ['Figtree', 'system-ui', 'sans-serif'].join(','),
-    h1: { fontSize: '5rem', letterSpacing: '-1.5px' },
+    fontFamily: ['"Work Sans"', 'Arial', 'sans-serif'].join(','),
+    h1: { fontSize: '5rem', fontWeight: 300, letterSpacing: '-1.5px' },
     h4: { fontWeight: 400, letterSpacing: '0.00735em' },
     h5: { fontWeight: 400 },
     h6: { fontWeight: 500, letterSpacing: '0.009375rem' },
@@ -350,9 +366,8 @@ export const haloTheme = createTheme({
     },
     MuiCssBaseline: {
       styleOverrides: `
-        @import url('https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700&display=swap');
         *, *::before, *::after { box-sizing: border-box; }
-        body { font-family: 'Figtree', system-ui, sans-serif; }
+        body { font-family: 'Work Sans', Arial, sans-serif; }
       `,
     },
     MuiPaper: {
@@ -811,16 +826,16 @@ export const haloTheme = createTheme({
 // ds-ui-libraries/packages/ui-utilities/src/constants/ds-halo-design-tokens.ts
 // and theme wiring from:
 // ds-ui-libraries/packages/ui-common-react/src/theme/ds-halo-theme.ts
-export const haloThemeDark = createTheme({
+export const grataThemeDark = createTheme({
   palette: {
     mode: 'dark',
     grey: moondust,
     divider: alpha('#FFFFFF', 0.12),
     primary: {
-      main: moondust[100],
-      light: moondust[300],
-      dark: '#FFFFFF',
-      contrastText: '#000000',
+      main: '#66A6F4',
+      light: '#A5CFFB',
+      dark: grataBlue,
+      contrastText: '#0D121C',
     },
     secondary: {
       main: moondust[200],
@@ -864,16 +879,15 @@ export const haloThemeDark = createTheme({
     },
   },
   shape: { borderRadius: 8 },
-  typography: haloTheme.typography,
+  typography: grataTheme.typography,
   components: {
     MuiButtonBase: {
       defaultProps: { disableRipple: true },
     },
     MuiCssBaseline: {
       styleOverrides: `
-        @import url('https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700&display=swap');
         *, *::before, *::after { box-sizing: border-box; }
-        body { font-family: 'Figtree', system-ui, sans-serif; }
+        body { font-family: 'Work Sans', Arial, sans-serif; }
       `,
     },
     MuiPaper: {

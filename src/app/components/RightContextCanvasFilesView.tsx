@@ -19,7 +19,7 @@ import {
 } from '@fortawesome/pro-light-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Box, Divider, Fade, IconButton, InputBase, Popover, Stack, Tooltip, Typography } from '@mui/material';
-import { HaloButton } from '~/theme/halo/components';
+import { HaloButton } from '~/theme/grata/components';
 import type { QaFocusTarget } from './RightContextCanvasQaView';
 import {
   DOCUMENT_CATEGORIES,

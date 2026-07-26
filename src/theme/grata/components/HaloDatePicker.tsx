@@ -28,7 +28,7 @@
  * Locked to @mui/material v6 to match existing Halo theme snapshot.
  * Wrap your prototype root once with HaloLocalizationProvider:
  *
- *   import { HaloLocalizationProvider, AdapterDayjs } from '~/theme/halo/components';
+ *   import { HaloLocalizationProvider, AdapterDayjs } from '~/theme/grata/components';
  *   <HaloLocalizationProvider dateAdapter={AdapterDayjs}>
  *     <YourPrototype />
  *   </HaloLocalizationProvider>

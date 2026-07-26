@@ -10,8 +10,8 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Box, Chip, Divider, IconButton, Stack, Tooltip, Typography } from '@mui/material';
 import { alpha } from '@mui/material/styles';
-import { HaloButton, HaloCheckbox, HaloTextField } from '~/theme/halo/components';
-import { amber, jade, moondust, ruby } from '~/theme/halo/theme';
+import { HaloButton, HaloCheckbox, HaloTextField } from '~/theme/grata/components';
+import { amber, jade, moondust, ruby } from '~/theme/grata/theme';
 import { COPY } from '../state/copy';
 import { BRIEF_COPY } from '../state/briefScenario';
 import type { ValidationPlanPhase, WorkspaceAction, WorkspaceState } from '../state/types';

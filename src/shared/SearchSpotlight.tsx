@@ -65,7 +65,7 @@ import {
 } from '@mui/material';
 import { useEffect, useRef, useState } from 'react';
 import { faAiSparkle } from '~/shared/icons/faAiSparkle';
-import { emerald, ruby, tanzanite } from '~/theme/halo/theme';
+import { emerald, ruby, tanzanite } from '~/theme/grata/theme';
 
 // ─── Mock data ────────────────────────────────────────────────────────────────
 

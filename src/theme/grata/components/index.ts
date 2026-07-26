@@ -2,10 +2,10 @@
  * Halo component library
  *
  * Import from here in any prototype:
- *   import { HaloButton, HaloDialog, HaloTextField } from '~/theme/halo/components';
+ *   import { HaloButton, HaloDialog, HaloTextField } from '~/theme/grata/components';
  *
- * Each component requires haloTheme (or haloThemeDark) active in ThemeProvider.
- * Setup: wrap your prototype tree with <ThemeProvider theme={haloTheme}>.
+ * Each component requires grataTheme (or grataThemeDark) active in ThemeProvider.
+ * Setup: wrap your prototype tree with <ThemeProvider theme={grataTheme}>.
  *
  * Date picker components (HaloDatePicker, HaloTimePicker, HaloDateRangePicker) require
  * <LocalizationProvider dateAdapter={AdapterDayjs}> wrapping the tree.

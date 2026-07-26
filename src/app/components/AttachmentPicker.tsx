@@ -10,7 +10,7 @@ import {
 } from '@fortawesome/pro-light-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Box, IconButton, InputBase, Stack, Tooltip, Typography } from '@mui/material';
-import { HaloButton, HaloCheckbox, HaloDialog } from '~/theme/halo/components';
+import { HaloButton, HaloCheckbox, HaloDialog } from '~/theme/grata/components';
 import {
   SELLER_FILES,
   SELLER_INDEX_FOLDERS,

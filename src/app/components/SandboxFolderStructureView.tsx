@@ -1,8 +1,8 @@
 import { faArrowLeft, faBookOpenLines, faCheck, faScaleBalanced } from '@fortawesome/pro-light-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Box, Chip, Stack, Typography } from '@mui/material';
-import { HaloButton } from '~/theme/halo/components';
-import { amber, jade, ruby } from '~/theme/halo/theme';
+import { HaloButton } from '~/theme/grata/components';
+import { amber, jade, ruby } from '~/theme/grata/theme';
 import type { WorkspaceAction, WorkspaceState } from '../state/types';
 import { COPY } from '../state/copy';
 

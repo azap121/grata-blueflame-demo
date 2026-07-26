@@ -1,8 +1,8 @@
 import { faArrowUpRightFromSquare, faTableCells } from '@fortawesome/pro-light-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Box, Stack, Typography } from '@mui/material';
-import { HaloButton } from '~/theme/halo/components';
-import { jade } from '~/theme/halo/theme';
+import { HaloButton } from '~/theme/grata/components';
+import { jade } from '~/theme/grata/theme';
 import { COPY } from '../state/copy';
 
 interface Props {

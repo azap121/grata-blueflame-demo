@@ -1,8 +1,8 @@
 import { faCheck } from '@fortawesome/pro-light-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Box, Stack, Typography } from '@mui/material';
-import { HaloButton, HaloDialog, HaloTextField } from '~/theme/halo/components';
-import { jade, moondust } from '~/theme/halo/theme';
+import { HaloButton, HaloDialog, HaloTextField } from '~/theme/grata/components';
+import { jade, moondust } from '~/theme/grata/theme';
 import { PROMOTE_CARRYOVER, PROMOTE_COPY } from '../state/sourcingScenario';
 
 interface Props {

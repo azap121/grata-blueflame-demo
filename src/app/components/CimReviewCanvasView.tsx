@@ -12,8 +12,8 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Box, ButtonBase, Chip, Popover, Stack, Typography } from '@mui/material';
 import { alpha } from '@mui/material/styles';
-import { HaloButton } from '~/theme/halo/components';
-import { amber, jade, moondust, ruby } from '~/theme/halo/theme';
+import { HaloButton } from '~/theme/grata/components';
+import { amber, jade, moondust, ruby } from '~/theme/grata/theme';
 import {
   CIM_REVIEW_ROWS,
   CIM_REVIEW_TITLE,

@@ -9,6 +9,8 @@
   "dependencies": {
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.1",
+    "@fontsource/roboto-mono": "^5.3.0",
+    "@fontsource/work-sans": "^5.3.0",
     "@fortawesome/duotone-light-svg-icons": "file:./vendor/@fortawesome/duotone-light-svg-icons",
     "@fortawesome/fontawesome-svg-core": "^7.2.0",
     "@fortawesome/pro-duotone-svg-icons": "file:./vendor/@fortawesome/pro-duotone-svg-icons",

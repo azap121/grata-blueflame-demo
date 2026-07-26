@@ -6,8 +6,8 @@ import {
 } from '@fortawesome/pro-light-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Box, Chip, Stack, Typography } from '@mui/material';
-import { HaloButton } from '~/theme/halo/components';
-import { amber, jade, moondust, tanzanite } from '~/theme/halo/theme';
+import { HaloButton } from '~/theme/grata/components';
+import { amber, jade, moondust, tanzanite } from '~/theme/grata/theme';
 import { COPY } from '../state/copy';
 import { BRIEF_COPY } from '../state/briefScenario';
 import type { ValidationPlanPhase, WorkspaceFlow } from '../state/types';

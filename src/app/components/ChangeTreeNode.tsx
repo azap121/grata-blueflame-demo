@@ -15,7 +15,7 @@ import RollupPill from './RollupPill';
 import { canDelete as canDeleteRow } from '../lib/canDelete';
 import { computeRollup } from '../lib/rollupCounts';
 import { CHANGE_COLORS } from '../constants/changeColors';
-import { moondust, ruby } from '~/theme/halo/theme';
+import { moondust, ruby } from '~/theme/grata/theme';
 
 interface Props {
   node: CompositedNode;

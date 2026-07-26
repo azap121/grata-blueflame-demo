@@ -2,7 +2,7 @@ import { faChevronRight, faLocationDot, faMoneyBill1, faTag, faXmark } from '@fo
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Box, Stack, Typography } from '@mui/material';
 import { alpha } from '@mui/material/styles';
-import { moondust } from '~/theme/halo/theme';
+import { moondust } from '~/theme/grata/theme';
 import {
   SOURCING_COPY,
   SOURCING_CRITERIA,

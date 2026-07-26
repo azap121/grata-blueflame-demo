@@ -42,8 +42,8 @@ import {
 } from '@mui/material';
 import { forwardRef, useCallback, useEffect, useRef, useState, type MouseEvent, type ReactNode } from 'react';
 import { SearchSpotlight } from './SearchSpotlight';
-import { amber } from '~/theme/halo/theme';
-import { HaloAvatar, HaloBadge, HaloChip, HaloMenuItem } from '~/theme/halo/components';
+import { amber } from '~/theme/grata/theme';
+import { HaloAvatar, HaloBadge, HaloChip, HaloMenuItem } from '~/theme/grata/components';
 import { DatasiteProfileMenu, type DatasiteProfileMenuProps } from './DatasiteProfileMenu';
 import {
   navItemsByProductMode,

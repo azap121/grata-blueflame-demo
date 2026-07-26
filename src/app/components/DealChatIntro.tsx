@@ -1,6 +1,6 @@
 import { Box, Stack, Typography } from '@mui/material';
-import { HaloButton } from '~/theme/halo/components';
-import { jade, tanzanite } from '~/theme/halo/theme';
+import { HaloButton } from '~/theme/grata/components';
+import { jade, tanzanite } from '~/theme/grata/theme';
 import { CALDERA_OPENED_COPY, CALDERA_SUGGESTIONS } from '../state/dealsFixtures';
 
 interface Props {

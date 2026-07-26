@@ -3,7 +3,7 @@ import { faChevronDown } from '@fortawesome/pro-light-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Box, ButtonBase, Collapse, Stack, Typography } from '@mui/material';
 import { alpha } from '@mui/material/styles';
-import { jade, moondust } from '~/theme/halo/theme';
+import { jade, moondust } from '~/theme/grata/theme';
 import {
   CALDERA_AGENTS,
   CALDERA_AGENT_GROUPS,

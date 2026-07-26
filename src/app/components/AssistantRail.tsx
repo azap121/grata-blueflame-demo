@@ -2,7 +2,7 @@ import { faBookOpenLines, faClipboardCheck, faMagnifyingGlass, faPlus } from '@f
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Box, ButtonBase, Stack, Typography } from '@mui/material';
 import type { ReactNode } from 'react';
-import { HaloButton } from '~/theme/halo/components';
+import { HaloButton } from '~/theme/grata/components';
 import DealRailSections from './DealRailSections';
 import type { DealPlaybook } from '../state/dealsFixtures';
 import type { DealLayout } from '../state/persona';

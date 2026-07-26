@@ -12,7 +12,7 @@ import {
   Paper,
   Typography,
 } from '@mui/material';
-import { HaloAvatar } from '~/theme/halo/components';
+import { HaloAvatar } from '~/theme/grata/components';
 
 export interface DatasiteSubscription {
   label: string;

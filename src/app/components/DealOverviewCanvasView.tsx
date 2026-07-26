@@ -3,8 +3,8 @@ import { faArrowRight, faCheck, faPenLine } from '@fortawesome/pro-light-svg-ico
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Box, Dialog, DialogContent, Stack, Typography } from '@mui/material';
 import { alpha } from '@mui/material/styles';
-import { HaloButton } from '~/theme/halo/components';
-import { jade, moondust, tanzanite } from '~/theme/halo/theme';
+import { HaloButton } from '~/theme/grata/components';
+import { jade, moondust, tanzanite } from '~/theme/grata/theme';
 import { CALDERA_CONTEXT_MARKDOWN, CALDERA_OVERVIEW } from '../state/dealsFixtures';
 
 interface Props {

@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { InputBase, IconButton, Stack, Typography } from '@mui/material';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck, faXmark } from '@fortawesome/pro-light-svg-icons';
-import { moondust, peridot } from '~/theme/halo/theme';
+import { moondust, peridot } from '~/theme/grata/theme';
 
 interface Props {
   value: string;

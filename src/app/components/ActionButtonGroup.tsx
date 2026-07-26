@@ -6,7 +6,7 @@ import {
   faTrash,
   faRotateLeft,
 } from '@fortawesome/pro-light-svg-icons';
-import { moondust, peridot } from '~/theme/halo/theme';
+import { moondust, peridot } from '~/theme/grata/theme';
 
 interface Props {
   nodeName: string;

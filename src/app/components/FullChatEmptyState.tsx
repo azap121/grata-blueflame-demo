@@ -8,7 +8,7 @@ import {
 import type { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Box, Stack, Typography } from '@mui/material';
-import { HaloButton } from '~/theme/halo/components';
+import { HaloButton } from '~/theme/grata/components';
 import ChatComposer from './ChatComposer';
 import { COPY } from '../state/copy';
 import type { SeatId } from '../state/persona';

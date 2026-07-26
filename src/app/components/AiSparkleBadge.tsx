@@ -2,7 +2,7 @@ import type { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Box } from '@mui/material';
 import { faAiSparkle } from '~/shared/icons/faAiSparkle';
-import { amber } from '~/theme/halo/theme';
+import { amber } from '~/theme/grata/theme';
 
 interface Props {
   size?: number;

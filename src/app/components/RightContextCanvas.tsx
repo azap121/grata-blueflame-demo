@@ -21,8 +21,8 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Box, Collapse, IconButton, ListItemIcon, ListItemText, Menu, MenuItem, Stack, Tooltip, Typography } from '@mui/material';
 import { alpha } from '@mui/material/styles';
-import { HaloButton } from '~/theme/halo/components';
-import { moondust } from '~/theme/halo/theme';
+import { HaloButton } from '~/theme/grata/components';
+import { moondust } from '~/theme/grata/theme';
 import AiSparkleBadge from './AiSparkleBadge';
 import ChatComposer from './ChatComposer';
 import ChatMessageList from './ChatMessageList';

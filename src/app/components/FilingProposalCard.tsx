@@ -1,8 +1,8 @@
 import { faCircleInfo, faFolderTree, faTriangleExclamation } from '@fortawesome/pro-light-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Box, Chip, Collapse, Stack, Typography } from '@mui/material';
-import { HaloButton } from '~/theme/halo/components';
-import { amber, jade, moondust, tanzanite } from '~/theme/halo/theme';
+import { HaloButton } from '~/theme/grata/components';
+import { amber, jade, moondust, tanzanite } from '~/theme/grata/theme';
 import { FILING_COPY, FILING_HIGHLIGHTS, FILING_RATIONALE } from '../state/filingScenario';
 
 interface Props {

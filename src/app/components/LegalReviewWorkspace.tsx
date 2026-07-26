@@ -22,8 +22,8 @@ import {
   TableRow,
   Typography,
 } from '@mui/material';
-import { HaloButton, HaloTextField } from '~/theme/halo/components';
-import { amber, jade, ruby, tanzanite } from '~/theme/halo/theme';
+import { HaloButton, HaloTextField } from '~/theme/grata/components';
+import { amber, jade, ruby, tanzanite } from '~/theme/grata/theme';
 import { COPY } from '../state/copy';
 import type { WorkspaceAction, WorkspaceState } from '../state/types';
 import { QA_TRIAGE_ITEMS, STIFEL_SOURCE_FILES, type QaTriageRowStatus } from './qaTriageData';

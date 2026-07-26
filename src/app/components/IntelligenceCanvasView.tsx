@@ -7,8 +7,8 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Box, Collapse, Snackbar, Stack, Typography } from '@mui/material';
 import { alpha } from '@mui/material/styles';
-import { HaloButton } from '~/theme/halo/components';
-import { amber, jade, moondust, turquoise } from '~/theme/halo/theme';
+import { HaloButton } from '~/theme/grata/components';
+import { amber, jade, moondust, turquoise } from '~/theme/grata/theme';
 import {
   INTELLIGENCE_ACTIONS,
   INTELLIGENCE_COPY,

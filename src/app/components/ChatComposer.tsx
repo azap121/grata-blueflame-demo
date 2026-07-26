@@ -3,7 +3,7 @@ import { faArrowUp, faFile, faFolderOpen, faPaperclip, faPlus, faXmark } from '@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Box, Button, IconButton, InputBase, Paper, Popover, Stack, Tooltip, Typography } from '@mui/material';
 import { alpha } from '@mui/material/styles';
-import { amber, moondust } from '~/theme/halo/theme';
+import { amber, moondust } from '~/theme/grata/theme';
 import AttachmentPicker from './AttachmentPicker';
 import { findSellerFileById, findSellerFolderById, type SellerIndexFile, type SellerIndexFolder } from './rightCanvasFileData';
 import { COPY } from '../state/copy';

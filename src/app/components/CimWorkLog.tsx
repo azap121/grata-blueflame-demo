@@ -2,7 +2,7 @@ import { faBolt, faCircleCheck, faSpinnerThird } from '@fortawesome/pro-light-sv
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Box, Stack, Typography } from '@mui/material';
 import { alpha } from '@mui/material/styles';
-import { amber, jade, moondust, tanzanite } from '~/theme/halo/theme';
+import { amber, jade, moondust, tanzanite } from '~/theme/grata/theme';
 import type { CimRunStep } from '../state/cimRunScenario';
 
 interface Props {
