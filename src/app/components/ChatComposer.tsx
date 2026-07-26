@@ -1,12 +1,14 @@
-import { useEffect, useId, useState, type MouseEvent } from 'react';
-import { faArrowUp, faFile, faFolderOpen, faPaperclip, faPlus, faXmark } from '@fortawesome/pro-light-svg-icons';
+import { useEffect, useId, useRef, useState, type KeyboardEvent, type MouseEvent } from 'react';
+import { faArrowUp, faChevronDown, faFile, faFolderOpen, faPaperclip, faPlus, faXmark } from '@fortawesome/pro-light-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Box, Button, IconButton, InputBase, Paper, Popover, Stack, Tooltip, Typography } from '@mui/material';
 import { alpha } from '@mui/material/styles';
-import { amber, moondust } from '~/theme/grata/theme';
+import { amber, monoFontFamily, moondust } from '~/theme/grata/theme';
 import AttachmentPicker from './AttachmentPicker';
+import SlashPlaybookMenu, { buildSlashMenuRows } from './SlashPlaybookMenu';
 import { findSellerFileById, findSellerFolderById, type SellerIndexFile, type SellerIndexFolder } from './rightCanvasFileData';
 import { COPY } from '../state/copy';
+import type { Playbook } from '../state/playbookCatalog';
 
 interface Props {
   value: string;
@@ -17,6 +19,12 @@ interface Props {
   showPoweredLine?: boolean;
   attachedFileIds?: string[];
   attachedFolderIds?: string[];
+  /** Always-visible scope control (Universe · Firm · Project · Product). */
+  scopeLabel?: string;
+  /** Enables the `/` playbook menu; decides which set leads (8.2 surfacing). */
+  slashContext?: { inDeal: boolean };
+  onQueuePlaybook?: (playbook: Playbook) => void;
+  onBrowsePlaybooks?: () => void;
   onChange: (value: string) => void;
   onSubmit: (value: string) => void;
   onAttachmentsChange?: (fileIds: string[]) => void;
@@ -32,6 +40,10 @@ export default function ChatComposer({
   showPoweredLine = true,
   attachedFileIds = [],
   attachedFolderIds = [],
+  scopeLabel,
+  slashContext,
+  onQueuePlaybook,
+  onBrowsePlaybooks,
   onChange,
   onSubmit,
   onAttachmentsChange,
@@ -40,6 +52,50 @@ export default function ChatComposer({
   const inputId = useId();
   const [attachmentPickerOpen, setAttachmentPickerOpen] = useState(false);
   const [attachmentSummaryAnchorEl, setAttachmentSummaryAnchorEl] = useState<HTMLElement | null>(null);
+  const composerRef = useRef<HTMLFormElement | null>(null);
+  // ── `/` playbook menu ── value starting with "/" opens it; Escape dismisses
+  // until the slash is cleared; arrows + Enter drive selection.
+  const [slashDismissed, setSlashDismissed] = useState(false);
+  const [slashHighlight, setSlashHighlight] = useState(0);
+  const slashEnabled = Boolean(onQueuePlaybook && slashContext);
+  const slashActive = slashEnabled && value.startsWith('/') && !slashDismissed;
+  const slashQuery = slashActive ? value.slice(1) : '';
+  const slashRows = slashActive ? buildSlashMenuRows(slashQuery, slashContext!) : [];
+
+  useEffect(() => {
+    if (!value.startsWith('/')) setSlashDismissed(false);
+    setSlashHighlight(0);
+  }, [value]);
+
+  const selectSlashRow = (index: number) => {
+    const row = slashRows[index];
+    if (!row) return;
+    if (row.kind === 'browse-all') {
+      setSlashDismissed(true);
+      onBrowsePlaybooks?.();
+      return;
+    }
+    setSlashDismissed(true);
+    onQueuePlaybook?.(row.playbook!);
+  };
+
+  const handleSlashKeyDown = (event: KeyboardEvent) => {
+    if (!slashActive) return;
+    if (event.key === 'ArrowDown') {
+      event.preventDefault();
+      setSlashHighlight((current) => Math.min(current + 1, slashRows.length - 1));
+    } else if (event.key === 'ArrowUp') {
+      event.preventDefault();
+      setSlashHighlight((current) => Math.max(current - 1, 0));
+    } else if (event.key === 'Enter' && !event.shiftKey) {
+      event.preventDefault();
+      selectSlashRow(slashHighlight);
+    } else if (event.key === 'Escape') {
+      event.preventDefault();
+      setSlashDismissed(true);
+    }
+  };
+
   const submit = () => onSubmit(value);
   const hasValue = Boolean(value.trim());
   const attachedFiles = attachedFileIds.flatMap((fileId) => {
@@ -108,6 +164,7 @@ export default function ChatComposer({
       <Paper
         component="form"
         elevation={0}
+        ref={composerRef}
         onSubmit={(event) => {
           event.preventDefault();
           submit();
@@ -236,6 +293,7 @@ export default function ChatComposer({
           id={inputId}
           value={value}
           onChange={(event) => onChange(event.target.value)}
+          onKeyDown={handleSlashKeyDown}
           placeholder={placeholder}
           fullWidth
           multiline
@@ -252,19 +310,22 @@ export default function ChatComposer({
         />
         {large && (
           <Stack direction="row" alignItems="center" justifyContent="space-between" sx={{ flexShrink: 0 }}>
-            <Tooltip title="Add attachment">
-              <span>
-                <IconButton
-                  size="small"
-                  aria-label="Add attachment"
-                  disabled={!attachmentPickerEnabled}
-                  onClick={() => setAttachmentPickerOpen(true)}
-                  sx={{ width: 28, height: 28, color: 'text.secondary' }}
-                >
-                  <FontAwesomeIcon icon={faPlus} style={{ fontSize: 14 }} />
-                </IconButton>
-              </span>
-            </Tooltip>
+            <Stack direction="row" alignItems="center" spacing={0.75}>
+              <Tooltip title="Add attachment">
+                <span>
+                  <IconButton
+                    size="small"
+                    aria-label="Add attachment"
+                    disabled={!attachmentPickerEnabled}
+                    onClick={() => setAttachmentPickerOpen(true)}
+                    sx={{ width: 28, height: 28, color: 'text.secondary' }}
+                  >
+                    <FontAwesomeIcon icon={faPlus} style={{ fontSize: 14 }} />
+                  </IconButton>
+                </span>
+              </Tooltip>
+              {scopeLabel && <ComposerScopeChip label={scopeLabel} />}
+            </Stack>
             <Tooltip title="Send prompt">
               <span>
                 <IconButton
@@ -291,6 +352,7 @@ export default function ChatComposer({
             </Tooltip>
           </Stack>
         )}
+        {!large && scopeLabel && <ComposerScopeChip label={scopeLabel} />}
         {!large && (
           <Tooltip title="Send prompt">
             <span>
@@ -316,6 +378,24 @@ export default function ChatComposer({
           </Tooltip>
         )}
       </Paper>
+      {slashEnabled && (
+        <SlashPlaybookMenu
+          open={slashActive}
+          anchorEl={composerRef.current}
+          query={slashQuery}
+          context={slashContext!}
+          highlightIndex={slashHighlight}
+          onHighlightChange={setSlashHighlight}
+          onSelect={(playbook) => {
+            setSlashDismissed(true);
+            onQueuePlaybook?.(playbook);
+          }}
+          onBrowseAll={() => {
+            setSlashDismissed(true);
+            onBrowsePlaybooks?.();
+          }}
+        />
+      )}
       <AttachmentPicker
         open={attachmentPickerOpen}
         selectedFileIds={attachedFileIds}
@@ -572,5 +652,34 @@ function AttachmentSummaryRow({ file, onRemove }: { file: SellerIndexFile; onRem
         </IconButton>
       </Tooltip>
     </Stack>
+  );
+}
+
+// Always-visible scope control (principle 2: the user never guesses what the
+// system is looking at). Display-only in this prototype.
+function ComposerScopeChip({ label }: { label: string }) {
+  return (
+    <Box
+      component="span"
+      sx={{
+        display: 'inline-flex',
+        alignItems: 'center',
+        gap: 0.5,
+        px: 0.9,
+        py: 0.35,
+        borderRadius: '6px',
+        bgcolor: 'background.defaultAlt',
+        border: '1px solid',
+        borderColor: 'divider',
+        fontFamily: monoFontFamily,
+        fontSize: 10.5,
+        color: 'text.secondary',
+        whiteSpace: 'nowrap',
+        flexShrink: 0,
+      }}
+    >
+      {label}
+      <FontAwesomeIcon icon={faChevronDown} style={{ fontSize: 7 }} />
+    </Box>
   );
 }

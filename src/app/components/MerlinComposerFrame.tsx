@@ -20,6 +20,7 @@ import {
   getModel,
   type AutonomyDialId,
 } from '../state/merlinFixtures';
+import { PLAYBOOK_CATALOG } from '../state/playbookCatalog';
 import { MERLIN_COPY as COPY_ALIAS } from '../state/merlinFixtures';
 import type { WorkspaceAction, WorkspaceState } from '../state/types';
 
@@ -54,7 +55,16 @@ export default function MerlinComposerFrame({ state, dispatch, active, children 
   const merlin = state.merlinMode;
   const dial = getDialEntry(state.autonomyDial);
   const sandbox = merlin && state.autonomyDial === 'sandbox';
-  const queuedCimRun = merlin && state.cimRun.queuedPlaybookId === 'pe-cim-screen';
+  // Pre-run estimate from whichever playbook is staged (budget visibility starts
+  // in the composer, not after the run).
+  const queuedPlaybook = merlin && state.cimRun.queuedPlaybookId
+    ? PLAYBOOK_CATALOG.find((playbook) => playbook.id === state.cimRun.queuedPlaybookId)
+    : undefined;
+  const queuedEstimate = queuedPlaybook
+    ? `${queuedPlaybook.name} · est. ${queuedPlaybook.credits} credits · hard stop at 50`
+    : state.cimRun.queuedPlaybookId === 'pe-cim-screen'
+      ? MERLIN_COPY.queuedRunEstimate
+      : null;
 
   return (
     <Stack spacing={0.75}>
@@ -93,9 +103,9 @@ export default function MerlinComposerFrame({ state, dispatch, active, children 
           />
         )}
         <Box sx={{ flex: 1 }} />
-        {queuedCimRun ? (
+        {queuedEstimate ? (
           <Typography sx={{ fontSize: 11, color: 'text.secondary', fontVariantNumeric: 'tabular-nums' }}>
-            {MERLIN_COPY.queuedRunEstimate}
+            {queuedEstimate}
           </Typography>
         ) : !merlin ? (
           <Typography sx={{ fontSize: 11, color: 'text.disabled' }}>{MERLIN_COPY.normalModeNote}</Typography>

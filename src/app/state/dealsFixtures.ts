@@ -278,7 +278,7 @@ export const CALDERA_AGENT_GROUPS: readonly CalderaAgentGroup[] = [
 
 // Deal-scoped composer placeholder — the assistant is Blueflame AI in the deal.
 export const CALDERA_COMPOSER_PLACEHOLDER =
-  'Ask Blueflame AI about this deal, or run an Agent — work holds for your approval…';
+  'Ask Merlin about this deal — / for playbooks, @ for sources. Work holds for your approval…';
 
 // Deal Context markdown (A3 Blueflame Deal template — Deal Metadata / Transaction Overview).
 export const CALDERA_CONTEXT_MARKDOWN = `# 1. Deal Metadata

@@ -65,7 +65,7 @@ import {
 } from '@mui/material';
 import { useEffect, useRef, useState } from 'react';
 import { faAiSparkle } from '~/shared/icons/faAiSparkle';
-import { emerald, ruby, tanzanite } from '~/theme/grata/theme';
+import { emerald, grataBlue, grataBlueHover, grataBlueSelected, monoFontFamily, ruby, tanzanite } from '~/theme/grata/theme';
 
 // ─── Mock data ────────────────────────────────────────────────────────────────
 
@@ -218,6 +218,8 @@ export function SearchSpotlight({
 }: SearchSpotlightProps) {
   const [query, setQuery] = useState(initialQuery);
   const [focusedIndex, setFocusedIndex] = useState(-1);
+  // Explicit, always-visible search scope (defaults from context — Universe here).
+  const [activeScope, setActiveScope] = useState<'Universe' | 'Firm' | 'Project' | 'Product'>('Universe');
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -383,6 +385,32 @@ export function SearchSpotlight({
               ),
             }}
           />
+
+          {/* ── Scope chips — the four search scopes, always explicit (8.1) ── */}
+          <Stack direction="row" spacing={0.75} sx={{ mt: '10px', mx: '24px' }}>
+            {(['Universe', 'Firm', 'Project', 'Product'] as const).map((scope) => (
+              <Box
+                key={scope}
+                component="button"
+                type="button"
+                onClick={() => setActiveScope(scope)}
+                sx={{
+                  px: 1.1,
+                  py: 0.4,
+                  borderRadius: '999px',
+                  border: '1px solid',
+                  borderColor: activeScope === scope ? grataBlue : 'divider',
+                  bgcolor: activeScope === scope ? grataBlueSelected : 'background.paper',
+                  color: activeScope === scope ? grataBlueHover : 'text.secondary',
+                  fontFamily: monoFontFamily,
+                  fontSize: 11,
+                  cursor: 'pointer',
+                }}
+              >
+                {scope}
+              </Box>
+            ))}
+          </Stack>
 
           {/* ── Results dropdown — hidden until user starts typing ── */}
           {query.length > 0 && <Box

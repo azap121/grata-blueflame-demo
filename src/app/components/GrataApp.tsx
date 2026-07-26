@@ -521,6 +521,12 @@ export default function GrataApp() {
     setDealToast('Create — Project · Playbook · Agent (coming in this build)');
   }, []);
 
+  // "Browse all playbooks" from the `/` menu → the global Playbooks library.
+  const openPlaybooksView = useCallback(() => {
+    goToDealsHome();
+    setGlobalView('playbooks');
+  }, [goToDealsHome]);
+
   // Needs-you deep link: open the named project if it's clickable in this build.
   const openProjectByName = useCallback(
     (projectName: string) => {
@@ -1173,6 +1179,7 @@ export default function GrataApp() {
               onApproveCimPlan={handleApproveCimPlan}
               onOpenCimReview={handleOpenCimReview}
               onAskGrataSimilar={handleAskGrataSimilar}
+              onBrowsePlaybooks={openPlaybooksView}
             />
           ) : null}
           {activeCoreTab === 'documents' ? (
@@ -1291,6 +1298,7 @@ function AiWorkspace({
   onApproveCimPlan,
   onOpenCimReview,
   onAskGrataSimilar,
+  onBrowsePlaybooks,
 }: {
   activeSessionId: string;
   activeMode: AssistantRailMode;
@@ -1343,6 +1351,7 @@ function AiWorkspace({
   onApproveCimPlan: () => void;
   onOpenCimReview: () => void;
   onAskGrataSimilar: () => void;
+  onBrowsePlaybooks: () => void;
 }) {
   if (state.stage === 'documents-view') {
     return <SandboxFolderStructureView state={state} dispatch={dispatch} />;
@@ -1400,6 +1409,7 @@ function AiWorkspace({
           onApproveCimPlan={onApproveCimPlan}
           onOpenCimReview={onOpenCimReview}
           onAskGrataSimilar={onAskGrataSimilar}
+          onBrowsePlaybooks={onBrowsePlaybooks}
         />
       </Box>
 

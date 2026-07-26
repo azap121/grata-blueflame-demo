@@ -49,6 +49,7 @@ interface Props {
   onApproveCimPlan?: () => void;
   onOpenCimReview?: () => void;
   onAskGrataSimilar?: () => void;
+  onBrowsePlaybooks?: () => void;
 }
 
 export default function AssistantPanel({
@@ -84,6 +85,7 @@ export default function AssistantPanel({
   onApproveCimPlan,
   onOpenCimReview,
   onAskGrataSimilar,
+  onBrowsePlaybooks,
 }: Props) {
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchValue, setSearchValue] = useState('');
@@ -218,6 +220,12 @@ export default function AssistantPanel({
                       placeholder={composerPlaceholder}
                       attachedFileIds={state.attachedFileIds}
                       attachedFolderIds={state.attachedFolderIds}
+                      scopeLabel={dealActive ? 'Project · Caldera' : 'Firm'}
+                      slashContext={{ inDeal: dealActive }}
+                      onQueuePlaybook={(playbook) =>
+                        dispatch({ type: 'QUEUE_PLAYBOOK', playbookId: playbook.id, prompt: playbook.prompt })
+                      }
+                      onBrowsePlaybooks={onBrowsePlaybooks}
                       onChange={(value) => dispatch({ type: 'CHAT_PROMPT_CHANGED', value })}
                       onSubmit={(prompt) => dispatch({ type: 'CHAT_PROMPT_SUBMITTED', prompt })}
                       onContextChange={({ fileIds, folderIds }) => dispatch({ type: 'SET_CONTEXT_REFERENCES', fileIds, folderIds })}

@@ -57,9 +57,9 @@ export function getModel(id: string): FrontierModel {
 }
 
 export const MERLIN_COPY = {
-  normalLabel: 'Normal',
+  normalLabel: 'Chat',
   merlinLabel: 'Merlin',
-  modeTooltip: 'Switch mode (⌘M) — Normal chats; Merlin delegates work into the deal',
+  modeTooltip: 'Switch mode (⌘M) — Chat converses; Merlin delegates work into the deal',
   dialAriaLabel: 'Autonomy — how much Merlin does before asking you',
   dialMenuTitle: 'Autonomy',
   modelMenuTitle: 'Model',
@@ -70,5 +70,5 @@ export const MERLIN_COPY = {
   merlinRoutesLine: 'Merlin routes the right model per step',
   // Pre-run cost estimate (consumption-pricing visibility; budget-panel pattern).
   queuedRunEstimate: 'CIM Screen — buy-side · est. 14 credits · hard stop at 50',
-  normalModeNote: 'Normal mode chats only — nothing is written to the deal.',
+  normalModeNote: 'Chat mode converses only — nothing is written to the deal.',
 } as const;
