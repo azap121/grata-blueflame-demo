@@ -28,6 +28,7 @@ import LegalReviewWorkspace from './LegalReviewWorkspace';
 import TwoZoneHome from './TwoZoneHome';
 import PromoteToDealDialog from './PromoteToDealDialog';
 import RightContextCanvas, { getComposerPlaceholderForRightTab, type RightCanvasMotion, type RightCanvasTab } from './RightContextCanvas';
+import { CreateAgentDialog, CreateMenu, CreatePlaybookDialog, type CreateKind, type PlaybookPrefill } from './CreateDialogs';
 import PlaybooksView from './PlaybooksView';
 import RunsView from './RunsView';
 import RightContextCanvasFileDetailView from './RightContextCanvasFileDetailView';
@@ -137,6 +138,10 @@ export default function GrataApp() {
   const [homeView, setHomeView] = useState<'home' | 'chat'>('home');
   const [globalView, setGlobalView] = useState<GlobalView>('home');
   const [spotlightOpen, setSpotlightOpen] = useState(false);
+  // ── Create flows (authoring) ──
+  const [createAnchor, setCreateAnchor] = useState<HTMLElement | null>(null);
+  const [createDialog, setCreateDialog] = useState<'playbook' | 'agent' | null>(null);
+  const [playbookPrefill, setPlaybookPrefill] = useState<PlaybookPrefill | undefined>(undefined);
   const [deals, setDeals] = useState<DealCard[]>(SEED_DEALS);
   const [freshDealId, setFreshDealId] = useState<string | null>(null);
   const [promoteOpen, setPromoteOpen] = useState(false);
@@ -519,9 +524,28 @@ export default function GrataApp() {
     setHomeView('home');
   }, [clearReviewTransitionTimers]);
 
-  // + Create — menu lands with the authoring flows (plan Task 9).
-  const handleOpenCreate = useCallback(() => {
-    setDealToast('Create — Project · Playbook · Agent (coming in this build)');
+  // + Create — the blank-canvas authoring door. Project creation routes to the
+  // home composer: sourcing IS project creation (promote-to-Project).
+  const handleCreatePick = useCallback((kind: CreateKind) => {
+    setCreateAnchor(null);
+    if (kind === 'project') {
+      setHomeView('home');
+      setGlobalView('home');
+      setDealToast('Start from a search — promote targets to create a Project');
+      return;
+    }
+    setPlaybookPrefill(undefined);
+    setCreateDialog(kind);
+  }, []);
+
+  // The capture door: promote the accepted CIM run into a reusable Playbook.
+  const handleSaveAsPlaybook = useCallback(() => {
+    setPlaybookPrefill({
+      name: 'caldera-cim-screen',
+      inputs: ['CIM document', 'Thesis'],
+      steps: CIM_EXEC_STEPS.map((step) => step.label),
+    });
+    setCreateDialog('playbook');
   }, []);
 
   // "Browse all playbooks" from the `/` menu → the global Playbooks library.
@@ -1072,7 +1096,7 @@ export default function GrataApp() {
         <Tooltip title="Create — Project · Playbook · Agent" placement="right" arrow>
           <IconButton
             aria-label="Create"
-            onClick={handleOpenCreate}
+            onClick={(event) => setCreateAnchor(event.currentTarget)}
             sx={{
               width: 36,
               height: 36,
@@ -1140,7 +1164,7 @@ export default function GrataApp() {
             ) : globalView === 'runs' ? (
               <RunsView onOpenProject={openProjectByName} />
             ) : (
-              <PlaybooksView onRun={runPlaybookFromLibrary} onCreate={handleOpenCreate} />
+              <PlaybooksView onRun={runPlaybookFromLibrary} onCreate={() => { setPlaybookPrefill(undefined); setCreateDialog('playbook'); }} />
             )
           ) : activeCoreTab === 'ai' ? (
             <AiWorkspace
@@ -1196,6 +1220,7 @@ export default function GrataApp() {
               onOpenCimReview={handleOpenCimReview}
               onAskGrataSimilar={handleAskGrataSimilar}
               onBrowsePlaybooks={openPlaybooksView}
+              onSaveAsPlaybook={handleSaveAsPlaybook}
             />
           ) : null}
           {activeCoreTab === 'documents' ? (
@@ -1238,6 +1263,18 @@ export default function GrataApp() {
           selectedCount={state.sourcingSelectedIds.length}
           onClose={() => setPromoteOpen(false)}
           onConfirm={confirmPromote}
+        />
+        <CreateMenu anchorEl={createAnchor} onPick={handleCreatePick} onClose={() => setCreateAnchor(null)} />
+        <CreatePlaybookDialog
+          open={createDialog === 'playbook'}
+          prefill={playbookPrefill}
+          onClose={() => setCreateDialog(null)}
+          onSaved={(message) => setDealToast(message)}
+        />
+        <CreateAgentDialog
+          open={createDialog === 'agent'}
+          onClose={() => setCreateDialog(null)}
+          onSaved={(message) => setDealToast(message)}
         />
         <SearchSpotlight
           open={spotlightOpen}
@@ -1315,6 +1352,7 @@ function AiWorkspace({
   onOpenCimReview,
   onAskGrataSimilar,
   onBrowsePlaybooks,
+  onSaveAsPlaybook,
 }: {
   activeSessionId: string;
   activeMode: AssistantRailMode;
@@ -1368,6 +1406,7 @@ function AiWorkspace({
   onOpenCimReview: () => void;
   onAskGrataSimilar: () => void;
   onBrowsePlaybooks: () => void;
+  onSaveAsPlaybook: () => void;
 }) {
   if (state.stage === 'documents-view') {
     return <SandboxFolderStructureView state={state} dispatch={dispatch} />;
@@ -1426,6 +1465,7 @@ function AiWorkspace({
           onOpenCimReview={onOpenCimReview}
           onAskGrataSimilar={onAskGrataSimilar}
           onBrowsePlaybooks={onBrowsePlaybooks}
+          onSaveAsPlaybook={onSaveAsPlaybook}
         />
       </Box>
 

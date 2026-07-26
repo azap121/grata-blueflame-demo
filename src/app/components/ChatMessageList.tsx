@@ -42,6 +42,7 @@ interface Props {
   onApproveCimPlan?: () => void;
   onOpenCimReview?: () => void;
   onAskGrataSimilar?: () => void;
+  onSaveAsPlaybook?: () => void;
 }
 
 export default function ChatMessageList({
@@ -61,6 +62,7 @@ export default function ChatMessageList({
   onApproveCimPlan,
   onOpenCimReview,
   onAskGrataSimilar,
+  onSaveAsPlaybook,
 }: Props) {
   // Reruns append fresh cim-* messages; only the LATEST of each kind is live-animated
   // against the current run state — earlier runs render frozen/complete.
@@ -185,6 +187,7 @@ export default function ChatMessageList({
                 sandbox={Boolean(message.runMeta?.sandbox)}
                 onOpenReview={onOpenCimReview ?? (() => {})}
                 onAskGrataSimilar={onAskGrataSimilar ?? (() => {})}
+                onSaveAsPlaybook={onSaveAsPlaybook}
               />
             </MessageShell>
           );

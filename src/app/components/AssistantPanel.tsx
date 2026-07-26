@@ -49,6 +49,7 @@ interface Props {
   onApproveCimPlan?: () => void;
   onOpenCimReview?: () => void;
   onAskGrataSimilar?: () => void;
+  onSaveAsPlaybook?: () => void;
   onBrowsePlaybooks?: () => void;
 }
 
@@ -85,6 +86,7 @@ export default function AssistantPanel({
   onApproveCimPlan,
   onOpenCimReview,
   onAskGrataSimilar,
+  onSaveAsPlaybook,
   onBrowsePlaybooks,
 }: Props) {
   const [searchOpen, setSearchOpen] = useState(false);
@@ -205,6 +207,7 @@ export default function AssistantPanel({
                     onApproveCimPlan={onApproveCimPlan}
                     onOpenCimReview={onOpenCimReview}
                     onAskGrataSimilar={onAskGrataSimilar}
+                    onSaveAsPlaybook={onSaveAsPlaybook}
                   />
                 </Box>
               </Box>

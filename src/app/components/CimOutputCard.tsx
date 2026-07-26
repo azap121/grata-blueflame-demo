@@ -20,6 +20,9 @@ interface Props {
   sandbox?: boolean;
   onOpenReview: () => void;
   onAskGrataSimilar: () => void;
+  // Capture door: promote this run into a reusable Playbook (the real authoring
+  // front door — users save what worked, they don't start from a blank canvas).
+  onSaveAsPlaybook?: () => void;
 }
 
 // Run output card (Phase 3). Deliverable-named (memo, not "artifact"), Blueflame-style
@@ -32,6 +35,7 @@ export default function CimOutputCard({
   sandbox = false,
   onOpenReview,
   onAskGrataSimilar,
+  onSaveAsPlaybook,
 }: Props) {
   return (
     <Stack
@@ -76,6 +80,11 @@ export default function CimOutputCard({
             sx={{ textTransform: 'none' }}
           >
             Ask @Grata for similar companies
+          </HaloButton>
+        ) : null}
+        {accepted && onSaveAsPlaybook ? (
+          <HaloButton variant="text" size="small" onClick={onSaveAsPlaybook} sx={{ textTransform: 'none' }}>
+            Save as Playbook
           </HaloButton>
         ) : null}
         <Box sx={{ flex: 1 }} />
