@@ -7,7 +7,7 @@
 // buy-side. Tom/Jaime are retained for the inherited Aldgate (sell-side IB) flows.
 // 'morgan' is the Phase-3 operator seat: same Caldera deal, structure-first default
 // (content canvas primary, chat docked to the rail) vs Alex's chat-first default.
-export type SeatId = 'tom' | 'jaime' | 'alex' | 'morgan';
+export type SeatId = 'alex' | 'morgan';
 
 // Deal-workspace layout defaults per seat (Phase 3 seat toggle).
 export type DealLayout = 'chat-first' | 'structure-first';
@@ -21,20 +21,6 @@ export interface Persona {
 }
 
 export const PERSONAS: Record<SeatId, Persona> = {
-  tom: {
-    id: 'tom',
-    name: 'Tom Koula',
-    firstName: 'Tom',
-    initials: 'TK',
-    role: 'Associate · runs the room',
-  },
-  jaime: {
-    id: 'jaime',
-    name: 'Jaime Bergaz',
-    firstName: 'Jaime',
-    initials: 'JB',
-    role: 'Analyst · works ahead of the room',
-  },
   alex: {
     id: 'alex',
     name: 'Alex Verma',
@@ -51,4 +37,4 @@ export const PERSONAS: Record<SeatId, Persona> = {
   },
 };
 
-export const DEFAULT_SEAT: SeatId = 'tom';
+export const DEFAULT_SEAT: SeatId = 'alex';

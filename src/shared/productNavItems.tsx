@@ -24,7 +24,7 @@ import type { NavItem } from './types';
 
 /**
  * Per-product nav arrays mirroring HALO_LeftNav variants in Figma.
- * Pass to DatasitePrototypeShell as `navItems`, or extend with
+ * Pass to GrataShell as `navItems`, or extend with
  * `navItems={[...diligenceNavItems, myItem]}`.
  *
  * Icons are FA Pro Light/Solid matching HALO_LeftNav variants in Figma node 25979:42723.
@@ -101,7 +101,7 @@ export const navItemsByProductMode = {
 export type ProductMode = keyof typeof navItemsByProductMode;
 
 export const productDisplayName: Partial<Record<ProductMode, string>> = {
-  diligence: 'Datasite',
+  diligence: 'Grata',
   acquire: 'Acquire',
   pipeline: 'Pipeline',
   prepare: 'Prepare',

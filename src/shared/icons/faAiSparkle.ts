@@ -1,4 +1,4 @@
-// Datasite AI sparkle — path extracted directly from the Halo Figma at
+// Merlin sparkle — path extracted directly from the Halo Figma at
 // node 25884:396 (inside the AI button at node 25884:428).
 // File: PROD - MUI Library, branch I3UOUDpkOIyi3rto3ZY1E7.
 // 4-point burst, 27×27 viewBox. The orange circle behind it is provided

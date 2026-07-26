@@ -76,8 +76,8 @@ export default function ValidationPlanWorkspace({
           </Stack>
           <Typography sx={{ maxWidth: 680, fontSize: 13, lineHeight: 1.55, color: 'text.secondary' }}>
             {isBrief
-              ? 'Review and tune how the brief gets assembled before Datasite AI reads the room signals and drafts anything.'
-              : 'Review and tune the sequence before Datasite AI categorizes buyer questions, runs saved searches, and builds the triage batch.'}
+              ? 'Review and tune how the brief gets assembled before Merlin reads the room signals and drafts anything.'
+              : 'Review and tune the sequence before Merlin categorizes buyer questions, runs saved searches, and builds the triage batch.'}
           </Typography>
           <Stack direction="row" spacing={1} flexWrap="wrap" useFlexGap>
             <Chip size="small" label={`${state.validationPlan.length} phases`} sx={{ bgcolor: 'background.defaultAlt' }} />

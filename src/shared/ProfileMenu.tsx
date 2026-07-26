@@ -14,35 +14,35 @@ import {
 } from '@mui/material';
 import { HaloAvatar } from '~/theme/grata/components';
 
-export interface DatasiteSubscription {
+export interface ProfileSubscription {
   label: string;
   active?: boolean;
   onClick?: () => void;
 }
 
-export interface DatasiteHelpItem {
+export interface ProfileHelpItem {
   label: string;
   onClick?: () => void;
 }
 
-export interface DatasiteProfileMenuProps {
+export interface ProfileMenuProps {
   user: { name: string; initials?: string; avatarUrl?: string };
   onClose?: () => void;
   onEditProfile?: () => void;
-  subscriptions?: DatasiteSubscription[];
+  subscriptions?: ProfileSubscription[];
   showViewAllSubscriptions?: boolean;
   onViewAllSubscriptions?: () => void;
-  help?: DatasiteHelpItem[];
+  help?: ProfileHelpItem[];
   onSettings?: () => void;
   onLogOut?: () => void;
 }
 
-const defaultSubscriptions: DatasiteSubscription[] = [
+const defaultSubscriptions: ProfileSubscription[] = [
   { label: 'OSI Deal Team', active: true },
   { label: 'OSI Leadership' },
 ];
 
-const defaultHelp: DatasiteHelpItem[] = [
+const defaultHelp: ProfileHelpItem[] = [
   { label: 'Ask Lana' },
   { label: 'Support Portal' },
   { label: 'Feedback' },
@@ -54,7 +54,7 @@ const defaultHelp: DatasiteHelpItem[] = [
  * Tokens: white bg, border rgba(25,25,25,0.12), borderRadius 4px, width 220px.
  * Render inside a Popper anchored to the avatar — positioning is the caller's responsibility.
  */
-export function DatasiteProfileMenu({
+export function ProfileMenu({
   user,
   onClose,
   onEditProfile,
@@ -64,7 +64,7 @@ export function DatasiteProfileMenu({
   help = defaultHelp,
   onSettings,
   onLogOut,
-}: DatasiteProfileMenuProps) {
+}: ProfileMenuProps) {
   const showViewAll = showViewAllSubscriptions ?? false;
 
   const handle = (cb?: () => void) => () => { onClose?.(); cb?.(); };

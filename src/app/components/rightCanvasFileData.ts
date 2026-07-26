@@ -704,7 +704,7 @@ export const SELLER_INDEX_FOLDERS = collectFolders(SELLER_INDEX_TREE);
 export const SELLER_FILES = collectFiles(SELLER_INDEX_TREE);
 export const SELLER_INDEX_SOURCE: SellerIndexSource = {
   title: 'Documents',
-  subtitle: 'Permitted Project Aldgate technology M&A materials',
+  subtitle: 'Permitted Project Caldera technology M&A materials',
   tree: SELLER_INDEX_TREE,
   files: SELLER_FILES,
   folders: SELLER_INDEX_FOLDERS,

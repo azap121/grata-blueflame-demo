@@ -1,15 +1,15 @@
-// Stifel discovery scaffold copy. Deal: Project Aldgate (synthetic sell-side software M&A,
+// Stifel discovery scaffold copy. Deal: Project Caldera (synthetic sell-side software M&A,
 // four parallel bidder groups). Personas: Tom (Associate) and Jaime (Analyst) — see state/persona.ts.
 // All persona-facing copy is seat-neutral ("you", "the deal team") so both seats read correctly.
 export const COPY = {
   greetingTitle: 'Welcome back',
-  greetingSubtitle: 'What should we triage in Project Aldgate?',
-  inputPlaceholder: 'Ask Datasite AI about Q&A, saved searches, citations, duplicates, or routing...',
+  greetingSubtitle: 'What should we triage in Project Caldera?',
+  inputPlaceholder: 'Ask Merlin about Q&A, saved searches, citations, duplicates, or routing...',
   folderPromptTitle: 'Turn email Q&A into a cited batch',
   folderPromptBody: 'Forward the bidder Q&A email thread. The agent groups questions across buyer groups, finds duplicates, locates cited source material, and flags answers that need routing — nothing publishes until you approve.',
-  userPrompt: 'I have forwarded the bidder Q&A email thread for Project Aldgate — turn it into a cited, governed batch and show what needs review before approval.',
+  userPrompt: 'I have forwarded the bidder Q&A email thread for Project Caldera — turn it into a cited, governed batch and show what needs review before approval.',
   formingPlanMessage:
-    'Parsing the forwarded email thread, then scanning the Project Aldgate data room, saved searches, and disclosure controls before forming the triage plan.',
+    'Parsing the forwarded email thread, then scanning the Project Caldera data room, saved searches, and disclosure controls before forming the triage plan.',
   planProposalTitle: 'Q&A triage plan ready',
   planProposalSummary:
     'Before I run the Q&A pass, review the triage plan. You can reorder phases, add checks, and approve when the workflow looks right. Nothing runs until you approve.',
@@ -20,7 +20,7 @@ export const COPY = {
     'Plan approved. I will now categorize the bidder questions, run saved diligence searches, and keep each completed step in this thread for auditability.',
   proposalTitle: 'Q&A triage batch ready',
   proposalSummary:
-    'Datasite AI ingested the forwarded bidder Q&A thread, grouped four questions across buyer groups, found two duplicate signals, and located cited source material for review.',
+    'Merlin ingested the forwarded bidder Q&A thread, grouped four questions across buyer groups, found two duplicate signals, and located cited source material for review.',
   reviewCta: 'Open Q&A table',
   reviewInProgressCta: 'Q&A table open',
   reviewAppliedCta: 'Saved',
@@ -31,7 +31,7 @@ export const COPY = {
   savedTitle: 'Q&A triage batch saved',
   savedBody:
     'The Q&A triage batch has been saved. Sensitive answers remain in review until you route or approve them.',
-  pathLabel: 'Q&A / Project Aldgate / Bidder Q&A triage batch',
+  pathLabel: 'Q&A / Project Caldera / Bidder Q&A triage batch',
   openPathCta: 'Open Q&A batch',
 } as const;
 
@@ -74,4 +74,4 @@ export const UPDATE_BREAKDOWN = [
 ] as const;
 
 export const RATIONALE_COPY =
-  'Datasite AI prioritized the highest-friction Q&A work: categorization, duplicate detection, cited source retrieval, sensitivity checks, and routing. The deal team stays in control of every answer before anything is marked ready or published.';
+  'Merlin prioritized the highest-friction Q&A work: categorization, duplicate detection, cited source retrieval, sensitivity checks, and routing. The deal team stays in control of every answer before anything is marked ready or published.';

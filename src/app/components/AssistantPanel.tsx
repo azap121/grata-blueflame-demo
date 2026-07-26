@@ -302,9 +302,9 @@ function SearchSpotlightDialog({
               autoFocus
               value={value}
               onChange={(event) => onChange(event.target.value)}
-              placeholder="Search files, Q&A, chats, or ask Datasite AI..."
+              placeholder="Search files, Q&A, chats, or ask Merlin..."
               fullWidth
-              inputProps={{ 'aria-label': 'Search files, Q&A, chats, or ask Datasite AI' }}
+              inputProps={{ 'aria-label': 'Search files, Q&A, chats, or ask Merlin' }}
               sx={{ fontSize: 15 }}
             />
           </Box>
@@ -400,7 +400,7 @@ function SpotlightDefaultState({
       <SpotlightResult
         prominent
         icon={faSparkles}
-        title="New Datasite AI chat"
+        title="New Merlin chat"
         description="Start a blank chat for search, Q&A, files, notes, or agentic work."
         onClick={onNewChat}
       />
@@ -411,7 +411,7 @@ function SpotlightDefaultState({
             key={chat.id}
             icon={faMessagesQuestion}
             title={chat.title}
-            description={`Datasite AI session · ${chat.relativeTime}`}
+            description={`Merlin session · ${chat.relativeTime}`}
             onClick={() => onSelectSession(chat.id)}
           />
         ))}
@@ -423,7 +423,7 @@ function SpotlightDefaultState({
             key={search}
             icon={faMagnifyingGlass}
             title={search}
-            description="Search files, Q&A, and Datasite AI threads"
+            description="Search files, Q&A, and Merlin threads"
             onClick={() => onSearchTermSelect(search)}
           />
         ))}
@@ -498,13 +498,13 @@ function SpotlightSearchResults({
         ))}
       </SpotlightSection>
 
-      <SpotlightSection title="Related Datasite AI chats">
+      <SpotlightSection title="Related Merlin chats">
         {(relatedChats.length > 0 ? relatedChats : recentChats.slice(0, 3)).map((chat) => (
           <SpotlightResult
             key={chat.id}
             icon={faMessagesQuestion}
             title={chat.title}
-            description={`Return to this Datasite AI session · ${chat.relativeTime}`}
+            description={`Return to this Merlin session · ${chat.relativeTime}`}
             onClick={() => onSelectSession(chat.id)}
           />
         ))}
@@ -513,7 +513,7 @@ function SpotlightSearchResults({
       <SpotlightResult
         icon={faSparkles}
         title="Find support for churn and NRR claims"
-        description="Let Datasite AI form the search plan and prepare buyer-shareable support."
+        description="Let Merlin form the search plan and prepare buyer-shareable support."
         onClick={() => onSubmit(agenticPrompt)}
       />
     </Stack>

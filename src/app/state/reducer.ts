@@ -296,7 +296,7 @@ export function reducer(state: WorkspaceState, action: WorkspaceAction): Workspa
       const newPhase: ValidationPlanPhase = {
         id: `custom-phase-${state.validationPlan.length + 1}-${Date.now()}`,
         title: 'New triage phase',
-        description: 'Describe what Datasite AI should check before building the Q&A triage batch.',
+        description: 'Describe what Merlin should check before building the Q&A triage batch.',
         required: false,
       };
       const afterIndex = action.afterPhaseId

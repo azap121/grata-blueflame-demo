@@ -96,7 +96,7 @@ export default function LegalReviewWorkspace({
                 {saved ? 'Q&A triage batch saved' : 'Buyer Q&A command table'}
               </Typography>
               <Typography sx={{ fontSize: 13, color: 'text.secondary' }}>
-                Category, duplicate signal, cited answer support, permission sensitivity, and SME routing for Project Aldgate.
+                Category, duplicate signal, cited answer support, permission sensitivity, and SME routing for Project Caldera.
               </Typography>
             </Stack>
           </Stack>

@@ -1,4 +1,4 @@
-// Tom's batch-upload filing scenario — Project Aldgate.
+// Tom's batch-upload filing scenario — Project Caldera.
 // 18 files bulk-uploaded into "07 · New uploads" in the SANDBOX (unpublished); the agent proposes
 // filing them within the sandbox structure, creating folders where nothing fits, and holding
 // ambiguous files for Tom's call. Publishing to bidders is a separate, later step.
@@ -9,7 +9,7 @@ export const FILING_COPY = {
   userPrompt:
     'I’ve just uploaded a batch of files to the staging area — file them into the sandbox structure, and propose new folders where nothing fits. Nothing moves until I approve.',
   formingMessage:
-    'Reading the 18 files you just uploaded, then matching each one against the Project Aldgate sandbox structure before proposing anything.',
+    'Reading the 18 files you just uploaded, then matching each one against the Project Caldera sandbox structure before proposing anything.',
   proposalTitle: 'Filing plan ready',
   proposalSummary:
     'I matched your 18 uploads against the sandbox: 12 file straight into existing folders, 2 need new folders that the sandbox is missing, and I spotted 2 naming-convention breaks while I was in there. 4 files are held for your call — nothing moves until you approve.',
@@ -36,10 +36,10 @@ export const FILING_RATIONALE =
 
 export const filingSteps = [
   { id: 'read-uploads', label: 'Reading the 18 files you just uploaded', service: 'Documents' },
-  { id: 'match-index', label: 'Matching each file against the Project Aldgate sandbox', service: 'Filing agent' },
+  { id: 'match-index', label: 'Matching each file against the Project Caldera sandbox', service: 'Filing agent' },
   { id: 'duplicates', label: 'Detecting duplicates and prior versions', service: 'Filing agent' },
   { id: 'new-folders', label: 'Drafting new folders where the sandbox has no home', service: 'Filing agent' },
-  { id: 'assemble', label: 'Assembling the filing plan for your review', service: 'Datasite AI' },
+  { id: 'assemble', label: 'Assembling the filing plan for your review', service: 'Merlin' },
 ] as const;
 
 export const filingSaveSteps = [
@@ -335,7 +335,7 @@ const filingProposals: ChangeProposal[] = [
 // Held for Tom's call (no proposal generated — deliberately):
 // u-model-v8 (version conflict), u-cap-table (sensitive), u-scan + u-locked-lease (unreadable).
 export const filingScenario = {
-  rootName: 'Project Aldgate',
+  rootName: 'Project Caldera',
   nodes: filingNodes,
   proposals: filingProposals,
 } as const;

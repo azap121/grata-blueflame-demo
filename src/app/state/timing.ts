@@ -5,15 +5,15 @@ export const FINAL_STEP_PAUSE_MS = 260;
 
 export const planFormationSteps = [
   { id: 'scan-qa', label: 'Parsing the forwarded email Q&A thread', service: 'Q&A triage agent' },
-  { id: 'scan-room', label: 'Reading Project Aldgate data room signals', service: 'Documents' },
+  { id: 'scan-room', label: 'Reading Project Caldera data room signals', service: 'Documents' },
   { id: 'saved-searches', label: 'Checking saved search coverage', service: 'Saved search agent' },
   { id: 'permissions', label: 'Checking restricted source-code and disclosure paths', service: 'Disclosure routing monitor' },
-  { id: 'draft-plan', label: 'Forming the editable seven-phase triage plan', service: 'Datasite AI' },
+  { id: 'draft-plan', label: 'Forming the editable seven-phase triage plan', service: 'Merlin' },
 ] as const;
 
 export const recommendationSteps = [
   { id: 'collect', label: 'Reading questions from the forwarded thread', service: 'Q&A' },
-  { id: 'classify', label: 'Categorizing workstreams and owners', service: 'Datasite AI' },
+  { id: 'classify', label: 'Categorizing workstreams and owners', service: 'Merlin' },
   { id: 'duplicates', label: 'Checking duplicates and near matches', service: 'Q&A' },
   { id: 'searches', label: 'Running saved diligence searches with citations', service: 'Documents' },
   { id: 'permissions', label: 'Checking source-code, IP, cyber, and GDPR sensitivity', service: 'Permissions' },

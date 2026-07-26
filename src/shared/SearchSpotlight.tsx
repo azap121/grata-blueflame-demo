@@ -523,11 +523,11 @@ export function SearchSpotlight({
               })}
             </Box>}
 
-            {/* ── Datasite AI section — always shown ── */}
+            {/* ── Merlin section — always shown ── */}
             <Divider />
             <Box sx={{ pb: '4px' }}>
               <Typography variant="overline" sx={{ px: '20px', pt: '10px', pb: '2px', color: 'text.disabled', display: 'block', fontSize: 10, letterSpacing: '0.08em' }}>
-                Datasite AI
+                Merlin
               </Typography>
               <Row
                 icon={<FontAwesomeIcon icon={faAiSparkle as unknown as any} style={{ fontSize: 14, color: '#D95E1B' }} />}

@@ -47,7 +47,7 @@ export default function SandboxFolderStructureView({ state: _state, dispatch }: 
               <Box sx={{ color: jade[700] }}>
                 <FontAwesomeIcon icon={faScaleBalanced} />
               </Box>
-              <Typography sx={{ fontWeight: 650 }}>Project Aldgate / Buyer Q&A triage batch</Typography>
+              <Typography sx={{ fontWeight: 650 }}>Project Caldera / Buyer Q&A triage batch</Typography>
             </Stack>
             <Chip size="small" label="Updated" sx={{ bgcolor: jade[50], color: jade[800], fontWeight: 600 }} />
           </Stack>

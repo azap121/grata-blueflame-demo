@@ -1,4 +1,4 @@
-// Stifel scaffold fixture — Project Aldgate, four parallel bidder groups (Falcon, Kestrel,
+// Stifel scaffold fixture — Project Caldera, four parallel bidder groups (Falcon, Kestrel,
 // Harrier, Osprey). All Q&A items and evidence chips are synthetic placeholders.
 // QUARTET(P4): replace question volumes, duplicate rates, and response-time realism with
 // Stifel Q&A telemetry. QUARTET(P6): calibrate owners to Tom/Jaime's real division of labor.
@@ -132,7 +132,7 @@ export const STIFEL_SOURCE_FILES: SellerIndexFile[] = [
       'LTM net revenue retention and gross revenue retention summary',
       'Analyst note: cite aggregate cohort metrics only',
     ],
-    folderPath: ['Project Aldgate', 'Commercial', 'ARR and churn'],
+    folderPath: ['Project Caldera', 'Commercial', 'ARR and churn'],
     categoryPath: 'Finance / Revenue and ARR',
   },
   {
@@ -155,7 +155,7 @@ export const STIFEL_SOURCE_FILES: SellerIndexFile[] = [
       'Cohort renewal commentary by segment',
       'No customer names in generated answer without approval',
     ],
-    folderPath: ['Project Aldgate', 'Commercial', 'Customers'],
+    folderPath: ['Project Caldera', 'Commercial', 'Customers'],
     categoryPath: 'Marketing & Sales / Top customers',
   },
   {
@@ -178,7 +178,7 @@ export const STIFEL_SOURCE_FILES: SellerIndexFile[] = [
       'SSO, branch protection, and audit logging controls',
       'Confirmatory diligence release requires legal approval',
     ],
-    folderPath: ['Project Aldgate', 'Technology', 'Source code'],
+    folderPath: ['Project Caldera', 'Technology', 'Source code'],
     categoryPath: 'Legal / Intellectual property',
   },
   {
@@ -201,7 +201,7 @@ export const STIFEL_SOURCE_FILES: SellerIndexFile[] = [
       'License type, obligation, and review owner',
       'No unresolved copyleft exposure flagged',
     ],
-    folderPath: ['Project Aldgate', 'Technology', 'Open source'],
+    folderPath: ['Project Caldera', 'Technology', 'Open source'],
     categoryPath: 'Legal / Intellectual property',
   },
   {
@@ -224,7 +224,7 @@ export const STIFEL_SOURCE_FILES: SellerIndexFile[] = [
       'No unresolved copyleft obligations in core platform',
       'Review cadence and owner list',
     ],
-    folderPath: ['Project Aldgate', 'Legal', 'IP'],
+    folderPath: ['Project Caldera', 'Legal', 'IP'],
     categoryPath: 'Legal / Intellectual property',
   },
   {
@@ -247,7 +247,7 @@ export const STIFEL_SOURCE_FILES: SellerIndexFile[] = [
       'High-risk licenses reviewed by counsel',
       'No critical unresolved license findings',
     ],
-    folderPath: ['Project Aldgate', 'Technology', 'Open source'],
+    folderPath: ['Project Caldera', 'Technology', 'Open source'],
     categoryPath: 'Operational Information / Platform operations',
   },
   {
@@ -270,7 +270,7 @@ export const STIFEL_SOURCE_FILES: SellerIndexFile[] = [
       'No exceptions in access management controls',
       'Detailed appendices remain restricted',
     ],
-    folderPath: ['Project Aldgate', 'Cybersecurity', 'SOC 2'],
+    folderPath: ['Project Caldera', 'Cybersecurity', 'SOC 2'],
     categoryPath: 'Operational Information / Risk controls',
   },
   {
@@ -293,7 +293,7 @@ export const STIFEL_SOURCE_FILES: SellerIndexFile[] = [
       'GDPR processor and subprocessor position',
       'Penetration test detail requires restricted access',
     ],
-    folderPath: ['Project Aldgate', 'Legal', 'Privacy'],
+    folderPath: ['Project Caldera', 'Legal', 'Privacy'],
     categoryPath: 'Legal / Material agreements',
   },
 ];

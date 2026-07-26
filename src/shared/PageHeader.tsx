@@ -1,13 +1,13 @@
 import { Box, Stack, Typography } from '@mui/material';
 import type { ReactNode } from 'react';
 
-export interface DatasitePageHeaderProps {
+export interface PageHeaderProps {
   title: string;
   description?: string;
   actions?: ReactNode;
 }
 
-export function DatasitePageHeader({ title, description, actions }: DatasitePageHeaderProps) {
+export function PageHeader({ title, description, actions }: PageHeaderProps) {
   return (
     <Box
       sx={{

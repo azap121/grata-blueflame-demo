@@ -47,7 +47,7 @@ export const HOME_SUGGESTIONS = [
 export const SEED_DEALS: DealCard[] = [
   {
     id: 'deal-aldgate',
-    name: 'Project Aldgate',
+    name: 'Project Caldera',
     direction: 'Sell-side · Mandate',
     desk: 'IB',
     stage: 'Live diligence',

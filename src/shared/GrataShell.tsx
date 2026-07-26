@@ -16,7 +16,7 @@ import { faGrid, faHouse, faPlus, faCode, faGrid2Plus } from '@fortawesome/pro-s
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import type { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { faAiSparkle } from './icons/faAiSparkle';
-import { faDatasiteLogo } from './icons/faDatasiteLogo';
+import { grataBlue, monoFontFamily } from '~/theme/grata/theme';
 import { appLogos, partnerLogos } from '~/assets/app-logos';
 import danielAvatar from '~/assets/daniel.png';
 import {
@@ -44,7 +44,7 @@ import { forwardRef, useCallback, useEffect, useRef, useState, type MouseEvent, 
 import { SearchSpotlight } from './SearchSpotlight';
 import { amber } from '~/theme/grata/theme';
 import { HaloAvatar, HaloBadge, HaloChip, HaloMenuItem } from '~/theme/grata/components';
-import { DatasiteProfileMenu, type DatasiteProfileMenuProps } from './DatasiteProfileMenu';
+import { ProfileMenu, type ProfileMenuProps } from './ProfileMenu';
 import {
   navItemsByProductMode,
   productDisplayName,
@@ -124,12 +124,12 @@ type SwitcherDiscover =
   | { label: string; svgLogo: string;  bgcolor?: string; faIcon?: never };
 const SWITCHER_DISCOVER: SwitcherDiscover[] = [
   { label: 'Translate',                 svgLogo: appLogos['translate']! },
-  { label: 'Datasite MCP for Claude',   svgLogo: appLogos['claude-mcp']! },
-  { label: 'Datasite Marketplace',      faIcon: faGrid2Plus as IconProp,  bgcolor: 'background.defaultAlt' },
-  { label: 'Datasite Developer Portal', faIcon: faCode as IconProp,           bgcolor: 'background.defaultAlt' },
+  { label: 'Grata MCP for Claude',      svgLogo: appLogos['claude-mcp']! },
+  { label: 'Playbook Library',          faIcon: faGrid2Plus as IconProp,  bgcolor: 'background.defaultAlt' },
+  { label: 'Developer Portal',          faIcon: faCode as IconProp,           bgcolor: 'background.defaultAlt' },
 ];
 
-export interface DatasitePrototypeShellProps {
+export interface GrataShellProps {
   // Top bar
   logo?: ReactNode;
   search?: ReactNode | false;
@@ -161,7 +161,7 @@ export interface DatasitePrototypeShellProps {
   bottomNavSlot?: ReactNode;
   user?: { name?: string; initials?: string; avatarUrl?: string };
   profileMenu?: ReactNode;
-  profileMenuProps?: Omit<DatasiteProfileMenuProps, 'user'>;
+  profileMenuProps?: Omit<ProfileMenuProps, 'user'>;
 
   /** Override the left nav + top bar background. Defaults to background.defaultAlt (MoonDust50). */
   chromeBg?: string;
@@ -205,7 +205,7 @@ export interface DatasitePrototypeShellProps {
  * Full Datasite app shell matching the canonical Halo navigation Figma.
  * node 25988:13056, April 2026.
  */
-export function DatasitePrototypeShell({
+export function GrataShell({
   logo,
   search,
   topBarActions,
@@ -245,7 +245,7 @@ export function DatasitePrototypeShell({
   sidecarSearchQuery: _sidecarSearchQuery,
   searchQuery: searchQueryProp,
   hideSidecar = false,
-}: DatasitePrototypeShellProps) {
+}: GrataShellProps) {
   const rawItems = navItems ?? (productMode ? navItemsByProductMode[productMode] : []);
 
   const [activeNavLabel, setActiveNavLabel]     = useState<string | null>(
@@ -391,23 +391,38 @@ export function DatasitePrototypeShell({
             {logo ?? <DefaultLogo />}
           </Box>
 
-          {/* Product name — click collapses when expanded */}
+          {/* Product name + attribution — click collapses when expanded */}
           {headerName && (
-            <Typography
+            <Box
               onClick={expanded ? () => setExpanded(false) : undefined}
               sx={{
                 ...labelFadeSx,
-                fontSize:      '1.25rem',
-                fontWeight:    500,
-                lineHeight:    1.6,
-                letterSpacing: '0.15px',
-                color:         'text.primary',
-                flex:          1,
-                py:            '4px',
-                cursor:        expanded ? 'pointer' : 'default',
+                flex: 1,
+                py: '2px',
+                cursor: expanded ? 'pointer' : 'default',
+                minWidth: 0,
               }}>
-              {headerName}
-            </Typography>
+              <Typography
+                sx={{
+                  fontSize: '1.2rem',
+                  fontWeight: 600,
+                  lineHeight: 1.2,
+                  letterSpacing: '-0.01em',
+                  color: 'text.primary',
+                }}>
+                {headerName}
+              </Typography>
+              <Typography
+                sx={{
+                  fontFamily: monoFontFamily,
+                  fontSize: '0.5rem',
+                  letterSpacing: '0.08em',
+                  color: 'text.secondary',
+                  whiteSpace: 'nowrap',
+                }}>
+                POWERED BY BLUEFLAME AI
+              </Typography>
+            </Box>
           )}
           {!headerName && <Box sx={{ flex: 1 }} />}
 
@@ -442,7 +457,7 @@ export function DatasitePrototypeShell({
           {bottomNavSlot}
           {showAppSwitcherInNav && (
             <Box sx={{ py: '4px' }}>
-              <DatasiteAppSwitcher
+              <AppSwitcher
                 menuVariant={appMenuVariant}
                 variant="nav"
                 expanded={expanded}
@@ -507,7 +522,7 @@ export function DatasitePrototypeShell({
           {/* Search — flex 1, centred */}
           <Box sx={{ flex: 1, display: 'flex', justifyContent: 'center' }}>
             {search === false ? null : search ?? (
-              <DatasiteSearchField
+              <GrataSearchField
                 query={searchQuery}
                 projectName={projectName}
                 onClick={() => { setSpotlightInitialQuery(searchQuery); setSpotlightOpen(true); }}
@@ -528,7 +543,7 @@ export function DatasitePrototypeShell({
                     onToggle={() => setSidecarOpen((o) => !o)}
                   />
                 )}
-                {showAppSwitcherInTopBar && <DatasiteAppSwitcher menuVariant={appMenuVariant} />}
+                {showAppSwitcherInTopBar && <AppSwitcher menuVariant={appMenuVariant} />}
               </>
             )}
           </Stack>
@@ -552,7 +567,22 @@ export function DatasitePrototypeShell({
 
 function DefaultLogo() {
   return (
-    <FontAwesomeIcon icon={faDatasiteLogo as unknown as IconProp} style={{ fontSize: 24 }} />
+    <Box
+      sx={{
+        width: 28,
+        height: 28,
+        borderRadius: '7px',
+        bgcolor: grataBlue,
+        color: '#FFFFFF',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        fontSize: 16,
+        fontWeight: 600,
+        letterSpacing: '-0.02em',
+      }}>
+      G
+    </Box>
   );
 }
 
@@ -618,7 +648,7 @@ interface UserAvatarButtonProps {
   expanded: boolean;
   labelFadeSx: SxProps;
   profileMenu?: ReactNode;
-  profileMenuProps?: Omit<DatasiteProfileMenuProps, 'user'>;
+  profileMenuProps?: Omit<ProfileMenuProps, 'user'>;
 }
 
 function UserAvatarButton({ user, expanded: _expanded, labelFadeSx, profileMenu, profileMenuProps }: UserAvatarButtonProps) {
@@ -671,7 +701,7 @@ function UserAvatarButton({ user, expanded: _expanded, labelFadeSx, profileMenu,
             <Fade {...TransitionProps} timeout={{ enter: MENU_OPEN_MS, exit: MENU_CLOSE_MS }}>
               <Box>
                 {profileMenu ?? (
-                  <DatasiteProfileMenu
+                  <ProfileMenu
                     user={{ name, initials: user.initials, avatarUrl: user.avatarUrl }}
                     onClose={() => setOpen(false)}
                     {...profileMenuProps}
@@ -686,14 +716,14 @@ function UserAvatarButton({ user, expanded: _expanded, labelFadeSx, profileMenu,
   );
 }
 
-interface DatasiteSearchFieldProps {
+interface GrataSearchFieldProps {
   query?: string;
   projectName?: string;
   onClick?: () => void;
   onClear?: () => void;
 }
 
-export function DatasiteSearchField({ query = '', projectName: _projectName, onClick, onClear }: DatasiteSearchFieldProps) {
+export function GrataSearchField({ query = '', projectName: _projectName, onClick, onClear }: GrataSearchFieldProps) {
   const [hovered, setHovered] = useState(false);
   const hasQuery    = query.length > 0;
   const borderColor = hovered && !hasQuery ? 'primary.dark' : 'divider';
@@ -776,13 +806,13 @@ export function DatasiteSearchField({ query = '', projectName: _projectName, onC
   );
 }
 
-export function DatasiteAiButton({ onClick, active: _active }: { onClick?: () => void; active?: boolean } = {}) {
+export function MerlinButton({ onClick, active: _active }: { onClick?: () => void; active?: boolean } = {}) {
   return (
-    <Tooltip title="Datasite AI" arrow>
+    <Tooltip title="Merlin" arrow>
       <IconButton
         disableRipple
         onClick={onClick}
-        aria-label="Datasite AI"
+        aria-label="Merlin"
         sx={{
           width:         36,
           height:        36,
@@ -805,7 +835,7 @@ export function DatasiteAiButton({ onClick, active: _active }: { onClick?: () =>
 
 // ─── Animated AI avatar button ───────────────────────────────────────────────
 
-// Sparkle path — Datasite AI Avatar spec (15 May 2026)
+// Sparkle path — Merlin Avatar spec (15 May 2026)
 const SPARKLE_D =
   'M31.3088 17.6175C22.6688 17.5613 18.4275 13.3313 18.3713 4.68V4.48874H17.6175V4.68C17.5613 13.32 13.32 17.5613 4.68002 17.6175H4.48877V18.3712H4.68002C13.32 18.4275 17.5613 22.6687 17.6175 31.3087V31.5H18.3713V31.3087C18.4275 22.6687 22.6688 18.4275 31.3088 18.3712H31.5V17.6175H31.3088Z';
 
@@ -1205,7 +1235,7 @@ function SidecarChatView({ query, onClose, onMenu, expandIcon }: { query: string
           <FontAwesomeIcon icon={faAiSparkle as unknown as IconProp} style={{ width: 16, height: 16, color: '#fff' }} />
         </Box>
         <Typography sx={{ flex: 1, fontSize: 13, fontWeight: 600, color: 'text.primary' }}>
-          Datasite AI
+          Merlin
         </Typography>
         <Stack direction="row" alignItems="center" sx={{ color: 'text.secondary', flexShrink: 0 }}>
           <IconButton size="small" aria-label="New chat" sx={{ p: 0.75 }}>
@@ -1318,7 +1348,7 @@ function SidecarWelcomeView({ onMenu, onClose, userName, expandIcon }: { onMenu:
           fontWeight: 600,
           color:      'text.primary',
         }}>
-          Datasite AI
+          Merlin
         </Typography>
         <Stack direction="row" alignItems="center" sx={{ color: 'text.secondary', flexShrink: 0 }}>
           <IconButton size="small" aria-label="New chat" sx={{ p: 0.75 }}>
@@ -1473,7 +1503,7 @@ function SidecarMenuView({ onClose }: { onClose: () => void }) {
   );
 }
 
-export function DatasiteAppSwitcher({
+export function AppSwitcher({
   menuVariant,
   variant = 'icon',
   expanded = true,

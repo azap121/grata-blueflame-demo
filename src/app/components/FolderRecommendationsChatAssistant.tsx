@@ -15,7 +15,7 @@ import {
 } from '@fortawesome/pro-light-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Box, GlobalStyles, IconButton, InputBase, Snackbar, Stack, Tooltip, Typography } from '@mui/material';
-import { DatasitePrototypeShell, type NavItem } from '~/shared';
+import { GrataShell, type NavItem } from '~/shared';
 import AiSparkleBadge from './AiSparkleBadge';
 import AssistantPanel, { type RecentChat } from './AssistantPanel';
 import type { AssistantRailMode } from './AssistantRail';
@@ -912,8 +912,8 @@ export default function FolderRecommendationsChatAssistant() {
         onClick: goToDealsHome,
       },
       {
-        label: 'Datasite AI',
-        icon: <DatasiteAiNavIcon />,
+        label: 'Merlin',
+        icon: <MerlinNavIcon />,
         active: homeView === 'chat' && activeCoreTab === 'ai',
         onClick: () => {
           setHomeView('chat');
@@ -966,10 +966,10 @@ export default function FolderRecommendationsChatAssistant() {
   );
 
   return (
-    <DatasitePrototypeShell
+    <GrataShell
       productMode="diligence"
-      productName="Datasite"
-      projectName="Project Aldgate"
+      productName="Grata"
+      projectName="Project Caldera"
       navItems={navItems}
       defaultExpanded
       search={false}
@@ -1123,7 +1123,7 @@ export default function FolderRecommendationsChatAssistant() {
           anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
         />
       </Box>
-    </DatasitePrototypeShell>
+    </GrataShell>
   );
 }
 
@@ -2082,7 +2082,7 @@ function NotesTab() {
               Private notes
             </Typography>
             <Typography sx={{ fontSize: 14, lineHeight: 1.6, color: 'text.secondary' }}>
-              Discovery notes for the Stifel session: sell-side room operations, Q&A discipline, and Datasite AI workflow validation.
+              Discovery notes for the Stifel session: sell-side room operations, Q&A discipline, and Merlin workflow validation.
             </Typography>
           </Stack>
 
@@ -2092,7 +2092,7 @@ function NotesTab() {
           />
           <NotesCard
             title="One-input hypothesis"
-            body="Use the Spotlight and centre chat input to test whether search, file retrieval, Q&A lookup, and agentic planning can live in one Datasite AI interaction rather than separate top search plus sidecar surfaces."
+            body="Use the Spotlight and centre chat input to test whether search, file retrieval, Q&A lookup, and agentic planning can live in one Merlin interaction rather than separate top search plus sidecar surfaces."
           />
           <NotesCard
             title="Follow-up prompts"
@@ -2168,7 +2168,7 @@ function CollapsedRightCanvasToggle({
   );
 }
 
-function DatasiteAiNavIcon() {
+function MerlinNavIcon() {
   return <AiSparkleBadge size={22} iconSize={15} />;
 }
 
@@ -2496,7 +2496,7 @@ function getSessionTitleForAction(action: WorkspaceAction) {
   if (action.type === 'SELECT_BRIEF_PROMPT') return 'State of the room';
   if (action.type === 'CHAT_PROMPT_SUBMITTED') {
     const prompt = action.prompt.trim();
-    return prompt.length > 0 ? prompt : 'New Datasite AI chat';
+    return prompt.length > 0 ? prompt : 'New Merlin chat';
   }
-  return 'New Datasite AI chat';
+  return 'New Merlin chat';
 }

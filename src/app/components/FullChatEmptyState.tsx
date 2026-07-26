@@ -1,7 +1,7 @@
 import {
   faBookOpenLines,
   faCommentsQuestion,
-  faFolderTree,
+
   faPenLine,
   faTableCells,
 } from '@fortawesome/pro-light-svg-icons';
@@ -10,7 +10,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Box, Stack, Typography } from '@mui/material';
 import { HaloButton } from '~/theme/grata/components';
 import ChatComposer from './ChatComposer';
-import { COPY } from '../state/copy';
+
 import type { SeatId } from '../state/persona';
 
 export type FullChatEmptyStateMode = 'chat' | 'skills' | 'templates';
@@ -189,15 +189,15 @@ type EmptyStatePrompt = {
   action?: 'select-folder' | 'select-filing' | 'select-brief';
 };
 
-function getEmptyStateCopy(mode: FullChatEmptyStateMode, seat: SeatId): {
+function getEmptyStateCopy(mode: FullChatEmptyStateMode, _seat: SeatId): {
   title: string;
   footnote: string;
   prompts: EmptyStatePrompt[];
 } {
   if (mode === 'skills') {
     return {
-      title: 'What skill should Datasite AI build?',
-      footnote: 'Describe the reusable workflow once. Datasite AI can draft the objective, inputs, checks, templates, and approval path.',
+      title: 'What skill should Merlin build?',
+      footnote: 'Describe the reusable workflow once. Merlin can draft the objective, inputs, checks, templates, and approval path.',
       prompts: [
         {
           label: 'Churn / NRR response',
@@ -225,7 +225,7 @@ function getEmptyStateCopy(mode: FullChatEmptyStateMode, seat: SeatId): {
 
   if (mode === 'templates') {
     return {
-      title: 'What template should Datasite AI prepare?',
+      title: 'What template should Merlin prepare?',
       footnote: 'Use firm playbooks and preferred output standards to ground the next agent workflow.',
       prompts: [
         {
@@ -252,66 +252,32 @@ function getEmptyStateCopy(mode: FullChatEmptyStateMode, seat: SeatId): {
     };
   }
 
+  // Operator-verb suggestions — same set for both seats; the seat changes layout
+  // defaults, never the prompt vocabulary (one object, seat-aware defaults).
   return {
-    title: 'What should we bring into Project Aldgate?',
-    footnote: 'Firm-level Stifel patterns, last 24 months — Tom and Jaime validate whether they match live workflow.',
-    prompts:
-      seat === 'tom'
-        ? [
-            {
-              label: COPY.folderPromptTitle,
-              prompt: COPY.userPrompt,
-              icon: faBookOpenLines,
-              action: 'select-folder',
-            },
-            {
-              // Tom's operator relief: batch upload → approval-gated filing plan.
-              label: 'File my latest upload',
-              prompt: FILING_COPY_USER_PROMPT,
-              icon: faFolderTree,
-              action: 'select-filing',
-            },
-            {
-              // Tom's headline bet: the supervision layer the operator seat skips today.
-              label: 'State of the room',
-              prompt: 'What moved overnight in Project Aldgate, what is stuck, and what would embarrass us in front of the MD? Make it a brief I could forward unedited.',
-              icon: faCommentsQuestion,
-              action: 'select-brief',
-            },
-            {
-              // Outside-in secondary: the messy client drop becomes an approval-gated staging plan.
-              label: 'Stage the client drop',
-              prompt: 'The client dropped a messy folder this evening. Propose a staging plan mapped to the sandbox structure — nothing goes live until I approve.',
-              icon: faTableCells,
-            },
-          ]
-        : [
-            {
-              label: COPY.folderPromptTitle,
-              prompt: COPY.userPrompt,
-              icon: faBookOpenLines,
-              action: 'select-folder',
-            },
-            {
-              label: 'State of the room',
-              prompt: 'What moved overnight in Project Aldgate, what is stuck, and what would embarrass us in front of the MD? Make it a brief I could forward unedited.',
-              icon: faCommentsQuestion,
-              action: 'select-brief',
-            },
-            {
-              // Outside-in secondary: the messy client drop becomes an approval-gated staging plan.
-              label: 'Stage the client drop',
-              prompt: 'The client dropped a messy folder this evening. Propose a staging plan mapped to the sandbox structure — nothing goes live until I approve.',
-              icon: faTableCells,
-            },
-            {
-              label: 'Private notes',
-              prompt: 'Capture discovery notes about Stifel Q&A and saved search pain',
-              icon: faPenLine,
-            },
-          ],
+    title: 'What should we move forward in Project Caldera?',
+    footnote: `Suggestions drawn from what's in this project — the CIM, carried search, and live signals.`,
+    prompts: [
+      {
+        label: 'Screen the CIM against our thesis',
+        prompt: 'Run the buy-side CIM screen on the GulfAir Mechanical CIM against the Caldera thesis.',
+        icon: faTableCells,
+      },
+      {
+        label: 'What changed since last week?',
+        prompt: 'What moved in Project Caldera this week — signals, documents, and open questions? Make it a brief I could forward unedited.',
+        icon: faCommentsQuestion,
+      },
+      {
+        label: 'Find similar companies',
+        prompt: '@Grata find companies similar to GulfAir Mechanical',
+        icon: faBookOpenLines,
+      },
+      {
+        label: 'Draft the IC one-pager',
+        prompt: 'Draft the investment-committee one-pager for GulfAir Mechanical from the screen results and thesis notes.',
+        icon: faPenLine,
+      },
+    ],
   };
 }
-
-const FILING_COPY_USER_PROMPT =
-  'I’ve just uploaded a batch of files to the staging area — file them into the sandbox structure, and propose new folders where nothing fits. Nothing moves until I approve.';

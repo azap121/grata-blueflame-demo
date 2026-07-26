@@ -1,4 +1,4 @@
-// Tom's "State of the room" flow — Project Aldgate.
+// Tom's "State of the room" flow — Project Caldera.
 // The agent reads the room's own signals (access logs, staging manifest, Q&A SLA clock,
 // disclosure log), forms an editable plan, and — only after approval — drafts a structured,
 // cited, MD-forwardable brief. Nothing is ever sent automatically.
@@ -7,7 +7,7 @@ import type { ValidationPlanPhase } from './types';
 
 export const BRIEF_COPY = {
   userPrompt:
-    'What moved overnight in Project Aldgate, what is stuck, and what would embarrass us in front of the MD? Make it a brief I could forward unedited.',
+    'What moved overnight in Project Caldera, what is stuck, and what would embarrass us in front of the MD? Make it a brief I could forward unedited.',
   formingMessage:
     'Reading the room’s overnight signals — access logs, staging, the Q&A clock, and the disclosure log — before forming the brief plan.',
   planProposalTitle: 'Brief plan ready',
@@ -70,7 +70,7 @@ export const briefPlanSteps = [
   { id: 'qa-clock', label: 'Checking Q&A ageing against SLAs', service: 'Q&A' },
   { id: 'engagement', label: 'Checking bidder engagement and dormancy', service: 'Analytics' },
   { id: 'disclosure', label: 'Comparing permission changes to the disclosure log', service: 'Permissions' },
-  { id: 'draft-plan', label: 'Forming the editable six-phase brief plan', service: 'Datasite AI' },
+  { id: 'draft-plan', label: 'Forming the editable six-phase brief plan', service: 'Merlin' },
 ] as const;
 
 export const briefRunSteps = [
@@ -78,7 +78,7 @@ export const briefRunSteps = [
   { id: 'engagement', label: 'Scoring bidder engagement and dormancy', service: 'Analytics' },
   { id: 'sla', label: 'Checking the Q&A SLA clock', service: 'Q&A' },
   { id: 'disclosure', label: 'Cross-checking the disclosure log', service: 'Permissions' },
-  { id: 'draft', label: 'Drafting the MD brief with citations', service: 'Datasite AI' },
+  { id: 'draft', label: 'Drafting the MD brief with citations', service: 'Merlin' },
 ] as const;
 
 export interface BriefRow {
@@ -160,7 +160,7 @@ export const BRIEF_SOURCE_FILES: SellerIndexFile[] = [
     childCategoryId: 'admin',
     pages: 4,
     size: '312 KB',
-    uploadedBy: 'Datasite (system)',
+    uploadedBy: 'Grata (system)',
     updatedAt: 'Jul 16, 2026 · 07:00',
     status: 'Cited room signal',
     previewTitle: 'Access Log Extract — overnight',
@@ -169,7 +169,7 @@ export const BRIEF_SOURCE_FILES: SellerIndexFile[] = [
       '09 days since last Osprey session · NDA re-execution pending',
       'No weekend activity recorded · all sessions SSO-verified',
     ],
-    folderPath: ['Project Aldgate', 'Room administration'],
+    folderPath: ['Project Caldera', 'Room administration'],
     categoryPath: 'Administration / Activity',
   },
   {
@@ -183,7 +183,7 @@ export const BRIEF_SOURCE_FILES: SellerIndexFile[] = [
     childCategoryId: 'admin',
     pages: 2,
     size: '148 KB',
-    uploadedBy: 'Datasite (system)',
+    uploadedBy: 'Grata (system)',
     updatedAt: 'Jul 15, 2026 · 19:42',
     status: 'Cited room signal',
     previewTitle: 'Staging Manifest — 19:42 client drop',
@@ -192,7 +192,7 @@ export const BRIEF_SOURCE_FILES: SellerIndexFile[] = [
       '3 flagged sensitive (cap table, customer contracts) — held from bidders',
       '2 unreadable (password-protected, low-quality scan) — chase note attached',
     ],
-    folderPath: ['Project Aldgate', 'Room administration'],
+    folderPath: ['Project Caldera', 'Room administration'],
     categoryPath: 'Administration / Staging',
   },
   {
@@ -206,7 +206,7 @@ export const BRIEF_SOURCE_FILES: SellerIndexFile[] = [
     childCategoryId: 'admin',
     pages: 3,
     size: '96 KB',
-    uploadedBy: 'Datasite (system)',
+    uploadedBy: 'Grata (system)',
     updatedAt: 'Jul 16, 2026 · 07:00',
     status: 'Cited room signal',
     previewTitle: 'Q&A SLA Tracker',
@@ -215,7 +215,7 @@ export const BRIEF_SOURCE_FILES: SellerIndexFile[] = [
       'Falcon · 2 new questions (email) · drafted in triage batch · awaiting approval',
       'Median time-to-answer this week: within SLA across all bidder groups',
     ],
-    folderPath: ['Project Aldgate', 'Room administration'],
+    folderPath: ['Project Caldera', 'Room administration'],
     categoryPath: 'Administration / Q&A',
   },
   {
@@ -238,7 +238,7 @@ export const BRIEF_SOURCE_FILES: SellerIndexFile[] = [
       'Osprey NDA re-execution outstanding since Jul 07',
       'Re-disclosure wave 2: pending — 3 sensitive staging files queued',
     ],
-    folderPath: ['Project Aldgate', 'Room administration'],
+    folderPath: ['Project Caldera', 'Room administration'],
     categoryPath: 'Administration / Disclosure',
   },
 ];

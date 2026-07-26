@@ -143,7 +143,7 @@ export default function ChatComposer({
       >
         {large ? <ComposerLoadingStroke visible={loading} /> : null}
         <Box component="label" htmlFor={inputId} sx={{ position: 'absolute', width: 1, height: 1, overflow: 'hidden', clip: 'rect(0 0 0 0)' }}>
-          Datasite AI prompt
+          Merlin prompt
         </Box>
         {!large && (
           <Box sx={{ color: 'text.disabled', display: 'flex', flexShrink: 0 }}>
@@ -359,7 +359,7 @@ export default function ChatComposer({
       </Popover>
       {showPoweredLine && (
         <Typography variant="caption" sx={{ display: 'block', color: 'text.disabled', textAlign: 'center' }}>
-          Datasite AI drafts answers with citations. The deal team controls review and routing.
+          Merlin drafts answers with citations. The deal team controls review and routing.
         </Typography>
       )}
     </Stack>

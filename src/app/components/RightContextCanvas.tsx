@@ -165,7 +165,7 @@ function getRightCanvasTabMeta(tab: RightCanvasTab): { label: string; icon: Icon
 
 export function getComposerPlaceholderForRightTab(tab: RightCanvasTab | null) {
   if (tab === 'skills') {
-    return 'Describe the reusable skill you want Datasite AI to create...';
+    return 'Describe the reusable skill you want Merlin to create...';
   }
   if (tab === 'templates') {
     return 'Upload templates or describe the playbook/output standard you want agents to use...';
@@ -654,7 +654,7 @@ function ExpandedCanvasAssistantDock({
         <Typography variant="caption" sx={{ display: 'block', color: 'text.disabled', textAlign: 'center' }}>
           {state.dealId != null
             ? 'Blueflame AI drafts with citations. You control what lands on the deal.'
-            : 'Datasite AI drafts answers with citations. The deal team controls review and routing.'}
+            : 'Merlin drafts answers with citations. The deal team controls review and routing.'}
         </Typography>
       </Stack>
     </Box>
@@ -1001,13 +1001,13 @@ function SkillsContextView({ bottomInset }: { bottomInset: number }) {
   return (
     <ContextWorkspaceShell
       title="Skills"
-      subtitle="Create reusable instructions that teach Datasite AI agents how to perform specific dealroom tasks."
+      subtitle="Create reusable instructions that teach Merlin agents how to perform specific dealroom tasks."
       bottomInset={bottomInset}
     >
       <ContextWorkspaceSection
         eyebrow="Create from natural language"
         title="Describe the task once, then let agents form the skill"
-        body="The deal team can ask for a reusable Stifel workflow such as a Churn / NRR buyer-response skill. Datasite AI turns the request into objective, inputs, permission checks, output format, and approval checkpoints."
+        body="The deal team can ask for a reusable Stifel workflow such as a Churn / NRR buyer-response skill. Merlin turns the request into objective, inputs, permission checks, output format, and approval checkpoints."
       />
       <ContextWorkspaceSection
         eyebrow="Suggested skills"
@@ -1032,7 +1032,7 @@ function TemplatesContextView({ bottomInset }: { bottomInset: number }) {
     >
       <ContextWorkspaceSection
         eyebrow="Upload or describe"
-        title="Bring Stifel playbooks into Datasite AI"
+        title="Bring Stifel playbooks into Merlin"
         body="The user can upload response templates or describe the output standard they want, then agents classify the template and connect it to search, Q&A, disclosure, and reporting workflows."
       />
       <ContextWorkspaceSection
@@ -1043,7 +1043,7 @@ function TemplatesContextView({ bottomInset }: { bottomInset: number }) {
       <ContextWorkspaceSection
         eyebrow="Agent grounding"
         title="Preferred outputs, not generic answers"
-        body="When Datasite AI runs a skill, it references the relevant firm template so cited outputs follow the banker’s expected structure, wording, and approval path."
+        body="When Merlin runs a skill, it references the relevant firm template so cited outputs follow the banker’s expected structure, wording, and approval path."
       />
     </ContextWorkspaceShell>
   );

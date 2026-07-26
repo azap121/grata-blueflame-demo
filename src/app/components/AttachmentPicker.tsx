@@ -262,7 +262,7 @@ export default function AttachmentPicker({
               </>
             ) : (
               <Typography sx={{ fontSize: 12.5, color: 'text.secondary', lineHeight: 1.5 }}>
-                Choose folders or documents to add context to the Datasite AI prompt.
+                Choose folders or documents to add context to the Merlin prompt.
               </Typography>
             )}
           </Stack>
