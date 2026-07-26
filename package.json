@@ -1,0 +1,55 @@
+{
+  "name": "grata-blueflame-demo",
+  "version": "0.1.0",
+  "private": true,
+  "engines": {
+    "node": ">=20",
+    "npm": ">=10.9"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.1",
+    "@fortawesome/duotone-light-svg-icons": "file:./vendor/@fortawesome/duotone-light-svg-icons",
+    "@fortawesome/fontawesome-svg-core": "^7.2.0",
+    "@fortawesome/pro-duotone-svg-icons": "file:./vendor/@fortawesome/pro-duotone-svg-icons",
+    "@fortawesome/pro-light-svg-icons": "file:./vendor/@fortawesome/pro-light-svg-icons",
+    "@fortawesome/pro-regular-svg-icons": "file:./vendor/@fortawesome/pro-regular-svg-icons",
+    "@fortawesome/pro-solid-svg-icons": "file:./vendor/@fortawesome/pro-solid-svg-icons",
+    "@fortawesome/react-fontawesome": "^0.2.6",
+    "@mui/material": "^6.5.0",
+    "@mui/x-date-pickers": "^7.29.4",
+    "dayjs": "^1.11.20",
+    "lucide-react": "^1.14.0",
+    "react": "~19.2.6",
+    "react-dom": "~19.2.6",
+    "react-router-dom": "^6.30.3"
+  },
+  "devDependencies": {
+    "@rsbuild/core": "^2.0.5",
+    "@rsbuild/plugin-react": "^2.0.0",
+    "@swc/core": "^1.15.33",
+    "@types/node": "^22.19.18",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "dotenv": "^16.6.1",
+    "typescript": "^5.9.3"
+  },
+  "scripts": {
+    "start": "rsbuild dev",
+    "build": "rsbuild build",
+    "preview": "rsbuild preview",
+    "type-check": "tsc --noEmit"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
