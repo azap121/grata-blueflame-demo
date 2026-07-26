@@ -49,7 +49,6 @@ import {
   type SellerIndexNode,
   type SellerIndexSource,
 } from './rightCanvasFileData';
-import { COPY } from '../state/copy';
 import {
   FINAL_STEP_PAUSE_MS,
   PLAN_STEP_MS,
@@ -415,6 +414,20 @@ export default function GrataApp() {
   }, [clearReviewTransitionTimers]);
 
   // ── Deal workspace handlers ──
+  // Context-rail Overview: bring the deal Overview canvas to front.
+  const openDealOverview = useCallback(() => {
+    clearReviewTransitionTimers();
+    updateActiveSession((session) => ({
+      ...session,
+      rightCanvasOpen: true,
+      openRightCanvasTabs: session.openRightCanvasTabs.includes('deal-overview')
+        ? session.openRightCanvasTabs
+        : ['deal-overview', ...session.openRightCanvasTabs],
+      activeRightCanvasTab: 'deal-overview',
+    }));
+    setRightCanvasMotion('idle');
+  }, [clearReviewTransitionTimers, updateActiveSession]);
+
   // Open the Intelligence canvas for a target (GulfAir wired; others toast in Overview).
   const openIntelligenceForTarget = useCallback((targetId: string) => {
     setIntelligenceTargetId(targetId);
@@ -1031,20 +1044,30 @@ export default function GrataApp() {
       },
     ];
     if (!inWorkspace) return globalItems;
-    // Project context rail — only while a workspace is open.
+    // Project context rail (region B, 8.4): Overview · Documents · Tables ·
+    // Intelligence · Activity — plus Merlin as the work surface. Outside a deal,
+    // a bare chat gets no project structure.
+    const merlinItem: NavItem = {
+      label: 'Merlin',
+      icon: <MerlinNavIcon />,
+      active: activeCoreTab === 'ai',
+      onClick: () => {
+        if (activeCoreTab === 'documents' && selectedDocumentFolder) {
+          openSelectedFolderOverview();
+          return;
+        }
+        dispatch({ type: 'OPEN_ASSISTANT_FULL' });
+        setActiveCoreTab('ai');
+      },
+    };
+    if (!dealActive) return [...globalItems, merlinItem];
     const contextItems: NavItem[] = [
+      merlinItem,
       {
-        label: 'Merlin',
-        icon: <MerlinNavIcon />,
-        active: activeCoreTab === 'ai',
-        onClick: () => {
-          if (activeCoreTab === 'documents' && selectedDocumentFolder) {
-            openSelectedFolderOverview();
-            return;
-          }
-          dispatch({ type: 'OPEN_ASSISTANT_FULL' });
-          setActiveCoreTab('ai');
-        },
+        label: 'Overview',
+        icon: <FontAwesomeIcon icon={faScaleBalanced} />,
+        active: activeRightCanvasTab === 'deal-overview',
+        onClick: openDealOverview,
       },
       {
         label: 'Documents',
@@ -1053,29 +1076,41 @@ export default function GrataApp() {
         onClick: () => setActiveCoreTab('documents'),
       },
       {
-        label: 'Q&A',
+        label: 'Tables',
         icon: <FontAwesomeIcon icon={faCommentsQuestion} />,
-        active: activeCoreTab === 'qa',
-        onClick: () => {
-          setDocumentQaFocusTarget(null);
-          setActiveCoreTab('qa');
-        },
+        active: activeRightCanvasTab === 'deal-review',
+        onClick: handleOpenCimReview,
       },
       {
-        label: 'Q&A table',
-        icon: <FontAwesomeIcon icon={faScaleBalanced} />,
-        active: activeCoreTab === 'review',
-        onClick: () => setActiveCoreTab('review'),
+        label: 'Intelligence',
+        icon: <FontAwesomeIcon icon={faMagnifyingGlass} />,
+        active: activeRightCanvasTab === 'intelligence',
+        onClick: () => openIntelligenceForTarget('co-gulfair'),
       },
       {
-        label: 'Notes',
+        label: 'Activity',
         icon: <FontAwesomeIcon icon={faPenLine} />,
-        active: activeCoreTab === 'notes',
-        onClick: () => setActiveCoreTab('notes'),
+        active: false,
+        onClick: () => {
+          goToDealsHome();
+          setGlobalView('runs');
+        },
       },
     ];
     return [...globalItems, ...contextItems];
-  }, [activeCoreTab, globalView, goToDealsHome, inWorkspace, openSelectedFolderOverview, selectedDocumentFolder]);
+  }, [
+    activeCoreTab,
+    activeRightCanvasTab,
+    dealActive,
+    globalView,
+    goToDealsHome,
+    handleOpenCimReview,
+    inWorkspace,
+    openDealOverview,
+    openIntelligenceForTarget,
+    openSelectedFolderOverview,
+    selectedDocumentFolder,
+  ]);
 
   const recentChats = useMemo<RecentChat[]>(
     () => sessions.map((session) => ({
@@ -2434,58 +2469,8 @@ function createDraftSession(): AiSession {
 }
 
 function createInitialSessions(): AiSession[] {
-  return [
-    {
-      id: 'session-qa-triage',
-      title: 'Triage buyer questions',
-      relativeTime: '1m',
-      state: createReadyReviewState(),
-      rightCanvasOpen: true,
-      openRightCanvasTabs: ['enhanced-index'],
-      activeRightCanvasTab: 'enhanced-index',
-      rightCanvasDisplayMode: 'default',
-    },
-    {
-      id: 'session-source-code-routing',
-      title: 'Source-code disclosure path',
-      relativeTime: '21m',
-      state: createBriefDraftState(),
-      rightCanvasOpen: true,
-      openRightCanvasTabs: ['files', 'qa'],
-      activeRightCanvasTab: 'qa',
-      rightCanvasDisplayMode: 'default',
-    },
-    {
-      id: 'session-saved-searches',
-      title: 'Churn / NRR buyer support',
-      relativeTime: '1h',
-      state: createEscrowReviewState(),
-      rightCanvasOpen: true,
-      openRightCanvasTabs: ['enhanced-index', 'files'],
-      activeRightCanvasTab: 'files',
-      rightCanvasDisplayMode: 'default',
-    },
-    {
-      id: 'session-source-metadata',
-      title: 'DPA answer support',
-      relativeTime: '1d',
-      state: createWarrantyReviewState(),
-      rightCanvasOpen: true,
-      openRightCanvasTabs: ['qa'],
-      activeRightCanvasTab: 'qa',
-      rightCanvasDisplayMode: 'default',
-    },
-    {
-      id: 'session-discovery-notes',
-      title: 'Discovery notes',
-      relativeTime: '1w',
-      state: createEmploymentCovenantState(),
-      rightCanvasOpen: false,
-      openRightCanvasTabs: [],
-      activeRightCanvasTab: null,
-      rightCanvasDisplayMode: 'default',
-    },
-  ];
+  // Chats are children of Projects (8.0): no cross-project chat pile is seeded.
+  return [];
 }
 
 function createEmptyState(): WorkspaceState {
@@ -2529,114 +2514,10 @@ function createFolderOverviewState(folder: SellerIndexFolder, files: SellerIndex
   };
 }
 
-function createReadyReviewState(): WorkspaceState {
-  return {
-    ...createEmptyState(),
-    stage: 'proposal-ready',
-    messages: [
-      {
-        id: 'seed-user-ip',
-        role: 'user',
-        kind: 'text',
-        content: COPY.userPrompt,
-      },
-      {
-        id: 'seed-assistant-ip',
-        role: 'assistant',
-        kind: 'proposal',
-        content: COPY.proposalSummary,
-      },
-    ],
-  };
-}
 
-function createBriefDraftState(): WorkspaceState {
-  return {
-    ...createEmptyState(),
-    stage: 'proposal-ready',
-    messages: [
-      {
-        id: 'seed-user-permissions',
-        role: 'user',
-        kind: 'text',
-        content: 'Route the source-code access answer before it goes to a buyer.',
-      },
-      {
-        id: 'seed-assistant-permissions',
-        role: 'assistant',
-        kind: 'text',
-        content:
-          'I kept the source-code answer in restricted review and routed it to legal counsel because repository detail should not go out in Round 1.',
-      },
-    ],
-  };
-}
 
-function createEscrowReviewState(): WorkspaceState {
-  return {
-    ...createEmptyState(),
-    stage: 'split-review',
-    messages: [
-      {
-        id: 'seed-user-readiness',
-        role: 'user',
-        kind: 'text',
-        content: 'Run saved searches for churn and source code.',
-      },
-      {
-        id: 'seed-assistant-readiness',
-        role: 'assistant',
-        kind: 'text',
-        content:
-          'I found cited support for churn and NRR in the ARR cohort workbook. The source-code search found only restricted policy material, so that answer should stay routed to legal.',
-      },
-    ],
-  };
-}
 
-function createWarrantyReviewState(): WorkspaceState {
-  return {
-    ...createEmptyState(),
-    stage: 'proposal-ready',
-    messages: [
-      {
-        id: 'seed-user-source',
-        role: 'user',
-        kind: 'text',
-        content: 'Check the DPA and SOC 2 answer support.',
-      },
-      {
-        id: 'seed-assistant-source',
-        role: 'assistant',
-        kind: 'text',
-        content:
-          'SOC 2 and DPA materials are available for Round 1 disclosure, but penetration-test detail should route to the security lead before release.',
-      },
-    ],
-  };
-}
 
-function createEmploymentCovenantState(): WorkspaceState {
-  return {
-    ...createEmptyState(),
-    stage: 'proposal-ready',
-    messages: [
-      {
-        id: 'seed-user-room-notes',
-        role: 'user',
-        kind: 'text',
-        content: 'Capture discovery notes for Stifel Q&A follow-up.',
-      },
-      {
-        id: 'seed-assistant-room-notes',
-        role: 'assistant',
-        kind: 'text',
-        content:
-          'A private notes workspace could sit beside Q&A so the deal team can capture which steps are real pain, which controls matter, and who else at Stifel should validate the workflow.',
-      },
-    ],
-  };
-}
 
 function pickFolderCitationFiles(files: SellerIndexFile[]) {
   const preferred = files.filter((file) =>

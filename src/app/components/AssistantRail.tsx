@@ -129,15 +129,15 @@ export function AssistantHistoryContent({
     <>
       {hideNav ? null : (
         <Stack spacing={0.25}>
-          <RailRow label="Search" icon={<FontAwesomeIcon icon={faMagnifyingGlass} />} onClick={onOpenSearch} />
+          <RailRow label="Search chats" icon={<FontAwesomeIcon icon={faMagnifyingGlass} />} onClick={onOpenSearch} />
           <RailRow
-            label="Skills"
+            label="Create a playbook"
             icon={<FontAwesomeIcon icon={faClipboardCheck} />}
             active={activeMode === 'skills'}
             onClick={onOpenSkills}
           />
           <RailRow
-            label="Templates"
+            label="Create a template"
             icon={<FontAwesomeIcon icon={faBookOpenLines} />}
             active={activeMode === 'templates'}
             onClick={onOpenTemplates}
@@ -145,16 +145,18 @@ export function AssistantHistoryContent({
         </Stack>
       )}
 
-      <RailSection label="Recents">
-        {recentChats.map((chat) => (
-          <RecentRailRow
-            key={chat.id}
-            chat={chat}
-            active={activeSessionId === chat.id}
-            onClick={() => onSelectSession(chat.id)}
-          />
-        ))}
-      </RailSection>
+      {recentChats.length > 0 && (
+        <RailSection label="Recents">
+          {recentChats.map((chat) => (
+            <RecentRailRow
+              key={chat.id}
+              chat={chat}
+              active={activeSessionId === chat.id}
+              onClick={() => onSelectSession(chat.id)}
+            />
+          ))}
+        </RailSection>
+      )}
     </>
   );
 }

@@ -13,7 +13,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Box, ButtonBase, Chip, Popover, Stack, Typography } from '@mui/material';
 import { alpha } from '@mui/material/styles';
 import { HaloButton } from '~/theme/grata/components';
-import { amber, jade, moondust, ruby } from '~/theme/grata/theme';
+import { amber, jade, monoFontFamily, moondust, ruby } from '~/theme/grata/theme';
 import {
   CIM_REVIEW_ROWS,
   CIM_REVIEW_TITLE,
@@ -49,6 +49,21 @@ export default function CimReviewCanvasView({ state, bottomInset = 0, onAccept }
             <Typography sx={{ fontSize: 12.5, color: 'text.secondary' }}>
               {CIM_RUN_COPY.outputDeliverable} · {CIM_RUN_COPY.outputMetaLine}
             </Typography>
+            {/* Platform-wide provenance vocabulary (promoted from skill definitions). */}
+            <Stack direction="row" spacing={0.75} sx={{ pt: 0.5 }}>
+              {(['SOURCE', 'DERIVED', 'ASSUMPTION', 'UNVERIFIED'] as const).map((tag) => (
+                <Typography
+                  key={tag}
+                  sx={{
+                    fontFamily: monoFontFamily,
+                    fontSize: 10,
+                    color: tag === 'UNVERIFIED' ? ruby[700] : moondust[500],
+                  }}
+                >
+                  [{tag}]
+                </Typography>
+              ))}
+            </Stack>
           </Stack>
           {accepted ? <Chip size="small" label="Tracked" color="success" variant="filled" /> : null}
           {sandbox ? <Chip size="small" label="Sandbox" color="default" variant="outlined" /> : null}
@@ -336,15 +351,22 @@ function CitationBadge({ row }: { row: CimReviewRow }) {
               label={`Confidence: ${row.confidence}`}
               sx={{ fontSize: 10.5, height: 20 }}
             />
-            <Chip
-              size="small"
-              variant="outlined"
-              label={row.basis === 'source' ? 'Source-backed' : 'Inference'}
-              sx={{ fontSize: 10.5, height: 20 }}
-            />
+            <ProvenanceTag basis={row.basis} />
           </Stack>
         </Stack>
       </Popover>
     </>
+  );
+}
+
+// Bracketed mono provenance tag — the [SOURCE]/[DERIVED] display standard.
+function ProvenanceTag({ basis }: { basis: 'source' | 'inference' }) {
+  return (
+    <Typography
+      component="span"
+      sx={{ fontFamily: monoFontFamily, fontSize: 10.5, color: moondust[500], px: 0.5 }}
+    >
+      {basis === 'source' ? '[SOURCE]' : '[DERIVED]'}
+    </Typography>
   );
 }
