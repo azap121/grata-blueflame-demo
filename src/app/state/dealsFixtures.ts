@@ -3,7 +3,10 @@
 // merged Grata (sourcing) × Blueflame (agentic workspace) IA, plus the Caldera deal
 // that the sourcing → promote flow creates at runtime.
 
+// The project-type gradient made visible on cards: Watchlist → Target → Live Deal
+// → Portfolio Company (promotion carries context forward, never re-keys).
 export type DealDirection =
+  | 'Watchlist'
   | 'Buy-side · Acquisition'
   | 'Sell-side · Mandate'
   | 'Portfolio monitoring';
