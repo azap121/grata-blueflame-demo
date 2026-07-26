@@ -42,7 +42,6 @@ import {
 } from '@mui/material';
 import { forwardRef, useCallback, useEffect, useRef, useState, type MouseEvent, type ReactNode } from 'react';
 import { SearchSpotlight } from './SearchSpotlight';
-import { SearchResultsContent } from '~/projects/Graham/SearchResults/components/SearchResultsPage';
 import { amber } from '~/theme/halo/theme';
 import { HaloAvatar, HaloBadge, HaloChip, HaloMenuItem } from '~/theme/halo/components';
 import { DatasiteProfileMenu, type DatasiteProfileMenuProps } from './DatasiteProfileMenu';
@@ -212,7 +211,7 @@ export function DatasitePrototypeShell({
   topBarActions,
   projectName,
   onSearch,
-  showSearchResultsOnQuery = false,
+  showSearchResultsOnQuery: _showSearchResultsOnQuery = false,
   defaultSearchQuery = '',
   productMode,
   productName,
@@ -538,9 +537,7 @@ export function DatasitePrototypeShell({
         {/* Content row: main area + sidecar */}
         <Stack direction="row" sx={{ flex: 1, minHeight: 0, overflow: 'hidden', ...(contentRowBg ? { background: contentRowBg } : {}) }}>
           <Box component="main" sx={{ flex: 1, overflow: 'auto', bgcolor: mainBg ?? 'background.paper', minWidth: 0 }}>
-            {showSearchResultsOnQuery && searchQuery
-              ? <SearchResultsContent query={searchQuery} />
-              : children}
+            {children}
           </Box>
           {!hideSidecar && <AiSidecar open={sidecarOpen} onClose={() => { setSidecarOpen(false); setSidecarAiQuery(null); }} userName={user.name} aiQuery={sidecarAiQuery} bg={sidecarBg} width={sidecarWidth} expandIcon={sidecarExpandIcon} mt={sidecarMt} />}
         </Stack>

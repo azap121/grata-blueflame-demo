@@ -210,7 +210,7 @@ export interface SearchSpotlightProps {
 
 export function SearchSpotlight({
   open,
-  projectName = 'Sanoma Project',
+  projectName: _projectName = 'Sanoma Project',
   initialQuery = '',
   onClose,
   onSearch,
