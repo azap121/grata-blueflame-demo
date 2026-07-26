@@ -28,6 +28,7 @@ import LegalReviewWorkspace from './LegalReviewWorkspace';
 import TwoZoneHome from './TwoZoneHome';
 import PromoteToDealDialog from './PromoteToDealDialog';
 import RightContextCanvas, { getComposerPlaceholderForRightTab, type RightCanvasMotion, type RightCanvasTab } from './RightContextCanvas';
+import PlaybooksView from './PlaybooksView';
 import RunsView from './RunsView';
 import RightContextCanvasFileDetailView from './RightContextCanvasFileDetailView';
 import RightContextCanvasFilesView from './RightContextCanvasFilesView';
@@ -70,6 +71,7 @@ import {
 } from '../state/cimRunScenario';
 import { filingSaveSteps, filingSteps } from '../state/filingScenario';
 import { initialState, reducer } from '../state/reducer';
+import type { Playbook as CatalogPlaybook } from '../state/playbookCatalog';
 import { PERSONAS, type DealLayout, type SeatId } from '../state/persona';
 import {
   CALDERA_COMPOSER_PLACEHOLDER,
@@ -527,6 +529,22 @@ export default function GrataApp() {
     goToDealsHome();
     setGlobalView('playbooks');
   }, [goToDealsHome]);
+
+  // Run from the library: deep-link into the Caldera workspace with the playbook
+  // staged in the composer (never auto-sent). Before the deal exists, the honest
+  // answer is that running needs a project — the promote moment creates one.
+  const runPlaybookFromLibrary = useCallback(
+    (playbook: CatalogPlaybook) => {
+      const caldera = deals.find((deal) => deal.opens === 'caldera');
+      if (!caldera) {
+        setDealToast('Playbooks run inside a project — promote targets from a search to create one');
+        return;
+      }
+      openDealFromHome(caldera);
+      dispatch({ type: 'QUEUE_PLAYBOOK', playbookId: playbook.id, prompt: playbook.prompt });
+    },
+    [deals, dispatch, openDealFromHome]
+  );
 
   // Needs-you deep link: open the named project if it's clickable in this build.
   const openProjectByName = useCallback(
@@ -1122,10 +1140,7 @@ export default function GrataApp() {
             ) : globalView === 'runs' ? (
               <RunsView onOpenProject={openProjectByName} />
             ) : (
-              // Placeholder until the Playbooks (Task 8) surface lands.
-              <Box sx={{ p: 6 }}>
-                <Typography sx={{ fontSize: 22, fontWeight: 400, color: 'text.primary' }}>Playbooks</Typography>
-              </Box>
+              <PlaybooksView onRun={runPlaybookFromLibrary} onCreate={handleOpenCreate} />
             )
           ) : activeCoreTab === 'ai' ? (
             <AiWorkspace
