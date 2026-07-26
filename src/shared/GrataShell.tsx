@@ -418,8 +418,8 @@ export function GrataShell({
               <Typography
                 sx={{
                   fontFamily: monoFontFamily,
-                  fontSize: '0.45rem',
-                  letterSpacing: '0.05em',
+                  fontSize: '0.4rem',
+                  letterSpacing: '0.03em',
                   color: 'text.secondary',
                   whiteSpace: 'nowrap',
                 }}>

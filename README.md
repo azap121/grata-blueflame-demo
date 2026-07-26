@@ -1,21 +1,41 @@
-# Stifel Discovery Demo — Tom Koula & Jaime Bergaz
+# Grata, powered by Blueflame AI — prototype
 
-Personal-deploy copy of the Halo prototype gallery for the Stifel discovery session, forked from `azap121/halo-william-blair-robbin-demo` (base commit `bac5411b`).
+The two-layer IA for the Grata × Blueflame merge, made clickable: an overall layer
+(intelligence composer + attention layer) and a focused Project space per deal
+(chat-first, right evidence canvas, governed runs). Everything is a scripted,
+fixture-driven state machine — no live agents, no backend, fictional companies.
 
-**Route:** `/projects/paza-stifel-deal-assistant` (root redirects there)
-
-One agentic prototype for both bankers: Datasite AI chat with an approval-gated Q&A triage flow, a Tom ↔ Jaime seat switcher in the top bar, and a right-hand evidence canvas. Deal fixture: Project Aldgate (synthetic sell-side software M&A, four bidder groups).
-
-**Status: scaffold.** Structure is final; content is placeholder pending Snowflake Cortex ("Quartet") telemetry. Search `src/projects/Paza/StifelDealAssistant` for `QUARTET(` to find every swap point (P1 room profile, P2 feature footprint, P3 staging patterns, P4 Q&A realism, P6 named-user division of labor). See that folder's `BRIEF.md`.
-
-The original William Blair prototype (`src/projects/Paza/WilliamBlairQaSearch`) is kept in-repo, unregistered, as reference.
+**Live:** https://grata-blueflame-demo.vercel.app
+**Demo script:** `BRIEF.md` · **Build plan:** `docs/superpowers/plans/2026-07-26-grata-blueflame-prototype.md` · **Brand tokens:** `docs/brand/grata-brand-research.md`
 
 ## Run
 
 ```
 npm ci
-npm start        # dev server on :9000
-npm run build    # outputs dist/, deployed via Vercel
+npm start        # rsbuild dev server on :9000
+npm run build    # outputs dist/
+npm run type-check
 ```
 
-Node >= 20. Public npm only.
+Node >= 20. Public npm only — FA Pro icon packs are vendored at `vendor/@fortawesome/` as `file:` deps.
+
+## Deploy
+
+Vercel project `grata-blueflame-demo` (scope `pazas-projects`), static `dist/` with SPA rewrites and `X-Robots-Tag: noindex`. `vercel deploy --prod` from the repo root.
+
+## Where things live
+
+```
+src/
+├── app/                    the whole product
+│   ├── components/         GrataApp (shell + view switch), TwoZoneHome, RunsView,
+│   │                       PlaybooksView, CreateDialogs, SlashPlaybookMenu,
+│   │                       ChatComposer / MerlinComposerFrame, the deal canvas views
+│   └── state/              reducer + fixtures: playbookCatalog, runsFixtures,
+│                           homeFixtures, dealsFixtures, cimRunScenario, merlinFixtures
+├── shared/                 GrataShell (left rail + top bar), SearchSpotlight, ProfileMenu
+└── theme/grata/            the token system — #2464E3 signal blue, Grata neutral ramp,
+                            Work Sans + Roboto Mono (see theme.ts exports)
+```
+
+Forked from `azap121/one-enterprise-demo`; lineage and what was stripped are in `BRIEF.md`.
