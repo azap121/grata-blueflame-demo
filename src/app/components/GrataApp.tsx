@@ -8,7 +8,7 @@ import {
   faCommentsQuestion,
   faFileLines,
   faFolder,
-  faFolderOpen,
+  faBriefcase,
   faHouse,
   faMagnifyingGlass,
   faPenLine,
@@ -1011,7 +1011,7 @@ export default function GrataApp() {
       },
       {
         label: 'Projects',
-        icon: <FontAwesomeIcon icon={faFolderOpen} />,
+        icon: <FontAwesomeIcon icon={faBriefcase} />,
         active: !inWorkspace && globalView === 'projects',
         onClick: () => {
           goToDealsHome();
