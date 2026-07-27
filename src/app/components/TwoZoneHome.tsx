@@ -276,7 +276,7 @@ function NeedsYouCard({ item, onOpen }: { item: NeedsYouItem; onOpen: () => void
         </Typography>
       </Stack>
       <Typography sx={{ fontFamily: monoFontFamily, fontSize: 11, color: 'text.secondary' }}>{item.project}</Typography>
-      <Typography sx={{ fontSize: 12.5, fontWeight: 600, color: grataBlue }}>{item.cta} →</Typography>
+      <Typography sx={{ fontSize: 12.5, fontWeight: 600, color: 'primary.main' }}>{item.cta} →</Typography>
     </Box>
   );
 }

@@ -4,7 +4,7 @@
 export const COPY = {
   greetingTitle: 'Welcome back',
   greetingSubtitle: 'What should we triage in Project Caldera?',
-  inputPlaceholder: 'Ask Merlin about Q&A, saved searches, citations, duplicates, or routing...',
+  inputPlaceholder: 'Ask Merlin anything — / for playbooks, @ for sources…',
   folderPromptTitle: 'Turn email Q&A into a cited batch',
   folderPromptBody: 'Forward the bidder Q&A email thread. The agent groups questions across buyer groups, finds duplicates, locates cited source material, and flags answers that need routing — nothing publishes until you approve.',
   userPrompt: 'I have forwarded the bidder Q&A email thread for Project Caldera — turn it into a cited, governed batch and show what needs review before approval.',

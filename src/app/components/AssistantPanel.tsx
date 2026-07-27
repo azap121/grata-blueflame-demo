@@ -176,6 +176,12 @@ export default function AssistantPanel({
               onSelectFilingPrompt={() => dispatch({ type: 'SELECT_FILING_PROMPT' })}
               onSelectBriefPrompt={() => dispatch({ type: 'SELECT_BRIEF_PROMPT' })}
               seat={seat}
+              scopeLabel={dealActive ? 'Project · Caldera' : 'Firm'}
+              slashContext={{ inDeal: dealActive }}
+              onQueuePlaybook={(playbook) =>
+                dispatch({ type: 'QUEUE_PLAYBOOK', playbookId: playbook.id, prompt: playbook.prompt })
+              }
+              onBrowsePlaybooks={onBrowsePlaybooks}
             />
           ) : (
             <>

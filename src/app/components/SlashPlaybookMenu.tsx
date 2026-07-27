@@ -5,7 +5,7 @@
 import { useEffect, useMemo, useRef } from 'react';
 import { Box, Paper, Popper, Stack, Typography } from '@mui/material';
 import { alpha } from '@mui/material/styles';
-import { grataBlue, grataBlueSelected, monoFontFamily, moondust } from '~/theme/grata/theme';
+import { grataBlue, monoFontFamily, moondust } from '~/theme/grata/theme';
 import {
   PLAYBOOK_STAGES,
   playbooksForContext,
@@ -94,10 +94,10 @@ export default function SlashPlaybookMenu({
             cursor: 'pointer',
             borderTop: '1px solid',
             borderColor: 'divider',
-            bgcolor: highlighted ? alpha(grataBlueSelected, 0.5) : 'transparent',
+            bgcolor: highlighted ? alpha(grataBlue, 0.14) : 'transparent',
           }}
         >
-          <Typography sx={{ fontSize: 12.5, fontWeight: 600, color: grataBlue }}>Browse all playbooks →</Typography>
+          <Typography sx={{ fontSize: 12.5, fontWeight: 600, color: 'primary.main' }}>Browse all playbooks →</Typography>
         </Box>
       );
     }
@@ -115,7 +115,7 @@ export default function SlashPlaybookMenu({
           px: 1.5,
           py: 0.9,
           cursor: 'pointer',
-          bgcolor: highlighted ? alpha(grataBlueSelected, 0.5) : 'transparent',
+          bgcolor: highlighted ? alpha(grataBlue, 0.14) : 'transparent',
           display: 'flex',
           flexDirection: 'column',
           gap: 0.25,
@@ -156,7 +156,16 @@ export default function SlashPlaybookMenu({
   };
 
   return (
-    <Popper open anchorEl={anchorEl} placement="top-start" sx={{ zIndex: 1500 }}>
+    <Popper
+      open
+      anchorEl={anchorEl}
+      placement="top-start"
+      sx={{ zIndex: 1500 }}
+      modifiers={[
+        { name: 'preventOverflow', options: { padding: 12 } },
+        { name: 'flip', options: { fallbackPlacements: ['bottom-start'] } },
+      ]}
+    >
       <Paper
         elevation={0}
         sx={{

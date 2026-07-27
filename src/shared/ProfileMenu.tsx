@@ -1,7 +1,8 @@
-import { faCheck } from '@fortawesome/pro-light-svg-icons';
+import { faCheck, faMoon, faSunBright } from '@fortawesome/pro-light-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   Box,
+  ButtonBase,
   Divider,
   Link as MuiLink,
   List,
@@ -10,9 +11,13 @@ import {
   ListItemText,
   ListSubheader,
   Paper,
+  Stack,
   Typography,
 } from '@mui/material';
+import { alpha } from '@mui/material/styles';
 import { HaloAvatar } from '~/theme/grata/components';
+import { moondust } from '~/theme/grata/theme';
+import { useThemeMode, type ThemeMode } from '~/theme/ThemeModeContext';
 
 export interface ProfileSubscription {
   label: string;
@@ -38,12 +43,11 @@ export interface ProfileMenuProps {
 }
 
 const defaultSubscriptions: ProfileSubscription[] = [
-  { label: 'OSI Deal Team', active: true },
-  { label: 'OSI Leadership' },
+  { label: 'Deal Team', active: true },
+  { label: 'Firm Leadership' },
 ];
 
 const defaultHelp: ProfileHelpItem[] = [
-  { label: 'Ask Lana' },
   { label: 'Support Portal' },
   { label: 'Feedback' },
   { label: 'Legal' },
@@ -161,6 +165,15 @@ export function ProfileMenu({
 
       <Divider sx={{ borderColor: 'background.defaultAlt' }} />
 
+      {/* Appearance — light/dark switcher. Doesn't close the menu, so the user
+          sees the flip happen (cause → effect). */}
+      <ListSubheader disableSticky sx={{ bgcolor: 'transparent', lineHeight: '36px' }}>Appearance</ListSubheader>
+      <Box sx={{ px: '16px', pb: '8px' }}>
+        <ThemeModeSwitch />
+      </Box>
+
+      <Divider sx={{ borderColor: 'background.defaultAlt' }} />
+
       <List dense disablePadding>
         <ListItem disablePadding>
           <ListItemButton onClick={handle(onSettings)} sx={{ px: '16px', py: '8px' }}>
@@ -188,3 +201,57 @@ export function ProfileMenu({
   );
 }
 
+// Segmented Light | Dark control. Selected segment gets a paper chip + primary
+// icon — value contrast carries the state in both modes (no light-only tints).
+function ThemeModeSwitch() {
+  const { mode, setMode } = useThemeMode();
+  return (
+    <Stack
+      direction="row"
+      role="group"
+      aria-label="Appearance"
+      sx={{
+        borderRadius: '999px',
+        border: '1px solid',
+        borderColor: 'divider',
+        bgcolor: 'background.defaultAlt',
+        p: '2px',
+      }}
+    >
+      {(
+        [
+          { value: 'light' as ThemeMode, label: 'Light', icon: faSunBright },
+          { value: 'dark' as ThemeMode, label: 'Dark', icon: faMoon },
+        ]
+      ).map((option) => {
+        const selected = mode === option.value;
+        return (
+          <ButtonBase
+            key={option.value}
+            onClick={() => setMode(option.value)}
+            aria-pressed={selected}
+            sx={{
+              flex: 1,
+              minHeight: 26,
+              px: 1,
+              display: 'inline-flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: 0.5,
+              borderRadius: '999px',
+              fontSize: 12,
+              fontWeight: 600,
+              color: selected ? 'text.primary' : 'text.disabled',
+              bgcolor: selected ? 'background.paper' : 'transparent',
+              boxShadow: selected ? `0 1px 3px ${alpha(moondust[900], 0.18)}` : 'none',
+              transition: 'background-color 180ms cubic-bezier(0.2, 0, 0, 1), color 180ms cubic-bezier(0.2, 0, 0, 1)',
+            }}
+          >
+            <FontAwesomeIcon icon={option.icon} style={{ fontSize: 11 }} />
+            {option.label}
+          </ButtonBase>
+        );
+      })}
+    </Stack>
+  );
+}

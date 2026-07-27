@@ -12,6 +12,7 @@ import { HaloButton } from '~/theme/grata/components';
 import ChatComposer from './ChatComposer';
 
 import type { SeatId } from '../state/persona';
+import type { Playbook } from '../state/playbookCatalog';
 
 export type FullChatEmptyStateMode = 'chat' | 'skills' | 'templates';
 
@@ -50,6 +51,11 @@ interface Props {
   onSelectFilingPrompt: () => void;
   onSelectBriefPrompt: () => void;
   seat: SeatId;
+  // Global chat contract: scope chip + `/` playbook menu (Universe/Firm context).
+  scopeLabel?: string;
+  slashContext?: { inDeal: boolean };
+  onQueuePlaybook?: (playbook: Playbook) => void;
+  onBrowsePlaybooks?: () => void;
 }
 
 export default function FullChatEmptyState({
@@ -66,6 +72,10 @@ export default function FullChatEmptyState({
   onSelectFilingPrompt,
   onSelectBriefPrompt,
   seat,
+  scopeLabel,
+  slashContext,
+  onQueuePlaybook,
+  onBrowsePlaybooks,
 }: Props) {
   const copy = getEmptyStateCopy(mode, seat);
 
@@ -120,6 +130,10 @@ export default function FullChatEmptyState({
             placeholder={composerPlaceholder}
             attachedFileIds={attachedFileIds}
             attachedFolderIds={attachedFolderIds}
+            scopeLabel={scopeLabel}
+            slashContext={slashContext}
+            onQueuePlaybook={onQueuePlaybook}
+            onBrowsePlaybooks={onBrowsePlaybooks}
             onChange={onComposerChange}
             onSubmit={onComposerSubmit}
             onContextChange={onContextChange}
@@ -252,30 +266,31 @@ function getEmptyStateCopy(mode: FullChatEmptyStateMode, _seat: SeatId): {
     };
   }
 
-  // Operator-verb suggestions — same set for both seats; the seat changes layout
-  // defaults, never the prompt vocabulary (one object, seat-aware defaults).
+  // GLOBAL chat — this empty state only renders outside a project (inside one,
+  // the deal intro takes over). A chat started global stays global: firm-scoped
+  // suggestions, no project vocabulary. Same set for both seats.
   return {
-    title: 'What should we move forward in Project Caldera?',
-    footnote: `Suggestions drawn from what's in this project — the CIM, carried search, and live signals.`,
+    title: 'What should we move forward today?',
+    footnote: 'Merlin works firm-wide here — open a project to work its corpus, or type / for a playbook.',
     prompts: [
       {
-        label: 'Screen the CIM against our thesis',
-        prompt: 'Run the buy-side CIM screen on the GulfAir Mechanical CIM against the Caldera thesis.',
-        icon: faTableCells,
-      },
-      {
-        label: 'What changed since last week?',
-        prompt: 'What moved in Project Caldera this week — signals, documents, and open questions? Make it a brief I could forward unedited.',
+        label: 'What changed across my projects?',
+        prompt: 'What moved across my projects this week — signals, documents, and open questions? Make it a brief I could forward unedited.',
         icon: faCommentsQuestion,
       },
       {
-        label: 'Find similar companies',
-        prompt: '@Grata find companies similar to GulfAir Mechanical',
+        label: 'Which watchlist signals fired?',
+        prompt: 'Which companies on my watchlists fired seller-intent signals this week, and what changed?',
+        icon: faTableCells,
+      },
+      {
+        label: 'Brief me for the pipeline call',
+        prompt: 'Brief me for this morning\'s pipeline call — status, blockers, and the one decision each project needs.',
         icon: faBookOpenLines,
       },
       {
-        label: 'Draft the IC one-pager',
-        prompt: 'Draft the investment-committee one-pager for GulfAir Mechanical from the screen results and thesis notes.',
+        label: 'Draft an IC pre-read outline',
+        prompt: 'Draft an IC pre-read outline for Project Halley from its thesis and screening notes.',
         icon: faPenLine,
       },
     ],

@@ -8,7 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Box, ButtonBase, Stack, Typography } from '@mui/material';
 import { alpha } from '@mui/material/styles';
 import { HaloButton } from '~/theme/grata/components';
-import { grataBlue, grataBlueSelected, monoFontFamily, moondust } from '~/theme/grata/theme';
+import { grataBlue, monoFontFamily, moondust } from '~/theme/grata/theme';
 import {
   PLAYBOOK_CATALOG,
   PLAYBOOK_STAGES,
@@ -130,8 +130,8 @@ function FacetChip({
         py: 0.45,
         borderRadius: '999px',
         border: '1px solid',
-        borderColor: selected ? grataBlue : 'divider',
-        bgcolor: selected ? grataBlueSelected : 'background.paper',
+        borderColor: selected ? 'primary.main' : 'divider',
+        bgcolor: selected ? alpha(grataBlue, 0.15) : 'background.paper',
         color: selected ? 'text.primary' : 'text.secondary',
         fontSize: primary ? 12.5 : 11.5,
         fontWeight: selected ? 600 : 400,
@@ -172,7 +172,7 @@ function PlaybookCard({ playbook, onRun }: { playbook: Playbook; onRun: () => vo
         <Box sx={{ flex: 1 }} />
         <ButtonBase
           onClick={onRun}
-          sx={{ px: 1, py: 0.25, borderRadius: '6px', fontSize: 12, fontWeight: 600, color: grataBlue }}
+          sx={{ px: 1, py: 0.25, borderRadius: '6px', fontSize: 12, fontWeight: 600, color: 'primary.main' }}
         >
           Run →
         </ButtonBase>

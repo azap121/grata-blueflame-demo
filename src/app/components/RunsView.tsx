@@ -39,7 +39,7 @@ export default function RunsView({ onOpenProject }: Props) {
                       fontSize: 11,
                       letterSpacing: '0.08em',
                       textTransform: 'uppercase',
-                      color: section.id === 'needs-you' ? grataBlue : 'text.secondary',
+                      color: section.id === 'needs-you' ? 'primary.main' : 'text.secondary',
                     }}
                   >
                     {section.label} ({rows.length})
@@ -142,7 +142,7 @@ function RunDetailDrawer({
                 sx={{
                   fontFamily: monoFontFamily,
                   fontSize: 11.5,
-                  color: grataBlue,
+                  color: 'primary.main',
                   border: 0,
                   bgcolor: 'transparent',
                   p: 0,
@@ -239,8 +239,8 @@ function DetailChip({ label, emphasized = false }: { label: string; emphasized?:
         py: 0.35,
         borderRadius: '6px',
         border: '1px solid',
-        borderColor: emphasized ? grataBlue : 'divider',
-        color: emphasized ? grataBlue : 'text.secondary',
+        borderColor: emphasized ? 'primary.main' : 'divider',
+        color: emphasized ? 'primary.main' : 'text.secondary',
         fontFamily: monoFontFamily,
         fontSize: 10.5,
         whiteSpace: 'nowrap',
