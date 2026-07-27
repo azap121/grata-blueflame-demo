@@ -3,7 +3,10 @@
 // Stage (primary) · Seat · Output · Cadence · Scope. The library is the fallback;
 // contextual surfacing (the `/` menu, arrival offers) is the front door.
 
-export type PlaybookStage = 'Source' | 'Evaluate' | 'Diligence' | 'Valuation & IC' | 'Monitor';
+// The four verbs — Spencer's home vocabulary adopted as the canonical stage
+// facet (page 11 decision): Evaluate folds into Diligence, Valuation & IC into
+// Deal Execution, Monitor into Research.
+export type PlaybookStage = 'Source' | 'Diligence' | 'Research' | 'Deal Execution';
 export type PlaybookSeat = 'PE' | 'IB' | 'Credit' | 'IR' | 'Corp Dev';
 export type PlaybookOutput = 'Table' | 'Memo' | 'Deck' | 'Model' | 'List' | 'Email' | 'Extraction';
 export type PlaybookCadence = 'On demand' | 'Scheduled' | 'Event-triggered';
@@ -94,7 +97,7 @@ export const PLAYBOOK_CATALOG: Playbook[] = [
     id: 'pe-cim-screen',
     name: 'cim-screen',
     outcome: 'Screen a CIM against your thesis, every cell cited',
-    stage: 'Evaluate',
+    stage: 'Diligence',
     seats: ['PE'],
     output: 'Table',
     cadence: 'On demand',
@@ -107,7 +110,7 @@ export const PLAYBOOK_CATALOG: Playbook[] = [
     id: 'cim-merits-risks',
     name: 'pc-cim-merits-risks',
     outcome: 'Merits & risks memo from a CIM, provenance-tagged',
-    stage: 'Evaluate',
+    stage: 'Diligence',
     seats: ['PE', 'Credit'],
     output: 'Memo',
     cadence: 'On demand',
@@ -120,7 +123,7 @@ export const PLAYBOOK_CATALOG: Playbook[] = [
     id: 'public-comps-analysis',
     name: 'ib-public-comps-analysis',
     outcome: 'Public comps table with multiples and footnoted sources',
-    stage: 'Evaluate',
+    stage: 'Diligence',
     seats: ['IB', 'PE'],
     output: 'Table',
     cadence: 'On demand',
@@ -132,7 +135,7 @@ export const PLAYBOOK_CATALOG: Playbook[] = [
     id: 'cohort-analysis',
     name: 'pe-cohort-analysis',
     outcome: 'Customer cohort and retention analysis from raw exports',
-    stage: 'Evaluate',
+    stage: 'Diligence',
     seats: ['PE'],
     output: 'Model',
     cadence: 'On demand',
@@ -195,7 +198,7 @@ export const PLAYBOOK_CATALOG: Playbook[] = [
     id: 'lbo-citations',
     name: 'pe-lbo-citations',
     outcome: 'LBO with every assumption provenance-tagged [SOURCE/DERIVED/ASSUMPTION]',
-    stage: 'Valuation & IC',
+    stage: 'Deal Execution',
     seats: ['PE'],
     output: 'Model',
     cadence: 'On demand',
@@ -207,7 +210,7 @@ export const PLAYBOOK_CATALOG: Playbook[] = [
     id: 'dcf-builder',
     name: 'ib-dcf-builder',
     outcome: 'DCF built from the corpus with stated assumptions',
-    stage: 'Valuation & IC',
+    stage: 'Deal Execution',
     seats: ['IB', 'PE'],
     output: 'Model',
     cadence: 'On demand',
@@ -219,7 +222,7 @@ export const PLAYBOOK_CATALOG: Playbook[] = [
     id: 'ic-memo',
     name: 'pe-ic-memo',
     outcome: 'IC memo drafted from the deal record, cited throughout',
-    stage: 'Valuation & IC',
+    stage: 'Deal Execution',
     seats: ['PE'],
     output: 'Memo',
     cadence: 'On demand',
@@ -231,7 +234,7 @@ export const PLAYBOOK_CATALOG: Playbook[] = [
     id: 'board-slide',
     name: 'pe-board-slide',
     outcome: 'Board-ready slide from the latest deal state',
-    stage: 'Valuation & IC',
+    stage: 'Deal Execution',
     seats: ['PE', 'Corp Dev'],
     output: 'Deck',
     cadence: 'On demand',
@@ -244,7 +247,7 @@ export const PLAYBOOK_CATALOG: Playbook[] = [
     id: 'morning-meeting-prep',
     name: 'Morning Meeting Prep',
     outcome: 'Daily 7:55 digest of everything that moved, delivered to Chat',
-    stage: 'Monitor',
+    stage: 'Research',
     seats: ['PE', 'IB', 'Corp Dev'],
     output: 'Memo',
     cadence: 'Scheduled',
@@ -256,7 +259,7 @@ export const PLAYBOOK_CATALOG: Playbook[] = [
     id: 'portco-news',
     name: 'PortCo News',
     outcome: 'Portfolio-company news swept and summarized on schedule',
-    stage: 'Monitor',
+    stage: 'Research',
     seats: ['PE', 'IR'],
     output: 'Memo',
     cadence: 'Scheduled',
@@ -268,7 +271,7 @@ export const PLAYBOOK_CATALOG: Playbook[] = [
     id: 'seller-intent-watch',
     name: 'Seller-intent watch',
     outcome: 'Signal fires when a watchlist company shows seller intent',
-    stage: 'Monitor',
+    stage: 'Research',
     seats: ['PE', 'Corp Dev'],
     output: 'List',
     cadence: 'Event-triggered',
@@ -278,7 +281,7 @@ export const PLAYBOOK_CATALOG: Playbook[] = [
   },
 ];
 
-export const PLAYBOOK_STAGES: PlaybookStage[] = ['Source', 'Evaluate', 'Diligence', 'Valuation & IC', 'Monitor'];
+export const PLAYBOOK_STAGES: PlaybookStage[] = ['Source', 'Diligence', 'Research', 'Deal Execution'];
 
 // Contextual surfacing: recommended-first ordering for the `/` menu.
 // On the home (Universe scope) the origination set leads; inside a project the

@@ -271,9 +271,8 @@ export interface CalderaAgentGroup {
 
 export const CALDERA_AGENT_GROUPS: readonly CalderaAgentGroup[] = [
   { stage: 'Source', agentIds: ['signal-monitor'], playbookIds: ['target-outreach-drafter'] },
-  { stage: 'Evaluate', agentIds: ['research-agent'], playbookIds: ['pe-cim-screen'] },
-  { stage: 'Diligence', agentIds: [], playbookIds: ['diligence-qa-tracker'] },
-  { stage: 'Monitor', agentIds: [], playbookIds: ['weekly-signal-digest'] },
+  { stage: 'Diligence', agentIds: ['research-agent'], playbookIds: ['pe-cim-screen', 'diligence-qa-tracker'] },
+  { stage: 'Research', agentIds: [], playbookIds: ['weekly-signal-digest'] },
 ];
 
 // Deal-scoped composer placeholder — the assistant is Blueflame AI in the deal.

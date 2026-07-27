@@ -1,4 +1,17 @@
-import { faArrowUp, faBolt, faCheck, faChevronDown, faCircleCheck, faCommentsQuestion, faTableCells } from '@fortawesome/pro-light-svg-icons';
+import {
+  faArrowUp,
+  faBolt,
+  faBullseyeArrow,
+  faChartLine,
+  faCheck,
+  faChevronDown,
+  faCircleCheck,
+  faClipboardCheck,
+  faCommentsQuestion,
+  faMagnifyingGlass,
+  faTableCells,
+  faXmark,
+} from '@fortawesome/pro-light-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useState } from 'react';
 import { Box, InputBase, Paper, Stack, Tooltip, Typography, IconButton } from '@mui/material';
@@ -8,10 +21,17 @@ import { amber, grataTeal, monoFontFamily, moondust } from '~/theme/grata/theme'
 import {
   HOME_COMPOSER_PLACEHOLDER,
   HOME_HEADLINE,
-  HOME_SUGGESTIONS,
   type DealCard,
 } from '../state/dealsFixtures';
-import { NEEDS_YOU, OVERNIGHT, type NeedsYouItem, type OvernightItem } from '../state/homeFixtures';
+import { HOME_VERBS, NEEDS_YOU, OVERNIGHT, type NeedsYouItem, type OvernightItem } from '../state/homeFixtures';
+
+// Verb chip icons — Source · Diligence · Research · Deal Execution.
+const VERB_ICONS = {
+  source: faMagnifyingGlass,
+  diligence: faClipboardCheck,
+  research: faChartLine,
+  execution: faBullseyeArrow,
+} as const;
 
 interface Props {
   deals: DealCard[];
@@ -38,6 +58,8 @@ export default function TwoZoneHome({
   onOpenProjectByName,
 }: Props) {
   const [value, setValue] = useState('');
+  const [activeVerb, setActiveVerb] = useState<string | null>(null);
+  const activeVerbEntry = HOME_VERBS.find((verb) => verb.id === activeVerb) ?? null;
 
   const submit = () => {
     const query = value.trim();
@@ -126,7 +148,7 @@ export default function TwoZoneHome({
                     height: 32,
                     borderRadius: '6px',
                     bgcolor: value.trim() ? grataTeal : 'action.disabledBackground',
-                    color: value.trim() ? '#FFFFFF' : 'text.disabled',
+                    color: value.trim() ? '#0D121C' : 'text.disabled',
                     '&:hover': { bgcolor: value.trim() ? 'primary.dark' : 'action.disabledBackground' },
                   }}
                 >
@@ -135,21 +157,75 @@ export default function TwoZoneHome({
               </span>
             </Tooltip>
           </Paper>
+          {/* The four verbs — chips expand an inline suggestion panel (concept F). */}
           <Stack direction="row" spacing={1} justifyContent="center" flexWrap="wrap" useFlexGap>
-            {HOME_SUGGESTIONS.map((suggestion) => (
+            {HOME_VERBS.map((verb) => (
               <HaloButton
-                key={suggestion.id}
+                key={verb.id}
                 size="small"
                 variant="outlined"
-                onClick={() =>
-                  suggestion.action === 'sourcing' ? onStartSourcing(suggestion.label) : onAsk(suggestion.label)
-                }
-                sx={{ textTransform: 'none', whiteSpace: 'nowrap' }}
+                startIcon={<FontAwesomeIcon icon={VERB_ICONS[verb.icon]} style={{ fontSize: 12 }} />}
+                onClick={() => setActiveVerb(activeVerb === verb.id ? null : verb.id)}
+                sx={{
+                  textTransform: 'none',
+                  whiteSpace: 'nowrap',
+                  ...(activeVerb === verb.id
+                    ? { bgcolor: alpha(grataTeal, 0.12), borderColor: 'primary.main', color: 'primary.main' }
+                    : null),
+                }}
               >
-                {suggestion.label}
+                {verb.label}
               </HaloButton>
             ))}
           </Stack>
+          {activeVerbEntry && (
+            <Paper
+              elevation={0}
+              sx={{
+                border: '1px solid',
+                borderColor: 'divider',
+                borderRadius: 3,
+                boxShadow: `0 12px 32px ${alpha(moondust[900], 0.1)}`,
+                overflow: 'hidden',
+              }}
+            >
+              <Stack direction="row" alignItems="center" spacing={1} sx={{ px: 1.75, pt: 1.25, pb: 0.5 }}>
+                <FontAwesomeIcon icon={VERB_ICONS[activeVerbEntry.icon]} style={{ fontSize: 12, color: grataTeal }} />
+                <Typography sx={{ fontSize: 13, fontWeight: 600, color: 'text.primary', flex: 1 }}>
+                  {activeVerbEntry.label}
+                </Typography>
+                <IconButton size="small" aria-label="Close suggestions" onClick={() => setActiveVerb(null)}>
+                  <FontAwesomeIcon icon={faXmark} style={{ fontSize: 11 }} />
+                </IconButton>
+              </Stack>
+              <Stack divider={<Box sx={{ borderBottom: '1px solid', borderColor: 'divider' }} />}>
+                {activeVerbEntry.suggestions.map((suggestion) => (
+                  <Box
+                    key={suggestion.label}
+                    component="button"
+                    type="button"
+                    onClick={() =>
+                      suggestion.kind === 'sourcing' ? onStartSourcing(suggestion.label) : onAsk(suggestion.label)
+                    }
+                    sx={{
+                      textAlign: 'left',
+                      px: 1.75,
+                      py: 1.05,
+                      border: 0,
+                      font: 'inherit',
+                      fontSize: 13.5,
+                      color: 'text.primary',
+                      bgcolor: 'transparent',
+                      cursor: 'pointer',
+                      '&:hover': { bgcolor: alpha(grataTeal, 0.08), color: 'primary.main' },
+                    }}
+                  >
+                    {suggestion.label}
+                  </Box>
+                ))}
+              </Stack>
+            </Paper>
+          )}
         </Stack>
 
         {/* ── Zone 2 · the attention layer ────────────────────────────────── */}
