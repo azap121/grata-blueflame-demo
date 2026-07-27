@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { Box, InputBase, Paper, Stack, Tooltip, Typography, IconButton } from '@mui/material';
 import { alpha } from '@mui/material/styles';
 import { HaloButton } from '~/theme/grata/components';
-import { amber, grataBlue, monoFontFamily, moondust } from '~/theme/grata/theme';
+import { amber, grataTeal, monoFontFamily, moondust } from '~/theme/grata/theme';
 import {
   HOME_COMPOSER_PLACEHOLDER,
   HOME_HEADLINE,
@@ -102,7 +102,7 @@ export default function TwoZoneHome({
               borderRadius: 3,
               bgcolor: 'background.paper',
               boxShadow: `0 8px 24px ${alpha(moondust[900], 0.1)}`,
-              '&:focus-within': { borderColor: grataBlue },
+              '&:focus-within': { borderColor: grataTeal },
             }}
           >
             <ScopeChip label="Universe" />
@@ -125,7 +125,7 @@ export default function TwoZoneHome({
                     width: 32,
                     height: 32,
                     borderRadius: '6px',
-                    bgcolor: value.trim() ? grataBlue : 'action.disabledBackground',
+                    bgcolor: value.trim() ? grataTeal : 'action.disabledBackground',
                     color: value.trim() ? '#FFFFFF' : 'text.disabled',
                     '&:hover': { bgcolor: value.trim() ? 'primary.dark' : 'action.disabledBackground' },
                   }}
@@ -270,7 +270,7 @@ function NeedsYouCard({ item, onOpen }: { item: NeedsYouItem; onOpen: () => void
       }}
     >
       <Stack direction="row" spacing={1} alignItems="center">
-        <FontAwesomeIcon icon={NEEDS_YOU_ICONS[item.icon]} style={{ fontSize: 13, color: grataBlue }} />
+        <FontAwesomeIcon icon={NEEDS_YOU_ICONS[item.icon]} style={{ fontSize: 13, color: grataTeal }} />
         <Typography sx={{ fontSize: 13.5, fontWeight: 500, color: 'text.primary', lineHeight: 1.35 }}>
           {item.title}
         </Typography>

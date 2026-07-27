@@ -1,3 +1,6 @@
+import '@fontsource/source-sans-3/300.css';
+import '@fontsource/source-sans-3/400.css';
+import '@fontsource/source-sans-3/600.css';
 import '@fontsource/work-sans/300.css';
 import '@fontsource/work-sans/400.css';
 import '@fontsource/work-sans/500.css';

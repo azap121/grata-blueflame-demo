@@ -19,7 +19,7 @@ import {
 } from '@mui/material';
 import { HaloButton } from '~/theme/grata/components';
 import { alpha } from '@mui/material/styles';
-import { grataBlue, monoFontFamily } from '~/theme/grata/theme';
+import { grataTeal, monoFontFamily } from '~/theme/grata/theme';
 
 export type CreateKind = 'project' | 'playbook' | 'agent';
 
@@ -346,7 +346,7 @@ function ScopePicker({
         ))}
       </Stack>
       {scope === 'Firm' && (
-        <Box sx={{ mt: 1, px: 1.5, py: 1, borderRadius: 2, bgcolor: alpha(grataBlue, 0.1) }}>
+        <Box sx={{ mt: 1, px: 1.5, py: 1, borderRadius: 2, bgcolor: alpha(grataTeal, 0.1) }}>
           <Typography sx={{ fontSize: 12, color: 'primary.main' }}>
             Publishing to Firm scope requires review by a named approver before anyone else can run it.
           </Typography>

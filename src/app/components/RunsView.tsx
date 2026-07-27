@@ -6,7 +6,7 @@ import { faBolt, faCheck, faChevronRight, faCirclePause, faSpinner, faXmark } fr
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Box, Drawer, IconButton, Stack, Typography } from '@mui/material';
 import { alpha } from '@mui/material/styles';
-import { grataBlue, monoFontFamily, moondust } from '~/theme/grata/theme';
+import { grataTeal, monoFontFamily, moondust } from '~/theme/grata/theme';
 import { RUN_ROWS, RUN_SECTIONS, type RunRow } from '../state/runsFixtures';
 
 interface Props {
@@ -94,7 +94,7 @@ function RunRowItem({ row, onOpen }: { row: RunRow; onOpen: () => void }) {
           height: 8,
           borderRadius: '50%',
           flexShrink: 0,
-          bgcolor: needsYou ? grataBlue : running ? moondust[500] : moondust[300],
+          bgcolor: needsYou ? grataTeal : running ? moondust[500] : moondust[300],
         }}
       />
       <Box sx={{ flex: 1, minWidth: 0 }}>
@@ -182,7 +182,7 @@ function RunDetailDrawer({
                   <Stack key={step.label} direction="row" alignItems="center" spacing={1.1}>
                     <FontAwesomeIcon
                       icon={step.done ? faCheck : step.grataCall ? faBolt : run.section === 'running' ? faSpinner : faCirclePause}
-                      style={{ fontSize: 11, color: step.done ? moondust[500] : grataBlue, width: 14 }}
+                      style={{ fontSize: 11, color: step.done ? moondust[500] : grataTeal, width: 14 }}
                     />
                     <Typography sx={{ fontSize: 13, color: step.done ? 'text.secondary' : 'text.primary', flex: 1 }}>
                       {step.label}
@@ -193,10 +193,10 @@ function RunDetailDrawer({
                         sx={{
                           px: 0.6,
                           borderRadius: '4px',
-                          bgcolor: alpha(grataBlue, 0.08),
+                          bgcolor: alpha(grataTeal, 0.08),
                           fontFamily: monoFontFamily,
                           fontSize: 10,
-                          color: grataBlue,
+                          color: grataTeal,
                         }}
                       >
                         @Grata

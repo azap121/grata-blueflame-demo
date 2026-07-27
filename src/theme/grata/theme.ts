@@ -77,11 +77,21 @@ export const moondust = {
 } as const;
 
 // ── Grata brand tokens ────────────────────────────────────────────────────────
-// #2464E3 is a signal, not a paint: primary actions, links, focus, selection.
+// Decision 27 Jul (Spencer synthesis, page 11): the UI accent is the Grata TEAL
+// family — "Grata teal on Halo dark grey". Blue #2464E3 lives only in the logo
+// mark. Contrast-checked: #00CEC8 on n800 ≈ 7.7:1 (AAA); #1D6A60 on #EEF7F7
+// ≈ 5.9:1 (AA); bright teal never carries text on light surfaces (~2:1 fails).
+export const grataTeal = '#00CEC8';          // brand teal — dark-mode accent, light-mode fills/icons
+export const grataTealDark = '#1D6A60';      // Spencer's Save Search — light-mode action/text teal
+export const grataTealDeep = '#16524B';      // hover/pressed on light
+export const grataTealFill = '#EEF7F7';      // selected fill (light) — measured from concept F
+export const grataTealMint = '#A6DED7';      // soft action (send button) — measured from concept F
+// The logo-only blue. Do not use as a UI accent.
 export const grataBlue = '#2464E3';
-export const grataBlueHover = '#1D53BF';
-export const grataBlueSelected = '#D4E6FA';
-export const grataBlueInfo = '#EDF6FF';
+// Legacy aliases — re-pointed at the teal system so stragglers stay coherent.
+export const grataBlueHover = grataTealDeep;
+export const grataBlueSelected = grataTealFill;
+export const grataBlueInfo = grataTealFill;
 export const neutral = {
   n0: '#FFFFFF', n25: '#FCFCFD', n50: '#F8FAFC', n100: '#EEF2F6',
   n200: '#E3E8EF', n300: '#CDD5DF', n400: '#9AA4B2', n500: '#697586',
@@ -300,9 +310,9 @@ export const grataTheme = createTheme({
     grey: moondust,
     divider: alpha(moondust[900], 0.12),
     primary: {
-      main: grataBlue,
-      light: grataBlueSelected,
-      dark: grataBlueHover,
+      main: grataTealDark,
+      light: grataTealFill,
+      dark: grataTealDeep,
       contrastText: '#FFFFFF',
     },
     secondary: {
@@ -325,9 +335,9 @@ export const grataTheme = createTheme({
       alertSuccess: jade[700],     // canonical: dsHaloLightPalette.text.alertSuccess
     },
     background: {
-      default: '#FFFFFF',         // dsHaloLightPalette.background.default = white
+      default: '#FBFBFD',         // concept-F canvas (Spencer, measured)
       paper: '#FFFFFF',
-      defaultAlt: moondust[50],   // dsHaloLightPalette.background.defaultAlt = moondust[50]
+      defaultAlt: '#F4F5F7',      // inset surface a step below the canvas
       paperAlt: moondust[50],     // dsHaloLightPalette.background.paperAlt (new)
       snackbar: moondust[800],    // dsHaloLightPalette.background.snackbar (new)
       alertError: alertBg.error,
@@ -349,7 +359,7 @@ export const grataTheme = createTheme({
   },
   shape: { borderRadius: 8 },
   typography: {
-    fontFamily: ['"Work Sans"', 'Arial', 'sans-serif'].join(','),
+    fontFamily: ['"Source Sans 3"', '"Work Sans"', 'Arial', 'sans-serif'].join(','),
     h1: { fontSize: '5rem', fontWeight: 300, letterSpacing: '-1.5px' },
     h4: { fontWeight: 400, letterSpacing: '0.00735em' },
     h5: { fontWeight: 400 },
@@ -367,7 +377,7 @@ export const grataTheme = createTheme({
     MuiCssBaseline: {
       styleOverrides: `
         *, *::before, *::after { box-sizing: border-box; }
-        body { font-family: 'Work Sans', Arial, sans-serif; }
+        body { font-family: 'Source Sans 3', 'Work Sans', Arial, sans-serif; }
       `,
     },
     MuiPaper: {
@@ -832,9 +842,9 @@ export const grataThemeDark = createTheme({
     grey: moondust,
     divider: alpha('#FFFFFF', 0.12),
     primary: {
-      main: '#66A6F4',
-      light: '#A5CFFB',
-      dark: grataBlue,
+      main: grataTeal,
+      light: grataTealMint,
+      dark: '#13A9A4',
       contrastText: '#0D121C',
     },
     secondary: {
@@ -887,7 +897,7 @@ export const grataThemeDark = createTheme({
     MuiCssBaseline: {
       styleOverrides: `
         *, *::before, *::after { box-sizing: border-box; }
-        body { font-family: 'Work Sans', Arial, sans-serif; }
+        body { font-family: 'Source Sans 3', 'Work Sans', Arial, sans-serif; }
       `,
     },
     MuiPaper: {

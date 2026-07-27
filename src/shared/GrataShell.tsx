@@ -16,7 +16,7 @@ import { faGrid, faHouse, faPlus, faCode, faGrid2Plus } from '@fortawesome/pro-s
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import type { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { faAiSparkle } from './icons/faAiSparkle';
-import { grataBlue, monoFontFamily } from '~/theme/grata/theme';
+import { monoFontFamily } from '~/theme/grata/theme';
 import { appLogos, partnerLogos } from '~/assets/app-logos';
 import danielAvatar from '~/assets/daniel.png';
 import {
@@ -572,23 +572,14 @@ export function GrataShell({
 // ────────────────────────────────────────────────────────────────────────────
 
 function DefaultLogo() {
+  // The real Grata mark (teal #00CEC8 + blue #2464E3 glyph).
   return (
     <Box
-      sx={{
-        width: 28,
-        height: 28,
-        borderRadius: '7px',
-        bgcolor: grataBlue,
-        color: '#FFFFFF',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        fontSize: 16,
-        fontWeight: 600,
-        letterSpacing: '-0.02em',
-      }}>
-      G
-    </Box>
+      component="img"
+      src={partnerLogos['grata'] ?? undefined}
+      alt="Grata"
+      sx={{ width: 28, height: 28, borderRadius: '6px', display: 'block' }}
+    />
   );
 }
 

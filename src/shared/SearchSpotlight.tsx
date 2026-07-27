@@ -66,7 +66,7 @@ import {
 import { useEffect, useRef, useState } from 'react';
 import { faAiSparkle } from '~/shared/icons/faAiSparkle';
 import { alpha } from '@mui/material/styles';
-import { emerald, grataBlue, monoFontFamily, ruby, tanzanite } from '~/theme/grata/theme';
+import { emerald, grataTeal, monoFontFamily, ruby, tanzanite } from '~/theme/grata/theme';
 
 // ─── Mock data ────────────────────────────────────────────────────────────────
 
@@ -401,7 +401,7 @@ export function SearchSpotlight({
                   borderRadius: '999px',
                   border: '1px solid',
                   borderColor: activeScope === scope ? 'primary.main' : 'divider',
-                  bgcolor: activeScope === scope ? alpha(grataBlue, 0.15) : 'background.paper',
+                  bgcolor: activeScope === scope ? alpha(grataTeal, 0.15) : 'background.paper',
                   color: activeScope === scope ? 'primary.main' : 'text.secondary',
                   fontFamily: monoFontFamily,
                   fontSize: 11,

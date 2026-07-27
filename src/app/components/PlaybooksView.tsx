@@ -8,7 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Box, ButtonBase, Stack, Typography } from '@mui/material';
 import { alpha } from '@mui/material/styles';
 import { HaloButton } from '~/theme/grata/components';
-import { grataBlue, monoFontFamily, moondust } from '~/theme/grata/theme';
+import { grataTeal, monoFontFamily, moondust } from '~/theme/grata/theme';
 import {
   PLAYBOOK_CATALOG,
   PLAYBOOK_STAGES,
@@ -131,7 +131,7 @@ function FacetChip({
         borderRadius: '999px',
         border: '1px solid',
         borderColor: selected ? 'primary.main' : 'divider',
-        bgcolor: selected ? alpha(grataBlue, 0.15) : 'background.paper',
+        bgcolor: selected ? alpha(grataTeal, 0.15) : 'background.paper',
         color: selected ? 'text.primary' : 'text.secondary',
         fontSize: primary ? 12.5 : 11.5,
         fontWeight: selected ? 600 : 400,
