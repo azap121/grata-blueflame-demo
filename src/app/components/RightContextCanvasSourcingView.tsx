@@ -123,7 +123,7 @@ export default function RightContextCanvasSourcingView({ state, bottomInset = 0,
             Add to list
           </HaloButton>
           <HaloButton size="small" variant="contained" onClick={onPromote} sx={{ textTransform: 'none' }}>
-            Promote to Deal
+            Promote to Space
           </HaloButton>
         </Box>
       ) : null}

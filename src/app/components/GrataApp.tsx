@@ -1,8 +1,19 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
   faArrowDownLeftAndArrowUpRightToCenter,
+  faArrowTrendUp,
   faArrowUpRightAndArrowDownLeftFromCenter,
   faBookSparkles,
+  faBuildingColumns,
+  faBuildings,
+  faCalendarDays,
+  faChartColumn,
+  faColumns3,
+  faHandshake,
+  faLandmark,
+  faListUl,
+  faMessages,
+  faSignalStream,
   faChevronDown,
   faChevronRight,
   faCommentsQuestion,
@@ -29,6 +40,8 @@ import TwoZoneHome from './TwoZoneHome';
 import PromoteToDealDialog from './PromoteToDealDialog';
 import RightContextCanvas, { getComposerPlaceholderForRightTab, type RightCanvasMotion, type RightCanvasTab } from './RightContextCanvas';
 import { CreateAgentDialog, CreateMenu, CreatePlaybookDialog, type CreateKind, type PlaybookPrefill } from './CreateDialogs';
+import ChatsView from './ChatsView';
+import DirectoryView, { type DirectoryId } from './DirectoryViews';
 import PlaybooksView from './PlaybooksView';
 import RunsView from './RunsView';
 import RightContextCanvasFileDetailView from './RightContextCanvasFileDetailView';
@@ -127,7 +140,15 @@ const REVIEWER_DOCUMENT_SECTIONS: DocumentSourceSection[] = [
 
 // Layer-1 destinations on the global rail. The deal workspace is not a global
 // view — it is entered from a project card and layers over whichever view is active.
-export type GlobalView = 'home' | 'projects' | 'runs' | 'playbooks';
+export type GlobalView =
+  | 'home'
+  | 'projects'
+  | 'chats'
+  | 'runs'
+  | 'playbooks'
+  | 'files'
+  | 'pipeline'
+  | 'directory';
 
 export default function GrataApp() {
   const [activeSeat, setActiveSeat] = useState<SeatId>('alex');
@@ -136,6 +157,7 @@ export default function GrataApp() {
   // Surface 0: the app opens on the two-zone home, not straight into a chat.
   const [homeView, setHomeView] = useState<'home' | 'chat'>('home');
   const [globalView, setGlobalView] = useState<GlobalView>('home');
+  const [directoryId, setDirectoryId] = useState<DirectoryId>('files');
   const [spotlightOpen, setSpotlightOpen] = useState(false);
   // ── Create flows (authoring) ──
   const [createAnchor, setCreateAnchor] = useState<HTMLElement | null>(null);
@@ -999,49 +1021,39 @@ export default function GrataApp() {
   // same shell, two zones, per the navigation skeleton (8.4 Part A).
   const inWorkspace = homeView === 'chat';
   const navItems = useMemo<NavItem[]>(() => {
+    const go = (view: GlobalView) => () => {
+      goToDealsHome();
+      setGlobalView(view);
+    };
+    const goDirectory = (id: DirectoryId) => () => {
+      goToDealsHome();
+      setDirectoryId(id);
+      setGlobalView('directory');
+    };
+    const W = 'Workspace';
+    const BD = 'Business Development';
+    const MR = 'Market Research';
+    const dirActive = (id: DirectoryId) => !inWorkspace && globalView === 'directory' && directoryId === id;
     const globalItems: NavItem[] = [
-      {
-        label: 'Home',
-        icon: <FontAwesomeIcon icon={faHouse} />,
-        active: !inWorkspace && globalView === 'home',
-        onClick: () => {
-          goToDealsHome();
-          setGlobalView('home');
-        },
-      },
-      {
-        label: 'Projects',
-        icon: <FontAwesomeIcon icon={faBriefcase} />,
-        active: !inWorkspace && globalView === 'projects',
-        onClick: () => {
-          goToDealsHome();
-          setGlobalView('projects');
-        },
-      },
-      {
-        label: 'Runs',
-        icon: <FontAwesomeIcon icon={faWavePulse} />,
-        active: !inWorkspace && globalView === 'runs',
-        onClick: () => {
-          goToDealsHome();
-          setGlobalView('runs');
-        },
-      },
-      {
-        label: 'Playbooks',
-        icon: <FontAwesomeIcon icon={faBookSparkles} />,
-        active: !inWorkspace && globalView === 'playbooks',
-        onClick: () => {
-          goToDealsHome();
-          setGlobalView('playbooks');
-        },
-      },
-      {
-        label: 'Search',
-        icon: <FontAwesomeIcon icon={faMagnifyingGlass} />,
-        active: false,
-        onClick: () => setSpotlightOpen(true),
-      },
+      { group: W, label: 'Home', icon: <FontAwesomeIcon icon={faHouse} />, active: !inWorkspace && globalView === 'home', onClick: go('home') },
+      { group: W, label: 'Spaces', icon: <FontAwesomeIcon icon={faBriefcase} />, active: !inWorkspace && globalView === 'projects', onClick: go('projects') },
+      { group: W, label: 'Chats', icon: <FontAwesomeIcon icon={faMessages} />, active: !inWorkspace && globalView === 'chats', onClick: go('chats') },
+      { group: W, label: 'Runs', icon: <FontAwesomeIcon icon={faWavePulse} />, active: !inWorkspace && globalView === 'runs', onClick: go('runs') },
+      { group: W, label: 'Skills & Agents', icon: <FontAwesomeIcon icon={faBookSparkles} />, active: !inWorkspace && globalView === 'playbooks', onClick: go('playbooks') },
+      { group: W, label: 'Files', icon: <FontAwesomeIcon icon={faFolder} />, active: dirActive('files'), onClick: goDirectory('files') },
+      { group: W, label: 'Pipeline', icon: <FontAwesomeIcon icon={faColumns3} />, active: dirActive('pipeline'), onClick: goDirectory('pipeline') },
+      { group: W, label: 'Search', icon: <FontAwesomeIcon icon={faMagnifyingGlass} />, active: false, onClick: () => setSpotlightOpen(true) },
+      // ── Business Development — the Grata mirror (Entity views underneath) ──
+      { group: BD, label: 'Companies', icon: <FontAwesomeIcon icon={faBuildings} />, active: false, onClick: () => { goToDealsHome(); setGlobalView('home'); startSourcing('Find HVAC companies in Texas, $10M–$50M revenue'); } },
+      { group: BD, label: 'List Library', icon: <FontAwesomeIcon icon={faListUl} />, active: dirActive('list-library'), onClick: goDirectory('list-library') },
+      { group: BD, label: 'Buyers', icon: <FontAwesomeIcon icon={faHandshake} />, active: dirActive('buyers'), onClick: goDirectory('buyers') },
+      { group: BD, label: 'Bankers', icon: <FontAwesomeIcon icon={faLandmark} />, active: dirActive('bankers'), onClick: goDirectory('bankers') },
+      { group: BD, label: 'Conferences', icon: <FontAwesomeIcon icon={faCalendarDays} />, active: dirActive('conferences'), onClick: goDirectory('conferences') },
+      { group: BD, label: 'Live Deals', icon: <FontAwesomeIcon icon={faSignalStream} />, active: dirActive('live-deals'), onClick: goDirectory('live-deals') },
+      // ── Market Research — the Grata mirror ──
+      { group: MR, label: 'Markets', icon: <FontAwesomeIcon icon={faChartColumn} />, active: dirActive('markets'), onClick: goDirectory('markets') },
+      { group: MR, label: 'Market Index', icon: <FontAwesomeIcon icon={faArrowTrendUp} />, active: dirActive('market-index'), onClick: goDirectory('market-index') },
+      { group: MR, label: 'Deals', icon: <FontAwesomeIcon icon={faBuildingColumns} />, active: dirActive('deals'), onClick: goDirectory('deals') },
     ];
     if (!inWorkspace) return globalItems;
     // Project context rail (region B, 8.4): Overview · Documents · Tables ·
@@ -1060,7 +1072,7 @@ export default function GrataApp() {
         setActiveCoreTab('ai');
       },
     };
-    if (!dealActive) return [...globalItems, merlinItem];
+    if (!dealActive) return [...globalItems, { ...merlinItem, group: 'Chat' }];
     const contextItems: NavItem[] = [
       merlinItem,
       {
@@ -1097,11 +1109,12 @@ export default function GrataApp() {
         },
       },
     ];
-    return [...globalItems, ...contextItems];
+    return [...globalItems, ...contextItems.map((item) => ({ ...item, group: 'Space · Caldera' }))];
   }, [
     activeCoreTab,
     activeRightCanvasTab,
     dealActive,
+    directoryId,
     globalView,
     goToDealsHome,
     handleOpenCimReview,
@@ -1110,6 +1123,7 @@ export default function GrataApp() {
     openIntelligenceForTarget,
     openSelectedFolderOverview,
     selectedDocumentFolder,
+    startSourcing,
   ]);
 
   const recentChats = useMemo<RecentChat[]>(
@@ -1198,6 +1212,20 @@ export default function GrataApp() {
               />
             ) : globalView === 'runs' ? (
               <RunsView onOpenProject={openProjectByName} />
+            ) : globalView === 'chats' ? (
+              <ChatsView
+                chats={recentChats}
+                onOpenChat={(sessionId) => {
+                  setHomeView('chat');
+                  selectSession(sessionId);
+                }}
+                onNewChat={() => {
+                  setHomeView('chat');
+                  startNewChat();
+                }}
+              />
+            ) : globalView === 'directory' ? (
+              <DirectoryView id={directoryId} />
             ) : (
               <PlaybooksView onRun={runPlaybookFromLibrary} onCreate={() => { setPlaybookPrefill(undefined); setCreateDialog('playbook'); }} />
             )

@@ -13,4 +13,7 @@ export interface NavItem {
   onClick?: () => void;
   active?: boolean;
   disabled?: boolean;
+  /** Section header this item renders under (e.g. "Business Development").
+   *  Consecutive items sharing a group render as one collapsible section. */
+  group?: string;
 }

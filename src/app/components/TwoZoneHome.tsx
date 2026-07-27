@@ -87,7 +87,7 @@ export default function TwoZoneHome({
       <Box sx={{ height: '100%', minHeight: 0, overflowY: 'auto', bgcolor: 'background.paper' }}>
         <Box sx={{ maxWidth: 1080, mx: 'auto', px: { xs: 3, md: 6 }, py: { xs: 4, md: 6 } }}>
           <Typography component="h1" sx={{ fontSize: 24, fontWeight: 400, color: 'text.primary', mb: 3 }}>
-            Projects
+            Spaces
           </Typography>
           {projectsGrid}
         </Box>
@@ -259,7 +259,7 @@ export default function TwoZoneHome({
           </Box>
 
           <Box>
-            <SectionEyebrow label="Projects" />
+            <SectionEyebrow label="Spaces" />
             {projectsGrid}
           </Box>
         </Stack>
@@ -429,7 +429,7 @@ function DealCardTile({ deal, fresh, onOpen }: { deal: DealCard; fresh: boolean;
       <Typography sx={{ fontSize: 13, color: 'text.secondary', lineHeight: 1.5 }}>{deal.status}</Typography>
 
       {inert ? null : (
-        <Typography sx={{ fontSize: 12, color: amber[700], fontWeight: 600, mt: 0.25 }}>Open deal →</Typography>
+        <Typography sx={{ fontSize: 12, color: amber[700], fontWeight: 600, mt: 0.25 }}>Open space →</Typography>
       )}
     </Box>
   );

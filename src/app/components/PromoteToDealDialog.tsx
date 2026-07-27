@@ -34,7 +34,7 @@ export default function PromoteToDealDialog({ open, selectedCount, onClose, onCo
     >
       <Stack spacing={2.5} sx={{ py: 0.5 }}>
         <HaloTextField
-          label="Deal name"
+          label="Space name"
           defaultValue={PROMOTE_COPY.defaultDealName}
           fullWidth
         />

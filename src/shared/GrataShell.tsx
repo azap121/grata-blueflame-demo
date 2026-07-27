@@ -255,6 +255,15 @@ export function GrataShell({
     () => rawItems.find(i => i.active)?.label ?? null
   );
   const [internalExpanded, setInternalExpanded] = useState(defaultExpanded);
+  // Collapsible nav sections — open by default (page 11 decision).
+  const [collapsedGroups, setCollapsedGroups] = useState<Set<string>>(new Set());
+  const toggleGroup = (label: string) =>
+    setCollapsedGroups((current) => {
+      const next = new Set(current);
+      if (next.has(label)) next.delete(label);
+      else next.add(label);
+      return next;
+    });
 
   // Sync active item when the nav source changes (e.g. productMode switch)
   useEffect(() => {
@@ -449,11 +458,48 @@ export function GrataShell({
         {/* Primary action (e.g. + Create) */}
         {primaryAction && <Box sx={{ px: 1.5, pb: 0.5 }}>{primaryAction}</Box>}
 
-        {/* Nav items */}
+        {/* Nav items — consecutive items sharing a `group` render as a collapsible
+            section (Workspace / Business Development / Market Research). */}
         <Stack sx={{ px: 1.5, flex: 1, overflowY: 'auto' }}>
-          {items.map((item) => (
-            <Box key={item.label} sx={{ py: 0.5 }}>
-              <NavRow item={item} expanded={expanded} labelFadeSx={labelFadeSx} />
+          {groupNavItems(items).map((section, sectionIndex) => (
+            <Box key={section.label ?? `ungrouped-${sectionIndex}`}>
+              {section.label &&
+                (expanded ? (
+                  <ButtonBase
+                    onClick={() => toggleGroup(section.label!)}
+                    aria-expanded={!collapsedGroups.has(section.label!)}
+                    sx={{
+                      width: '100%',
+                      justifyContent: 'space-between',
+                      px: 1,
+                      pt: sectionIndex === 0 ? 0.5 : 1.5,
+                      pb: 0.25,
+                      fontFamily: monoFontFamily,
+                      fontSize: 10,
+                      letterSpacing: '0.08em',
+                      textTransform: 'uppercase',
+                      color: 'text.secondary',
+                    }}
+                  >
+                    {section.label}
+                    <FontAwesomeIcon
+                      icon={faAngleLeft}
+                      style={{
+                        fontSize: 9,
+                        transform: collapsedGroups.has(section.label) ? 'rotate(0deg)' : 'rotate(-90deg)',
+                        transition: 'transform 160ms ease',
+                      }}
+                    />
+                  </ButtonBase>
+                ) : (
+                  sectionIndex > 0 && <Box sx={{ my: 0.75, borderBottom: '1px solid', borderColor: 'divider' }} />
+                ))}
+              {(!section.label || !collapsedGroups.has(section.label) || !expanded) &&
+                section.items.map((item) => (
+                  <Box key={item.label} sx={{ py: 0.5 }}>
+                    <NavRow item={item} expanded={expanded} labelFadeSx={labelFadeSx} />
+                  </Box>
+                ))}
             </Box>
           ))}
         </Stack>
@@ -1837,4 +1883,16 @@ function AppSwitcherMenu({ onClose, variant }: { onClose: () => void; variant?: 
       </List>
     </Box>
   );
+}
+
+// Group consecutive nav items by their `group` field, preserving order.
+function groupNavItems(items: NavItem[]): Array<{ label: string | null; items: NavItem[] }> {
+  const sections: Array<{ label: string | null; items: NavItem[] }> = [];
+  for (const item of items) {
+    const label = item.group ?? null;
+    const last = sections[sections.length - 1];
+    if (last && last.label === label) last.items.push(item);
+    else sections.push({ label, items: [item] });
+  }
+  return sections;
 }

@@ -276,10 +276,10 @@ export const PROMOTE_CARRYOVER = [
 ] as const;
 
 export const PROMOTE_COPY = {
-  dialogTitle: 'Promote to Deal',
+  dialogTitle: 'Promote to Space',
   defaultDealName: 'Project Caldera — TX HVAC roll-up',
   direction: 'Buy-side · Acquisition',
   carryoverHeader: 'What carries over',
-  confirmCta: 'Create deal',
+  confirmCta: 'Create Space',
   cancelCta: 'Cancel',
 } as const;
