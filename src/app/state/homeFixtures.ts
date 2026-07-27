@@ -132,3 +132,28 @@ export const HOME_VERBS: HomeVerb[] = [
     ],
   },
 ];
+
+// ── Recents (concept F homepage grid) — searches, chats, companies ───────────
+export interface RecentEntry {
+  id: string;
+  title: string;
+  meta: string;
+}
+
+export const RECENT_SEARCHES: RecentEntry[] = [
+  { id: 'rs-1', title: 'HVAC companies in Texas, $10M–$50M', meta: 'Company Search · today' },
+  { id: 'rs-2', title: 'Founder-owned manufacturers, succession', meta: 'Company Search · 2d ago' },
+  { id: 'rs-3', title: 'HVAC roll-ups in the Southeast', meta: 'Buyer Search · 1w ago' },
+];
+
+export const RECENT_CHATS: RecentEntry[] = [
+  { id: 'rc-1', title: 'Roll-up targets in HVAC services', meta: 'Chat · today' },
+  { id: 'rc-2', title: 'Compare SaaS comps for a Series B', meta: 'Chat · 3d ago' },
+  { id: 'rc-3', title: 'What changed across my spaces?', meta: 'Chat · 1w ago' },
+];
+
+export const RECENT_COMPANIES: RecentEntry[] = [
+  { id: 'rp-1', title: 'GulfAir Mechanical', meta: 'gulfairmech.com · Has Intent · 68' },
+  { id: 'rp-2', title: 'Lone Star Climate Systems', meta: 'lonestarclimate.com' },
+  { id: 'rp-3', title: 'Hill Country Air', meta: 'hillcountryair.com' },
+];

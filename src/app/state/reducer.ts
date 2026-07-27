@@ -623,7 +623,7 @@ export function reducer(state: WorkspaceState, action: WorkspaceAction): Workspa
               scriptedReply ??
               (state.attachedFolderIds.length > 0 || state.attachedFileIds.length > 0
                 ? 'Working from the selected folder and cited documents, I would focus you on answer support, duplicate handling, permission exposure, and anything that needs SME or legal routing.'
-                : 'I can work from the room’s own signals — documents, permissions, Q&A, and engagement — and keep anything I draft in review until you approve it.'),
+                : 'I can work firm-wide from here — your spaces, watchlists, signals, and the Grata graph — and anything I draft holds for your approval. Open a Space to work its documents, or type / for a playbook.'),
           },
         ],
       };

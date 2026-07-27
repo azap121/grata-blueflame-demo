@@ -23,7 +23,17 @@ import {
   HOME_HEADLINE,
   type DealCard,
 } from '../state/dealsFixtures';
-import { HOME_VERBS, NEEDS_YOU, OVERNIGHT, type NeedsYouItem, type OvernightItem } from '../state/homeFixtures';
+import {
+  HOME_VERBS,
+  NEEDS_YOU,
+  OVERNIGHT,
+  RECENT_CHATS,
+  RECENT_COMPANIES,
+  RECENT_SEARCHES,
+  type NeedsYouItem,
+  type OvernightItem,
+  type RecentEntry,
+} from '../state/homeFixtures';
 
 // Verb chip icons — Source · Diligence · Research · Deal Execution.
 const VERB_ICONS = {
@@ -61,11 +71,17 @@ export default function TwoZoneHome({
   const [activeVerb, setActiveVerb] = useState<string | null>(null);
   const activeVerbEntry = HOME_VERBS.find((verb) => verb.id === activeVerb) ?? null;
 
+  // One box, both verbs: search-shaped intent runs the Grata sourcing flow;
+  // anything else opens a Merlin chat — the composer is never a dead end.
   const submit = () => {
     const query = value.trim();
     if (!query) return;
     setValue('');
-    onStartSourcing(query);
+    if (/\b(find|search|surface|identify|source|companies|targets?|list of)\b/i.test(query)) {
+      onStartSourcing(query);
+    } else {
+      onAsk(query);
+    }
   };
 
   const projectsGrid = (
@@ -261,6 +277,20 @@ export default function TwoZoneHome({
           <Box>
             <SectionEyebrow label="Spaces" />
             {projectsGrid}
+          </Box>
+
+          {/* Recents — concept F's homepage grid: searches · chats · companies. */}
+          <Box>
+            <SectionEyebrow label="Recent" />
+            <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: '1fr 1fr 1fr' }, gap: 1.5 }}>
+              <RecentColumn title="Searches" entries={RECENT_SEARCHES} onOpen={(entry) => onStartSourcing(entry.title)} />
+              <RecentColumn title="Chats" entries={RECENT_CHATS} onOpen={(entry) => onAsk(entry.title)} />
+              <RecentColumn
+                title="Companies"
+                entries={RECENT_COMPANIES}
+                onOpen={() => onOpenProjectByName('Project Caldera')}
+              />
+            </Box>
           </Box>
         </Stack>
       </Box>
@@ -475,6 +505,62 @@ function StageChip({ label }: { label: string }) {
       }}
     >
       {label}
+    </Box>
+  );
+}
+
+function RecentColumn({
+  title,
+  entries,
+  onOpen,
+}: {
+  title: string;
+  entries: RecentEntry[];
+  onOpen: (entry: RecentEntry) => void;
+}) {
+  return (
+    <Box sx={{ border: '1px solid', borderColor: 'divider', borderRadius: 3, overflow: 'hidden' }}>
+      <Typography
+        sx={{
+          px: 1.5,
+          pt: 1,
+          pb: 0.5,
+          fontFamily: monoFontFamily,
+          fontSize: 10,
+          letterSpacing: '0.08em',
+          textTransform: 'uppercase',
+          color: 'text.secondary',
+        }}
+      >
+        {title}
+      </Typography>
+      <Stack divider={<Box sx={{ borderBottom: '1px solid', borderColor: 'divider' }} />}>
+        {entries.map((entry) => (
+          <Box
+            key={entry.id}
+            component="button"
+            type="button"
+            onClick={() => onOpen(entry)}
+            sx={{
+              textAlign: 'left',
+              px: 1.5,
+              py: 0.9,
+              border: 0,
+              font: 'inherit',
+              bgcolor: 'transparent',
+              cursor: 'pointer',
+              '&:hover': { bgcolor: alpha(grataTeal, 0.06) },
+            }}
+          >
+            <Typography sx={{ fontSize: 12.5, fontWeight: 500, color: 'text.primary' }} noWrap>
+              {entry.title}
+            </Typography>
+            <Typography sx={{ fontFamily: monoFontFamily, fontSize: 10.5, color: 'text.disabled' }} noWrap>
+              {entry.meta}
+            </Typography>
+          </Box>
+        ))}
+      </Stack>
     </Box>
   );
 }
